@@ -175,3 +175,21 @@ footer h2 { margin:0; font:400 clamp(58px,8vw,78px)/.9 'Great Vibes'; } footer>b
   .wish-grid{columns:1}.heart-layer span:nth-child(2n){display:none}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}.rise{opacity:1;transform:none}}
+
+/* Celebration color layer */
+.cover-glow{inset:-20%;background:radial-gradient(circle at 18% 75%,#f04f8a60,transparent 32%),radial-gradient(circle at 78% 18%,#a75ce64d,transparent 34%),radial-gradient(circle at 70% 83%,#ffc14f3d,transparent 28%),linear-gradient(145deg,#170715,#38112e 52%,#160a25);animation:aurora 10s ease-in-out infinite alternate}
+.cover-petals span{color:#ff8fb7e8;filter:drop-shadow(0 0 8px #ff65a899)}.cover-petals span:nth-child(3n){color:#e0ae45}.cover-petals span:nth-child(3n+1){color:#bd7cf2}
+.hero-overlay{background:linear-gradient(to bottom,#5d175022,#30143820 42%,#160513c2),linear-gradient(110deg,#e44d7c26,transparent 42%,#7d4be526)}
+.dark-section{position:relative;background:radial-gradient(circle at 12% 22%,#7d26584d,transparent 28%),radial-gradient(circle at 88% 76%,#4f32864a,transparent 32%),linear-gradient(145deg,#12070f,#250d21 50%,#10081a)}
+.section-title:not(.light) h2{background:linear-gradient(100deg,#8b315b,#d9547d 45%,#9b62d4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.section-title.light h2{background:linear-gradient(100deg,#ffd88a,#fff,#f3a6cf,#cba5ff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 18px #e55c9a33)}
+.count:nth-child(1) .gold-ring{stroke:#f06f98}.count:nth-child(1) b{color:#ff91b1}.count:nth-child(2) .gold-ring{stroke:#e4b64f}.count:nth-child(2) b{color:#f3c96d}.count:nth-child(3) .gold-ring{stroke:#aa73e0}.count:nth-child(3) b{color:#c699ee}.count:nth-child(4) .gold-ring{stroke:#65bed9}.count:nth-child(4) b{color:#8bd9eb}
+.pale-section,.wishes{background:radial-gradient(circle at 8% 15%,#ffd4e355,transparent 25%),radial-gradient(circle at 92% 70%,#d8c2ff55,transparent 28%),linear-gradient(135deg,#fffaf6,#fff1f7 55%,#f8f1ff)}
+.timeline-item>div{background:linear-gradient(145deg,#ffffffed,#fff7fbed);border-color:#edcdd488;box-shadow:0 12px 35px #a74f7917;border-radius:0 18px 0 18px}.timeline-item:nth-child(3n+2)>div{border-color:#c7a4ec99;background:linear-gradient(145deg,#fff,#f8f1ff)}.timeline-item:nth-child(3n)>div{border-color:#f1c472aa;background:linear-gradient(145deg,#fff,#fff9e9)}
+.messages{background:radial-gradient(circle at 20% 20%,#ffb8cf55,transparent 30%),radial-gradient(circle at 82% 75%,#b99be655,transparent 30%),linear-gradient(135deg,#fae8ef,#f2e8fa)}
+.love-card{background:linear-gradient(145deg,#fff,#fff7fb);box-shadow:0 18px 45px #86456720;border:1px solid #fff}.love-card:nth-child(2){background:linear-gradient(145deg,#fff,#f7f1ff)}
+.filmstrip{border-top-color:#e7b95588;border-bottom-color:#bc7ae888;filter:drop-shadow(0 0 28px #d95b9566)}
+.invitation-section{background:radial-gradient(circle at 0 0,#ffc8dd88,transparent 34%),radial-gradient(circle at 100% 100%,#b9dbff99,transparent 36%),linear-gradient(135deg,#fff4f8,#edf6ff 52%,#f7efff)}
+.wish-form{background:linear-gradient(145deg,#fff,#fff5fb);border-color:#edcdd488;box-shadow:0 16px 40px #a852781c}
+.heart-layer span{color:#ff6797f2;filter:drop-shadow(0 2px 4px #59192788) drop-shadow(0 0 9px #ffd5ddaa)}.heart-layer span:nth-child(3n){color:#f2bd49}.heart-layer span:nth-child(3n+1){color:#bd75eb}.heart-layer span:nth-child(5n){color:#68c9df}
+@keyframes aurora{0%{transform:translate3d(-2%,-1%,0) scale(1);filter:hue-rotate(0deg)}100%{transform:translate3d(2%,1%,0) scale(1.08);filter:hue-rotate(18deg)}}

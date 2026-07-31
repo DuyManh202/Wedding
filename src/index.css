@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap');
-:root { font-family: Inter, sans-serif; color: #2c2c2c; background: #fdf6ee; --cream:#fdf6ee; --ivory:#f3e8d7; --blush:#edcdd4; --rose:#c4677b; --wine:#140810; --gold:#c9a055; }
+:root { font-family: Inter, sans-serif; color: #2c2c2c; background: #fff7f1; --cream:#fff7f1; --ivory:#f8e9f2; --blush:#f4bfd2; --rose:#dc557d; --wine:#170715; --gold:#e4b64f; --violet:#9b62d4; --coral:#f47f6b; --sky:#6fc5df; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; overflow-x: hidden; }
