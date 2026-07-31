@@ -1,0 +1,25 @@
+.footer-section {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.footer-names {
+  font-size: 3rem;
+  color: var(--color-gold);
+  margin-bottom: 10px;
+}
+
+.footer-date {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+  color: var(--color-gold-light);
+}
+
+.footer-thankyou {
+  font-size: 1rem;
+  opacity: 0.8;
+}

@@ -1,0 +1,52 @@
+.album-section {
+  background-color: var(--color-white);
+  color: var(--color-maroon-dark);
+  padding: 100px 20px;
+}
+
+.album-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.masonry-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.masonry-item {
+  width: calc(100% - 15px);
+  margin-bottom: 15px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.masonry-item:hover {
+  transform: scale(1.02);
+}
+
+.masonry-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.3s;
+}
+
+/* Very simple column logic using flex basis */
+@media (min-width: 576px) {
+  .masonry-item {
+    width: calc(50% - 15px);
+  }
+}
+
+@media (min-width: 992px) {
+  .masonry-item {
+    width: calc(33.333% - 15px);
+  }
+}
