@@ -13,12 +13,22 @@ import g2 from './img/2aOboQnzQvMDM0tJ2pXX9d4xMaDgJL1awuwIdd7A.jpg'
 import g3 from './img/2aOboQnzQyptOYr8xGBeQStZ0uiOsFjtyFfmqsfw.jpg'
 import g4 from './img/2aOboQnzR1qoKqd6uU9jwEWeQDlP90CEnFZ6NBLs.jpg'
 import g5 from './img/2aOboQnzQzt3xIqo19yxYKImDBbthgyA2o7GrkQ4.jpg'
+import tv1 from './img/2aOboQnzPKVZhEJePKDjg2jl1QNbJcIkXKHtrQ1o.jpg'
+import tv2 from './img/2aOboQnzPKVZhEJePKDjg2qJbVHkKOAGqkyQ4uEy.jpg'
+import tv3 from './img/2aOboQnzPLLD0VSWoaT8ZcQJduUzHUSOnhcVUkJk.jpg'
+import tv4 from './img/2aOboQnzQuD7TCiOyZlNYsEhbEI83nj0cdTzUXAG.jpg'
+import tv5 from './img/2aOboQnzQvYt5P1kctrEoVHCLtbTQVD1SpMKJEsC.jpg'
+import tv6 from './img/2aOboQnzQvmhMcTBnzWTx9KvRx11nYERSuTJn3aq.jpg'
+import tv7 from './img/2aOboQnzQy52rWaVxKZYW0t4rSMYsckxIemPOkhE.jpg'
+import tv8 from './img/2aOboQnzQyI23UFzZ3smva1lA1DT6OIHhQkCTw8G.jpg'
+import tv9 from './img/2aOboQnzR079GGstihlXbKeUOdLQ4y7rdigpgVMG.jpg'
 
 const GROOM = 'Văn Tuấn'
 const BRIDE = 'Xuân Mai'
 const TV_MODE = new URLSearchParams(window.location.search).get('tv') === '1'
 const heroes = [hero1, hero2, hero3, hero4]
 const photos = [g1, g2, g3, g4, g5, hero2, hero3]
+const tvPhotos = [hero1, hero2, hero3, hero4, g1, g2, g3, g4, g5, groom, bride, tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9]
 const timeline = [
   ['Lần đầu gặp nhau', 'Khoảnh khắc hai đứa gặp nhau, có điều gì đó đã thay đổi mà cả hai chưa kịp nhận ra.'],
   ['Cùng bàn, cùng mộng', 'Những tháng ngày thanh xuân, cùng học, cùng mơ và bắt đầu hiểu nhau hơn bất kỳ ai.'],
@@ -39,6 +49,7 @@ function getCountdown() {
 }
 
 function App() {
+  const heroPhotos = TV_MODE ? tvPhotos : heroes
   const [opened, setOpened] = useState(TV_MODE)
   const [opening, setOpening] = useState(false)
   const [slide, setSlide] = useState(0)
@@ -55,9 +66,9 @@ function App() {
   }, [])
   useEffect(() => {
     if (!opened) return
-    const timer = window.setInterval(() => setSlide(value => (value + 1) % heroes.length), 5000)
+    const timer = window.setInterval(() => setSlide(value => (value + 1) % heroPhotos.length), TV_MODE ? 6500 : 5000)
     return () => window.clearInterval(timer)
-  }, [opened])
+  }, [opened, heroPhotos.length])
   useEffect(() => {
     if (!opened) return
     const timer = window.setInterval(() => setGallery(value => (value + 1) % photos.length), 3000)
@@ -150,7 +161,14 @@ function App() {
       <section className="hero">
         <div className="film-grain" />
         <div className="letterbox top" /><div className="letterbox bottom" />
-        {heroes.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
+        {TV_MODE
+          ? heroPhotos.map((src, index) => (
+            <div className={`tv-slide ${index === slide ? 'active' : ''}`} key={src}>
+              <div className="tv-slide-backdrop" style={{ backgroundImage: `url(${src})` }} />
+              <img src={src} alt={`Ảnh cưới Văn Tuấn và Xuân Mai ${index + 1}`} />
+            </div>
+          ))
+          : heroPhotos.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
         <div className="hero-overlay" />
         <div className="hero-content" key={`copy-${slide}`}>
           <small>THE WEDDING OF</small>
@@ -162,7 +180,7 @@ function App() {
           <p>07 . 08 . 2026</p>
         </div>
         <div className="film-meta"><span>VĂN TUẤN</span><span>HÀ NỘI · VIỆT NAM</span><span>XUÂN MAI</span></div>
-        <div className="slide-dots">{heroes.map((_, i) => <button className={i === slide ? 'active' : ''} onClick={() => setSlide(i)} key={i} />)}</div>
+        <div className="slide-dots">{heroPhotos.map((_, i) => <button className={i === slide ? 'active' : ''} onClick={() => setSlide(i)} key={i} />)}</div>
       </section>
 
       <section className="countdown dark-section">
