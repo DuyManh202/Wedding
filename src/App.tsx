@@ -233,7 +233,14 @@ function App() {
             </div>
           ))
           : heroPhotos.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
-        {TV_MODE && <div className={`tv-impact impact-${slide % 4}`} key={`impact-${slide}`} aria-hidden="true"><span>♥</span></div>}
+        {TV_MODE && (
+          <div className={`tv-impact impact-${slide % 4}`} key={`impact-${slide}`} aria-hidden="true">
+            <svg className="tv-heart-transition" viewBox="0 0 100 100">
+              <path className="heart-halo" d="M50 88C39 77 13 61 13 36C13 18 35 10 50 29C65 10 87 18 87 36C87 61 61 77 50 88Z" />
+              <path className="heart-line" d="M50 88C39 77 13 61 13 36C13 18 35 10 50 29C65 10 87 18 87 36C87 61 61 77 50 88Z" />
+            </svg>
+          </div>
+        )}
         <div className="hero-overlay" />
         <div className={`hero-content ${TV_MODE && !showTvIntro ? 'tv-intro-hidden' : ''}`} key={TV_MODE ? 'tv-copy' : `copy-${slide}`}>
           <small>THE WEDDING OF</small>

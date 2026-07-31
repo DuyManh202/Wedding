@@ -356,9 +356,12 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 
 /* Trailer-style impact at every scene change */
 .tv-impact{position:absolute;inset:0;z-index:7;pointer-events:none}
-.tv-impact>span{display:none}
-.tv-impact.impact-0{display:grid;place-items:center;overflow:hidden;background:#3e1020;animation:tvHeartBackdrop 1.15s ease-out both}
-.tv-impact.impact-0>span{display:block;color:#f4cf75;font:700 42vmin/1 Georgia,serif;text-shadow:0 0 45px #ffb1c8;animation:tvHeartOpen 1.15s cubic-bezier(.2,.75,.2,1) both}
+.tv-heart-transition{display:none}
+.tv-impact.impact-0{display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle,#3e1020aa,transparent 58%);animation:tvHeartBackdrop 1.45s ease-out both}
+.tv-impact.impact-0 .tv-heart-transition{display:block;width:min(36vmin,340px);overflow:visible;filter:drop-shadow(0 0 15px #f0c96b88);animation:tvHeartFloat 1.45s cubic-bezier(.2,.75,.2,1) both}
+.tv-heart-transition path{fill:none}
+.tv-heart-transition .heart-halo{stroke:#f6d98a44;stroke-width:5;animation:tvHeartHalo 1.45s ease-out both}
+.tv-heart-transition .heart-line{stroke:#f6d98a;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:260;stroke-dashoffset:260;animation:tvHeartDraw 1.15s ease-out both}
 .tv-impact.impact-1:before,.tv-impact.impact-1:after{content:'';position:absolute;left:0;right:0;height:51%;background:linear-gradient(#16060d,#53172b);animation:tvShutterTop .85s cubic-bezier(.65,0,.35,1) both}
 .tv-impact.impact-1:before{top:0}.tv-impact.impact-1:after{bottom:0;animation-name:tvShutterBottom}
 .tv-impact.impact-2{background:linear-gradient(112deg,transparent 36%,#f6d879cc 49%,#fff9e7 50%,#f6d87988 51%,transparent 64%);animation:tvGoldSlash 1s ease-out both}
@@ -384,5 +387,7 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-caption p{margin:7px 0 0;font:italic 300 clamp(20px,2.2vw,34px) 'Cormorant Garamond',serif;letter-spacing:.04em}
 .tv-slide.active .tv-caption{animation:tvCaptionIn 1s 1.25s cubic-bezier(.2,.75,.2,1) both}
 @keyframes tvCaptionIn{to{opacity:1;transform:translate(-50%,0)}}
-@keyframes tvHeartOpen{0%{opacity:0;transform:scale(.08) rotate(-12deg)}28%{opacity:1}72%{opacity:1;transform:scale(2.8) rotate(3deg)}100%{opacity:0;transform:scale(5.5) rotate(5deg)}}
-@keyframes tvHeartBackdrop{0%,28%{opacity:.96}100%{opacity:0}}
+@keyframes tvHeartFloat{0%{opacity:0;transform:scale(.72)}18%,65%{opacity:1}100%{opacity:0;transform:scale(1.28)}}
+@keyframes tvHeartHalo{0%{opacity:0;stroke-width:7}38%{opacity:.9}100%{opacity:0;stroke-width:1;transform:scale(1.22);transform-origin:center}}
+@keyframes tvHeartDraw{0%{stroke-dashoffset:260;opacity:0}18%{opacity:1}70%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes tvHeartBackdrop{0%{opacity:.75}100%{opacity:0}}
