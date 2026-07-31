@@ -356,7 +356,9 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 
 /* Trailer-style impact at every scene change */
 .tv-impact{position:absolute;inset:0;z-index:7;pointer-events:none}
-.tv-impact.impact-0{background:#fff8dd;animation:tvImpactFlash .72s ease-out both}
+.tv-impact>span{display:none}
+.tv-impact.impact-0{display:grid;place-items:center;overflow:hidden;background:#3e1020;animation:tvHeartBackdrop 1.15s ease-out both}
+.tv-impact.impact-0>span{display:block;color:#f4cf75;font:700 42vmin/1 Georgia,serif;text-shadow:0 0 45px #ffb1c8;animation:tvHeartOpen 1.15s cubic-bezier(.2,.75,.2,1) both}
 .tv-impact.impact-1:before,.tv-impact.impact-1:after{content:'';position:absolute;left:0;right:0;height:51%;background:linear-gradient(#16060d,#53172b);animation:tvShutterTop .85s cubic-bezier(.65,0,.35,1) both}
 .tv-impact.impact-1:before{top:0}.tv-impact.impact-1:after{bottom:0;animation-name:tvShutterBottom}
 .tv-impact.impact-2{background:linear-gradient(112deg,transparent 36%,#f6d879cc 49%,#fff9e7 50%,#f6d87988 51%,transparent 64%);animation:tvGoldSlash 1s ease-out both}
@@ -374,3 +376,13 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 @keyframes tvPanLeft{from{transform:translateX(4px) scale(1.008)}to{transform:translateX(-4px) scale(1.008)}}
 @keyframes tvPanRight{from{transform:translateX(-4px) scale(1.008)}to{transform:translateX(4px) scale(1.008)}}
 @keyframes tvPullBack{from{transform:scale(1.015)}to{transform:scale(1)}}
+
+/* Short story captions */
+.tv-caption{position:absolute;z-index:9;left:50%;bottom:clamp(38px,6vh,72px);min-width:min(560px,72vw);padding:14px 34px 16px;color:#fff8ea;background:linear-gradient(90deg,transparent,#210812d9 18%,#210812d9 82%,transparent);text-align:center;opacity:0;transform:translate(-50%,18px);text-shadow:0 3px 14px #000}
+.tv-caption:before{content:'';display:block;width:54px;height:1px;margin:0 auto 9px;background:#e2bd60}
+.tv-caption small{display:block;color:#e5c36d;font:500 9px Inter,sans-serif;letter-spacing:.5em;text-transform:uppercase}
+.tv-caption p{margin:7px 0 0;font:italic 300 clamp(20px,2.2vw,34px) 'Cormorant Garamond',serif;letter-spacing:.04em}
+.tv-slide.active .tv-caption{animation:tvCaptionIn 1s 1.25s cubic-bezier(.2,.75,.2,1) both}
+@keyframes tvCaptionIn{to{opacity:1;transform:translate(-50%,0)}}
+@keyframes tvHeartOpen{0%{opacity:0;transform:scale(.08) rotate(-12deg)}28%{opacity:1}72%{opacity:1;transform:scale(2.8) rotate(3deg)}100%{opacity:0;transform:scale(5.5) rotate(5deg)}}
+@keyframes tvHeartBackdrop{0%,28%{opacity:.96}100%{opacity:0}}

@@ -43,6 +43,19 @@ const tvSlides = [
   [tv7, tv8],
   [tv9, hero1],
 ]
+const tvCaptions = [
+  ['Chuyện của chúng mình', 'Bắt đầu từ một ánh nhìn'],
+  ['Hữu duyên tương ngộ', 'Giữa muôn người, ta tìm thấy nhau'],
+  ['Một đời thương nhớ', 'Từ hôm nay, chung một mái nhà'],
+  ['Thanh xuân có nhau', 'Mỗi khoảnh khắc đều thành kỷ niệm'],
+  ['Nắm tay thật lâu', 'Đi qua những tháng năm rực rỡ'],
+  ['Chàng và nàng', 'Hai trái tim · Một lời hẹn ước'],
+  ['Ngày mình chung đôi', 'Bình yên là khi có nhau'],
+  ['Trọn đời trọn kiếp', 'Dẫu năm tháng đổi thay'],
+  ['Yêu là lựa chọn', 'Và chúng mình luôn chọn nhau'],
+  ['Về chung một nhà', 'Viết tiếp chương đẹp nhất'],
+  ['Save the date', '07 · 08 · 2026'],
+]
 const timeline = [
   ['Lần đầu gặp nhau', 'Khoảnh khắc hai đứa gặp nhau, có điều gì đó đã thay đổi mà cả hai chưa kịp nhận ra.'],
   ['Cùng bàn, cùng mộng', 'Những tháng ngày thanh xuân, cùng học, cùng mơ và bắt đầu hiểu nhau hơn bất kỳ ai.'],
@@ -213,10 +226,14 @@ function App() {
                   <img src={src} alt={`Ảnh cưới Văn Tuấn và Xuân Mai ${index + 1}.${imageIndex + 1}`} />
                 </figure>
               ))}
+              <div className="tv-caption">
+                <small>{tvCaptions[index][0]}</small>
+                <p>{tvCaptions[index][1]}</p>
+              </div>
             </div>
           ))
           : heroPhotos.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
-        {TV_MODE && <div className={`tv-impact impact-${slide % 4}`} key={`impact-${slide}`} aria-hidden="true" />}
+        {TV_MODE && <div className={`tv-impact impact-${slide % 4}`} key={`impact-${slide}`} aria-hidden="true"><span>♥</span></div>}
         <div className="hero-overlay" />
         <div className={`hero-content ${TV_MODE && !showTvIntro ? 'tv-intro-hidden' : ''}`} key={TV_MODE ? 'tv-copy' : `copy-${slide}`}>
           <small>THE WEDDING OF</small>
