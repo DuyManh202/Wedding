@@ -402,11 +402,7 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 @keyframes tvHeartDraw{0%{stroke-dashoffset:260;opacity:0}18%{opacity:1}70%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
 @keyframes tvHeartBackdrop{0%{opacity:.75}100%{opacity:0}}
 
-/* TV chapters, finale and fullscreen control */
-.tv-fullscreen{position:fixed;z-index:220;right:18px;top:18px;padding:11px 15px;border:1px solid #dfbd6d88;color:#f6dda0;background:#260b16bb;backdrop-filter:blur(8px);font:600 9px Inter,sans-serif;letter-spacing:.18em;cursor:pointer;opacity:.72;transition:.3s}
-.tv-fullscreen:hover{opacity:1;background:#6e2036;transform:translateY(-1px)}
-.tv-mode .music{display:block;cursor:pointer;opacity:.72}
-.tv-mode .music:hover{opacity:1}
+/* TV chapters, finale and edge-to-edge mobile layout */
 .mobile-tv-fullscreen{position:fixed;inset:0;width:100%;height:100%;height:100dvh;overflow:hidden;background:#10050a}
 .mobile-tv-fullscreen #root,.mobile-tv-fullscreen .tv-presentation,.mobile-tv-fullscreen .hero{width:100%;height:100%;height:100dvh}
 .tv-chapter{position:absolute;inset:0;z-index:11;display:grid;place-content:center;text-align:center;color:#fff7e8;background:radial-gradient(circle,#4f182be8 0,#210811e8 42%,#10050ad9 100%);opacity:0;pointer-events:none}
@@ -424,4 +420,4 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-slide.is-finale .tv-caption{display:none}
 @keyframes tvChapterCard{0%{opacity:0;clip-path:inset(50% 0)}18%,68%{opacity:1;clip-path:inset(0)}100%{opacity:0;clip-path:inset(0 50%)}}
 @keyframes tvFinaleIn{from{opacity:0;transform:scale(1.025)}to{opacity:1;transform:none}}
-@media(max-width:700px){.tv-fullscreen{right:10px;top:10px;padding:9px;font-size:8px}.tv-chapter h2{font-size:44px}.tv-finale{padding:20px}.tv-finale h2{font-size:38px}}
+@media(max-width:700px){.tv-chapter h2{font-size:44px}.tv-finale{padding:20px}.tv-finale h2{font-size:38px}}

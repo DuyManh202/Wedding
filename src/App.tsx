@@ -89,8 +89,6 @@ function App() {
   const [gallery, setGallery] = useState(0)
   const [time, setTime] = useState(getCountdown)
   const [music, setMusic] = useState(false)
-  const [fullscreen, setFullscreen] = useState(false)
-  const [mobileFullscreen, setMobileFullscreen] = useState(false)
   const [showTvIntro, setShowTvIntro] = useState(true)
   const [wish, setWish] = useState({ name: '', message: '' })
   const [wishes, setWishes] = useState<{ name: string; message: string }[]>([])
@@ -134,17 +132,23 @@ function App() {
   useEffect(() => {
     if (!TV_MODE || !opened) return
     document.body.classList.add('tv-mode')
+    document.body.classList.add('mobile-tv-fullscreen')
     const player = audio.current
     player?.play()
       .then(() => setMusic(true))
       .catch(() => setMusic(false))
-    return () => document.body.classList.remove('tv-mode')
+    const startTv = () => {
+      player?.play().then(() => setMusic(true)).catch(() => undefined)
+      const webkitRoot = document.documentElement as HTMLElement & { webkitRequestFullscreen?: () => Promise<void> | void }
+      const request = document.documentElement.requestFullscreen?.bind(document.documentElement) || webkitRoot.webkitRequestFullscreen?.bind(webkitRoot)
+      if (request) Promise.resolve(request()).catch(() => undefined)
+    }
+    document.addEventListener('pointerdown', startTv, { once: true })
+    return () => {
+      document.body.classList.remove('tv-mode', 'mobile-tv-fullscreen')
+      document.removeEventListener('pointerdown', startTv)
+    }
   }, [opened])
-  useEffect(() => {
-    const updateFullscreen = () => setFullscreen(Boolean(document.fullscreenElement))
-    document.addEventListener('fullscreenchange', updateFullscreen)
-    return () => document.removeEventListener('fullscreenchange', updateFullscreen)
-  }, [])
 
   const openInvitation = () => {
     audio.current?.play()
@@ -162,35 +166,6 @@ function App() {
     if (music) player.pause()
     else player.play().catch(() => undefined)
     setMusic(!music)
-  }
-  const toggleFullscreen = () => {
-    audio.current?.play()
-      .then(() => setMusic(true))
-      .catch(() => setMusic(false))
-    const webkitDocument = document as Document & { webkitFullscreenElement?: Element; webkitExitFullscreen?: () => Promise<void> | void }
-    const webkitRoot = document.documentElement as HTMLElement & { webkitRequestFullscreen?: () => Promise<void> | void }
-    const activeFullscreen = document.fullscreenElement || webkitDocument.webkitFullscreenElement
-    if (activeFullscreen) {
-      if (document.exitFullscreen) document.exitFullscreen().catch(() => undefined)
-      else webkitDocument.webkitExitFullscreen?.()
-      return
-    }
-    if (mobileFullscreen) {
-      document.body.classList.remove('mobile-tv-fullscreen')
-      setMobileFullscreen(false)
-      return
-    }
-    const request = document.documentElement.requestFullscreen?.bind(document.documentElement) || webkitRoot.webkitRequestFullscreen?.bind(webkitRoot)
-    if (request) Promise.resolve(request()).catch(() => {
-      document.body.classList.add('mobile-tv-fullscreen')
-      setMobileFullscreen(true)
-      window.scrollTo(0, 1)
-    })
-    else {
-      document.body.classList.add('mobile-tv-fullscreen')
-      setMobileFullscreen(true)
-      window.scrollTo(0, 1)
-    }
   }
   const submitWish = (event: FormEvent) => {
     event.preventDefault()
@@ -239,8 +214,7 @@ function App() {
           >{i % 3 === 0 ? '♡' : '♥'}</span>
         ))}
       </div>
-      {TV_MODE && <button className="tv-fullscreen" onClick={toggleFullscreen}>{fullscreen || mobileFullscreen ? '✕ THOÁT TOÀN MÀN HÌNH' : '♫ BẬT NHẠC & TOÀN MÀN HÌNH'}</button>}
-      <button className={`music ${music ? 'playing' : ''}`} onClick={toggleMusic} aria-label="Bật hoặc tắt nhạc">{music ? '♫' : '▶'}</button>
+      {!TV_MODE && <button className={`music ${music ? 'playing' : ''}`} onClick={toggleMusic} aria-label="Bật hoặc tắt nhạc">{music ? '♫' : '▶'}</button>}
 
       <section className="hero">
         {TV_MODE && (
