@@ -113,6 +113,7 @@ function App() {
   if (!opened) {
     return (
       <div className={`invitation-cover ${opening ? 'opening' : ''}`}>
+        <img className="cover-photo" src={hero1} alt="" />
         <div className="cover-glow" />
         <div className="film-grain" />
         <div className="cover-petals" aria-hidden="true">
@@ -121,22 +122,17 @@ function App() {
           ))}
         </div>
         <div className="cover-content">
-          <p className="film-presents">A LOVE STORY PRESENTED BY</p>
-          <div className="envelope">
-            <div className="envelope-back" />
-            <div className="letter">
-              <div className="ornament"><i />✦<i /></div>
-              <p>TRÂN TRỌNG KÍNH MỜI</p>
-              <div className="cover-names"><h1>{GROOM}</h1><b>&</b><h1>{BRIDE}</h1></div>
-              <div className="cover-date"><i />07 . 08 . 2026<i /></div>
-            </div>
-            <div className="envelope-front" />
-            <div className="envelope-flap" />
-            <button className="wax-seal" onClick={openInvitation} disabled={opening} aria-label="Mở thiệp">
-              <span>{opening ? '…' : '囍'}</span>
+          <div className="opening-card">
+            <div className="opening-crest">囍</div>
+            <p className="film-presents">TRÂN TRỌNG KÍNH MỜI</p>
+            <div className="ornament"><i />✦<i /></div>
+            <div className="cover-names"><h1>{GROOM}</h1><b>&</b><h1>{BRIDE}</h1></div>
+            <div className="cover-date"><i />07 . 08 . 2026<i /></div>
+            <p className="opening-place">HÀ NỘI · VIỆT NAM</p>
+            <button className="open-invitation" onClick={openInvitation} disabled={opening}>
+              <span>{opening ? 'ĐANG MỞ...' : 'MỞ THIỆP'}</span><b>→</b>
             </button>
           </div>
-          <p className="open-hint">{opening ? 'ĐANG MỞ THIỆP...' : 'CHẠM VÀO CON DẤU ĐỂ MỞ'}</p>
         </div>
       </div>
     )
