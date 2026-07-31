@@ -279,3 +279,12 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-presentation .hero-content.tv-intro-hidden{opacity:0;transform:translateY(22px) scale(.72);pointer-events:none}
 .tv-presentation .film-meta,.tv-presentation .film-grain{display:none}
 .tv-presentation .hero-overlay{background:linear-gradient(to bottom,#00000008,transparent 70%,#0805074d)}
+
+/* Floating wedding hearts */
+.heart-layer{opacity:.72}
+.heart-layer span{filter:drop-shadow(0 2px 4px #40081799) drop-shadow(0 0 8px currentColor)}
+.heart-layer span:nth-child(3n){color:#ff7898}
+.heart-layer span:nth-child(3n+1){color:#f2c45e}
+.heart-layer span:nth-child(3n+2){color:#fff0f3}
+.tv-presentation .heart-layer{opacity:.52}
+.tv-presentation .heart-layer span:nth-child(2n),.tv-presentation .heart-layer span:nth-child(3n){display:block}

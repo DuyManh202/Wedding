@@ -168,6 +168,20 @@ function App() {
   return (
     <main className={TV_MODE ? 'tv-presentation' : ''}>
       <div className="progress" />
+      <div className="heart-layer" aria-hidden="true">
+        {Array.from({ length: 18 }, (_, i) => (
+          <span
+            key={i}
+            style={{
+              '--heart-x': `${(i * 37 + 7) % 96}%`,
+              '--heart-size': `${12 + (i % 5) * 4}px`,
+              '--heart-speed': `${9 + (i % 6) * 1.4}s`,
+              '--heart-delay': `${-(i % 9) * 1.7}s`,
+              '--heart-drift': `${(i % 2 ? 1 : -1) * (18 + (i % 4) * 9)}px`,
+            } as CSSProperties}
+          >{i % 3 === 0 ? '♡' : '♥'}</span>
+        ))}
+      </div>
       <button className={`music ${music ? 'playing' : ''}`} onClick={toggleMusic} aria-label="Bật hoặc tắt nhạc">{music ? '♫' : '▶'}</button>
 
       <section className="hero">
