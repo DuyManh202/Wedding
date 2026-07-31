@@ -96,19 +96,29 @@ function App() {
     return (
       <div className={`invitation-cover ${opening ? 'opening' : ''}`}>
         <div className="cover-glow" />
+        <div className="film-grain" />
         <div className="cover-petals" aria-hidden="true">
           {Array.from({ length: 24 }, (_, i) => (
             <span key={i} style={{ '--x': `${3 + (i * 7.3) % 94}%`, '--d': `${(i * .35) % 6}s`, '--s': `${10 + (i * 4) % 15}px` } as CSSProperties}>{i % 4 === 0 ? '♡' : '♥'}</span>
           ))}
         </div>
         <div className="cover-content">
-          <div className="ornament"><i />✦<i /></div>
-          <p>TRÂN TRỌNG KÍNH MỜI</p>
-          <div className="cover-names"><h1>{GROOM}</h1><b>&</b><h1>{BRIDE}</h1></div>
-          <div className="cover-date"><i />07 . 08 . 2026<i /></div>
-          <button onClick={openInvitation} disabled={opening}>
-            {opening ? 'ĐANG MỞ THIỆP...' : 'MỞ THIỆP'} <span>✦</span>
-          </button>
+          <p className="film-presents">A LOVE STORY PRESENTED BY</p>
+          <div className="envelope">
+            <div className="envelope-back" />
+            <div className="letter">
+              <div className="ornament"><i />✦<i /></div>
+              <p>TRÂN TRỌNG KÍNH MỜI</p>
+              <div className="cover-names"><h1>{GROOM}</h1><b>&</b><h1>{BRIDE}</h1></div>
+              <div className="cover-date"><i />07 . 08 . 2026<i /></div>
+            </div>
+            <div className="envelope-front" />
+            <div className="envelope-flap" />
+            <button className="wax-seal" onClick={openInvitation} disabled={opening} aria-label="Mở thiệp">
+              <span>{opening ? '…' : 'V&M'}</span>
+            </button>
+          </div>
+          <p className="open-hint">{opening ? 'ĐANG MỞ THIỆP...' : 'CHẠM VÀO CON DẤU ĐỂ MỞ'}</p>
         </div>
       </div>
     )
@@ -124,13 +134,17 @@ function App() {
       <button className={`music ${music ? 'playing' : ''}`} onClick={toggleMusic} aria-label="Bật hoặc tắt nhạc">{music ? '♫' : '▶'}</button>
 
       <section className="hero">
+        <div className="film-grain" />
+        <div className="letterbox top" /><div className="letterbox bottom" />
         {heroes.map((src, index) => <img className={index === slide ? 'active' : ''} src={src} alt="" key={src} />)}
         <div className="hero-overlay" />
         <div className="hero-content">
+          <small>THE WEDDING FILM OF</small>
           <h1>{GROOM}</h1><b>&</b><h1>{BRIDE}</h1>
           <div className="star-line"><i />✦<i /></div>
           <p>07 . 08 . 2026</p>
         </div>
+        <div className="film-meta"><span>SCENE 01</span><span>HÀ NỘI · VIỆT NAM</span><span>2026</span></div>
         <div className="slide-dots">{heroes.map((_, i) => <button className={i === slide ? 'active' : ''} onClick={() => setSlide(i)} key={i} />)}</div>
       </section>
 
@@ -152,7 +166,7 @@ function App() {
         <div className="timeline">
           {timeline.map(([title, text], i) => (
             <article className={`timeline-item rise ${i % 2 ? 'right' : 'left'}`} key={title}>
-              <span className="timeline-dot" /><div><small>{i === timeline.length - 1 ? '07 . 08 . 2026' : `${2018 + i}`}</small><h3>{title}</h3><p>{text}</p></div>
+              <span className="timeline-dot" /><div><b className="chapter">CHAPTER {String(i + 1).padStart(2, '0')}</b><small>{i === timeline.length - 1 ? '07 . 08 . 2026' : `${2018 + i}`}</small><h3>{title}</h3><p>{text}</p></div>
             </article>
           ))}
         </div>
@@ -168,6 +182,7 @@ function App() {
 
       <section className="gallery dark-section">
         <SectionTitle eyebrow="Bộ ảnh cưới" title="Khoảnh khắc của chúng mình" dark />
+        <div className="filmstrip"><div className="perforations top" /><div className="perforations bottom" />
         <div className="carousel">
           {photos.map((src, index) => {
             let offset = index - gallery
@@ -176,7 +191,7 @@ function App() {
             if (Math.abs(offset) > 2) return null
             return <button key={src} className={`carousel-photo p${offset + 2}`} onClick={() => setGallery(index)}><img src={src} alt={`Ảnh cưới ${index + 1}`} /></button>
           })}
-        </div>
+        </div></div>
       </section>
 
       <section className="invitation-section">
