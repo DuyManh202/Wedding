@@ -154,15 +154,17 @@ function App() {
       <section className="hero">
         <div className="film-grain" />
         <div className="letterbox top" /><div className="letterbox bottom" />
-        {heroes.map((src, index) => <img className={index === slide ? 'active' : ''} src={src} alt="" key={src} />)}
+        {heroes.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
         <div className="hero-overlay" />
-        <div className="hero-content">
-          <small>THE WEDDING FILM OF</small>
-          <h1>{GROOM}</h1><b>&</b><h1>{BRIDE}</h1>
+        <div className="scene-flash" key={`flash-${slide}`} />
+        <div className="hero-content" key={`copy-${slide}`}>
+          <small><i /> THE WEDDING FILM OF <i /></small>
+          <div className="name-reveal"><h1>{GROOM}</h1></div><b>&</b><div className="name-reveal second"><h1>{BRIDE}</h1></div>
           <div className="star-line"><i />✦<i /></div>
           <p>07 . 08 . 2026</p>
         </div>
-        <div className="film-meta"><span>SCENE 01</span><span>HÀ NỘI · VIỆT NAM</span><span>2026</span></div>
+        <div className="scene-number" key={`scene-${slide}`}><small>SCENE</small><b>0{slide + 1}</b></div>
+        <div className="film-meta"><span>TAKE 0{slide + 1}</span><span>HÀ NỘI · VIỆT NAM</span><span>2026</span></div>
         <div className="slide-dots">{heroes.map((_, i) => <button className={i === slide ? 'active' : ''} onClick={() => setSlide(i)} key={i} />)}</div>
       </section>
 
@@ -247,7 +249,7 @@ function App() {
 }
 
 function SectionTitle({ eyebrow, title, dark = false }: { eyebrow: string; title: string; dark?: boolean }) {
-  return <div className={`section-title rise ${dark ? 'light' : ''}`}><p>{eyebrow}</p><h2>{title}</h2><i /></div>
+  return <div className={`section-title rise ${dark ? 'light' : ''}`}><p><span>✦</span>{eyebrow}<span>✦</span></p><h2>{title.split(' ').map((word, i) => <em style={{ '--word-delay': `${i * .06}s` } as CSSProperties} key={`${word}-${i}`}>{word}&nbsp;</em>)}</h2><i /></div>
 }
 
 function LoveCard({ role, name, image, children }: { role: string; name: string; image: string; children: string }) {

@@ -39,14 +39,22 @@ main { overflow:hidden; }
 .music { position:fixed; z-index:100; right:16px; bottom:24px; width:48px; height:48px; border-radius:50%; border:1px solid #ffffff55; color:white; background:#c4677bcc; box-shadow:0 4px 24px #c4677b66; }
 .music.playing { animation:spin 4s linear infinite; }
 .hero { position:relative; height:100dvh; min-height:620px; overflow:hidden; color:white; }
-.hero>img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 50%; opacity:0; transform:scale(1.08); filter:grayscale(1) contrast(1.08); transition:opacity 1.4s ease-in-out,transform 5.5s ease-out,filter 3s ease 1s; }
-.hero>img.active { opacity:1; transform:scale(1); filter:grayscale(0) contrast(1); }
+.hero>img { position:absolute; inset:-3%; width:106%; height:106%; object-fit:cover; object-position:center 50%; opacity:0; filter:grayscale(1) contrast(1.12) brightness(.72) blur(2px); transition:opacity 1.8s cubic-bezier(.45,0,.2,1),filter 2.8s ease; will-change:transform,opacity,filter; }
+.hero>img.active { opacity:1; filter:grayscale(0) contrast(1.02) brightness(1) blur(0); }
+.hero>img.shot-1.active { animation:kenburnsA 7s ease-out both; }
+.hero>img.shot-2.active { animation:kenburnsB 7s ease-out both; }
+.hero>img.shot-3.active { animation:kenburnsC 7s ease-out both; }
+.hero>img.shot-4.active { animation:kenburnsD 7s ease-out both; }
 .letterbox { position:absolute; z-index:4; left:0; right:0; height:5.5vh; background:#080507; }
 .letterbox.top { top:0; }.letterbox.bottom { bottom:0; }
 .hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,#0000001a,#00000026 45%,#000000aa); }
-.hero-content { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding:0 20px 82px; text-align:center; }
-.hero-content small { margin-bottom:22px; color:#ffffff88; font-size:9px; letter-spacing:.55em; }
+.hero-content { position:absolute; z-index:3; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding:0 20px 82px; text-align:center; }
+.hero-content small { display:flex; align-items:center; gap:14px; margin-bottom:22px; color:#ffffff99; font-size:9px; letter-spacing:.55em; animation:trackingIn 1.2s .15s both; }
+.hero-content small i { width:28px; height:1px; background:#c9a05599; }
 .hero-content h1 { margin:0; font:400 clamp(58px,9vw,128px)/.86 'Great Vibes'; text-shadow:0 2px 24px #0005; }
+.name-reveal { overflow:hidden; padding:7px 22px 2px; }
+.name-reveal h1 { animation:titleReveal 1.1s .35s cubic-bezier(.16,1,.3,1) both; }
+.name-reveal.second h1 { animation-delay:.62s; }
 .hero-content>b { font:300 clamp(24px,4vw,42px) 'Cormorant Garamond'; color:#ffffff99; margin:8px; }
 .hero-content>p { font:300 clamp(16px,2vw,24px) 'Cormorant Garamond'; letter-spacing:.3em; color:#fffc; margin:0; }
 .star-line { display:flex; align-items:center; gap:12px; color:#c9a055cc; margin:18px; }
@@ -54,13 +62,20 @@ main { overflow:hidden; }
 .slide-dots { position:absolute; bottom:30px; left:50%; transform:translateX(-50%); display:flex; gap:8px; }
 .slide-dots button { width:6px; height:3px; padding:0; border:0; border-radius:5px; background:#fff7; transition:.4s; }
 .slide-dots button.active { width:24px; background:#c9a055e6; }
+.scene-flash { position:absolute; z-index:2; inset:0; pointer-events:none; background:linear-gradient(105deg,transparent 15%,#fff8dc99 48%,transparent 70%); transform:translateX(-130%); animation:sceneFlash 1.25s ease-out both; mix-blend-mode:screen; }
+.scene-number { position:absolute; z-index:4; right:5vw; top:10vh; display:flex; align-items:flex-end; color:#fff; opacity:.7; animation:sceneIn 1s .45s both; }
+.scene-number small { writing-mode:vertical-rl; margin:0 5px 10px 0; font-size:7px; letter-spacing:.4em; }
+.scene-number b { font:300 clamp(65px,9vw,125px)/.8 'Cormorant Garamond'; color:transparent; -webkit-text-stroke:1px #ffffff60; }
 .film-meta { position:absolute; z-index:5; left:3vw; right:3vw; bottom:1.7vh; display:flex; justify-content:space-between; color:#ffffff70; font:500 8px Inter; letter-spacing:.28em; }
 
 .dark-section { background:#0e060b; color:white; }
 .countdown,.story,.messages,.gallery,.invitation-section,.wishes { padding:110px 24px; }
 .section-title { text-align:center; margin-bottom:58px; }
-.section-title p { margin:0 0 12px; color:#c4677bb3; font-size:11px; letter-spacing:.45em; text-transform:uppercase; }
+.section-title p { display:flex; align-items:center; justify-content:center; gap:14px; margin:0 0 12px; color:#c4677bb3; font-size:11px; letter-spacing:.45em; text-transform:uppercase; }
+.section-title p span { color:#c9a05599; font-size:8px; }
 .section-title h2 { margin:0; color:#2c2c2c; font:italic 300 clamp(38px,5vw,62px) 'Cormorant Garamond'; }
+.section-title h2 em { display:inline-block; font:inherit; opacity:0; transform:translateY(24px) rotate(2deg); transition:opacity .7s ease var(--word-delay),transform .8s cubic-bezier(.16,1,.3,1) var(--word-delay); }
+.section-title.visible h2 em { opacity:1; transform:none; }
 .section-title.light h2 { color:#ffffffe6; }
 .section-title.light p { color:#c9a05599; }
 .section-title>i { display:block; margin:18px auto 0; width:48px; height:1px; background:#c9a05566; }
@@ -138,6 +153,14 @@ footer h2 { margin:0; font:400 clamp(58px,8vw,78px)/.9 'Great Vibes'; } footer>b
 @keyframes glow { 50%{box-shadow:0 0 0 10px #c9a05526} }
 @keyframes sealPulse { 50%{transform:translateX(-50%) scale(1.07);box-shadow:0 6px 18px #3c071799,0 0 0 10px #c9a05515,inset 0 0 0 3px #7e2a3e} }
 @keyframes grain { 0%{transform:translate(0,0)}25%{transform:translate(3%,-2%)}50%{transform:translate(-2%,4%)}75%{transform:translate(4%,2%)}100%{transform:translate(-3%,-4%)} }
+@keyframes kenburnsA { from{transform:scale(1.14) translate3d(-1.5%,1%,0)}to{transform:scale(1.03) translate3d(1%,0,0)} }
+@keyframes kenburnsB { from{transform:scale(1.03) translate3d(2%,0,0)}to{transform:scale(1.15) translate3d(-1.5%,-1%,0)} }
+@keyframes kenburnsC { from{transform:scale(1.16) translate3d(0,-1%,0)}to{transform:scale(1.04) translate3d(-1%,1%,0)} }
+@keyframes kenburnsD { from{transform:scale(1.04) translate3d(-2%,0,0)}to{transform:scale(1.14) translate3d(1%,-1%,0)} }
+@keyframes titleReveal { from{opacity:0;transform:translateY(115%) skewY(7deg);filter:blur(9px)}to{opacity:1;transform:none;filter:blur(0)} }
+@keyframes trackingIn { from{opacity:0;letter-spacing:.9em}to{opacity:1;letter-spacing:.55em} }
+@keyframes sceneFlash { 0%{transform:translateX(-130%);opacity:0}25%{opacity:.55}100%{transform:translateX(130%);opacity:0} }
+@keyframes sceneIn { from{opacity:0;transform:translateX(25px)} }
 @keyframes spin { to{transform:rotate(360deg)} }
 @keyframes heart-float { 0%{transform:translate3d(0,30px,0) rotate(-12deg) scale(.7);opacity:0}8%{opacity:1}50%{transform:translate3d(var(--heart-drift),-50vh,0) rotate(14deg) scale(1.1);opacity:.92}90%{opacity:.78}100%{transform:translate3d(0,-108vh,0) rotate(-9deg) scale(.85);opacity:0} }
 
