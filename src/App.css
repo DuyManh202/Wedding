@@ -333,11 +333,23 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-royal-frame .corner-c{left:8px;bottom:8px;border-width:0 0 2px 2px}.tv-royal-frame .corner-d{right:8px;bottom:8px;border-width:0 2px 2px 0}
 .tv-royal-frame b{position:absolute;left:50%;display:grid;place-items:center;width:27px;height:27px;color:#edce79;background:#641b31;border:1px solid #ddb95e;font-size:9px;box-shadow:0 0 20px #d9af5240;transform:translateX(-50%) rotate(45deg)}
 .tv-royal-frame .top-mark{top:-14px}.tv-royal-frame .bottom-mark{bottom:-14px}
-.tv-slide.active:nth-of-type(3n+1) figure{animation-name:tvRevealCenter}
-.tv-slide.active:nth-of-type(3n+2) figure:first-of-type{animation-name:tvRevealLeft}
-.tv-slide.active:nth-of-type(3n+2) figure:last-of-type{animation-name:tvRevealRight}
-.tv-slide.active:nth-of-type(3n) figure:first-of-type{animation-name:tvRevealRight}
-.tv-slide.active:nth-of-type(3n) figure:last-of-type{animation-name:tvRevealLeft}
 .tv-slide.active .tv-royal-frame{animation:tvFrameArrive 2.2s ease-out both}
 @keyframes tvFrameArrive{from{opacity:0;transform:scale(1.018)}to{opacity:1;transform:none}}
 @keyframes tvBackgroundBreath{from{background-position:0 0,0 0,0 0}to{background-position:30px -18px,-25px 22px,0 0}}
+
+/* Four visibly different, deterministic TV transitions */
+.tv-slide.active.tv-effect-0 figure:first-of-type{animation:tvDoorLeft 1.75s .05s cubic-bezier(.2,.75,.2,1) both}
+.tv-slide.active.tv-effect-0 figure:last-of-type{animation:tvDoorRight 1.75s .05s cubic-bezier(.2,.75,.2,1) both}
+.tv-slide.active.tv-effect-1 figure:first-of-type{transform-origin:left center;animation:tvPageLeft 1.9s .08s cubic-bezier(.16,.8,.2,1) both}
+.tv-slide.active.tv-effect-1 figure:last-of-type{transform-origin:right center;animation:tvPageRight 1.9s .18s cubic-bezier(.16,.8,.2,1) both}
+.tv-slide.active.tv-effect-2 figure:first-of-type{animation:tvSilkDown 1.65s .05s cubic-bezier(.2,.75,.2,1) both}
+.tv-slide.active.tv-effect-2 figure:last-of-type{animation:tvSilkUp 1.65s .2s cubic-bezier(.2,.75,.2,1) both}
+.tv-slide.active.tv-effect-3 figure{animation:tvBloom 2s .05s cubic-bezier(.2,.75,.2,1) both}
+.tv-slide.active.tv-effect-3 figure:last-of-type{animation-delay:.22s}
+@keyframes tvDoorLeft{from{opacity:0;transform:translateX(42%);clip-path:inset(0 0 0 92%)}to{opacity:1;transform:none;clip-path:inset(0)}}
+@keyframes tvDoorRight{from{opacity:0;transform:translateX(-42%);clip-path:inset(0 92% 0 0)}to{opacity:1;transform:none;clip-path:inset(0)}}
+@keyframes tvPageLeft{from{opacity:0;transform:perspective(1200px) rotateY(-28deg) translateX(-28px)}to{opacity:1;transform:perspective(1200px) rotateY(0) translateX(0)}}
+@keyframes tvPageRight{from{opacity:0;transform:perspective(1200px) rotateY(28deg) translateX(28px)}to{opacity:1;transform:perspective(1200px) rotateY(0) translateX(0)}}
+@keyframes tvSilkDown{from{opacity:0;transform:translateY(-35px);clip-path:inset(0 0 100%)}to{opacity:1;transform:none;clip-path:inset(0)}}
+@keyframes tvSilkUp{from{opacity:0;transform:translateY(35px);clip-path:inset(100% 0 0)}to{opacity:1;transform:none;clip-path:inset(0)}}
+@keyframes tvBloom{from{opacity:0;transform:scale(.9);filter:brightness(1.35)}to{opacity:1;transform:scale(1);filter:brightness(1)}}

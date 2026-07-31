@@ -202,7 +202,7 @@ function App() {
         <div className="letterbox top" /><div className="letterbox bottom" />
         {TV_MODE
           ? tvSlides.map((images, index) => (
-            <div className={`tv-slide ${images.length > 1 ? 'portrait-pair' : 'landscape-single'} ${index === slide ? 'active' : ''}`} key={images.join('-')}>
+            <div className={`tv-slide tv-effect-${index % 4} ${images.length > 1 ? 'portrait-pair' : 'landscape-single'} ${index === slide ? 'active' : ''}`} key={images.join('-')}>
               <div className="tv-royal-frame" aria-hidden="true">
                 <i className="corner-a" /><i className="corner-b" />
                 <i className="corner-c" /><i className="corner-d" />
