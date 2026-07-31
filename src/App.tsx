@@ -133,7 +133,7 @@ function App() {
             <div className="envelope-front" />
             <div className="envelope-flap" />
             <button className="wax-seal" onClick={openInvitation} disabled={opening} aria-label="Mở thiệp">
-              <span>{opening ? '…' : 'V&M'}</span>
+              <span>{opening ? '…' : '囍'}</span>
             </button>
           </div>
           <p className="open-hint">{opening ? 'ĐANG MỞ THIỆP...' : 'CHẠM VÀO CON DẤU ĐỂ MỞ'}</p>
@@ -156,6 +156,9 @@ function App() {
         <div className="letterbox top" /><div className="letterbox bottom" />
         {heroes.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
         <div className="hero-overlay" />
+        <div className="cloud cloud-left">☁</div><div className="cloud cloud-right">☁</div>
+        <div className="traditional-couplet couplet-left"><span>百年偕老</span><small>BÁCH NIÊN GIAI LÃO</small></div>
+        <div className="traditional-couplet couplet-right"><span>永結同心</span><small>VĨNH KẾT ĐỒNG TÂM</small></div>
         <div className="hero-content" key={`copy-${slide}`}>
           <small><i /> THE WEDDING FILM OF <i /></small>
           <div className="name-reveal"><h1>{GROOM}</h1></div><b>&</b><div className="name-reveal second"><h1>{BRIDE}</h1></div>
@@ -240,6 +243,7 @@ function App() {
 
       <footer>
         <div className="ornament"><i />✦<i /></div><p>TRÂN TRỌNG KÍNH MỜI</p>
+        <div className="double-happiness"><span>囍</span></div>
         <h2>{GROOM}</h2><b>&</b><h2>{BRIDE}</h2>
         <span>07 . 08 . 2026</span><em>Hẹn gặp lại trong ngày vui của chúng mình.</em>
       </footer>
@@ -248,7 +252,7 @@ function App() {
 }
 
 function SectionTitle({ eyebrow, title, dark = false }: { eyebrow: string; title: string; dark?: boolean }) {
-  return <div className={`section-title rise ${dark ? 'light' : ''}`}><p><span>✦</span>{eyebrow}<span>✦</span></p><h2>{title.split(' ').map((word, i) => <em style={{ '--word-delay': `${i * .06}s` } as CSSProperties} key={`${word}-${i}`}>{word}&nbsp;</em>)}</h2><i /></div>
+  return <div className={`section-title rise ${dark ? 'light' : ''}`}><div className="oriental-mark"><i />如意<i /></div><p><span>✦</span>{eyebrow}<span>✦</span></p><h2>{title.split(' ').map((word, i) => <em style={{ '--word-delay': `${i * .06}s` } as CSSProperties} key={`${word}-${i}`}>{word}&nbsp;</em>)}</h2><i /></div>
 }
 
 function LoveCard({ role, name, image, children }: { role: string; name: string; image: string; children: string }) {
