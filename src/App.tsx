@@ -227,6 +227,7 @@ function App() {
               ))}
             </div>
             <div className="tv-opening-copy">
+              <span className="tv-crown">♛</span>
               <span className="tv-opening-crest">囍</span>
               <small>THE WEDDING CELEBRATION</small>
               <h1>{GROOM}<i>&</i>{BRIDE}</h1>
@@ -244,6 +245,7 @@ function App() {
                 <i className="corner-a" /><i className="corner-b" />
                 <i className="corner-c" /><i className="corner-d" />
                 <b className="top-mark">◆</b><b className="bottom-mark">◆</b>
+                <span className="royal-monogram">VT <em>·</em> XM</span>
               </div>
               {images.map((src, imageIndex) => (
                 <figure key={src}>
