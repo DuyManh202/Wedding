@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties, FormEvent } from 'react'
 import './App.css'
 import weddingMusic from './music/Indila - Love Story (Slowed-Reverb).mp3'
-import phoenixGold from './img/decor/phoenix-gold.png'
 
 import hero1 from './img/hero-sharp.jpg'
 import hero2 from './img/2aOboQnzQtk5LBvsUuy0tRnDWDYP3VZQf2eOmqHI.jpg'
@@ -203,8 +202,6 @@ function App() {
           <div className={`tv-opening ${showTvIntro ? '' : 'leaving'}`} aria-hidden="true">
             <div className="tv-curtain left" />
             <div className="tv-curtain right" />
-            <img className="tv-phoenix intro-left" src={phoenixGold} alt="" />
-            <img className="tv-phoenix intro-right" src={phoenixGold} alt="" />
             <div className="tv-opening-copy">
               <span className="tv-opening-crest">囍</span>
               <small>THE WEDDING CELEBRATION</small>
@@ -212,12 +209,6 @@ function App() {
               <div className="tv-opening-line"><b />✦<b /></div>
               <p>07 · 08 · 2026</p>
             </div>
-          </div>
-        )}
-        {TV_MODE && (
-          <div className="tv-phoenix-watermarks" aria-hidden="true">
-            <img src={phoenixGold} alt="" />
-            <img src={phoenixGold} alt="" />
           </div>
         )}
         <div className="film-grain" />
