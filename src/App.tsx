@@ -74,7 +74,12 @@ function App() {
   const [showTvIntro, setShowTvIntro] = useState(true)
   const [wish, setWish] = useState({ name: '', message: '' })
   const [wishes, setWishes] = useState<{ name: string; message: string }[]>([])
-  const audio = useRef<HTMLAudioElement>(null)
+  const audio = useRef<HTMLAudioElement | null>(null)
+  if (!audio.current) {
+    audio.current = new Audio(weddingMusic)
+    audio.current.loop = true
+    audio.current.preload = 'auto'
+  }
 
   useEffect(() => {
     const timer = window.setInterval(() => setTime(getCountdown()), 1000)
@@ -114,6 +119,9 @@ function App() {
   }, [opened])
 
   const openInvitation = () => {
+    audio.current?.play()
+      .then(() => setMusic(true))
+      .catch(() => setMusic(false))
     setOpening(true)
     window.setTimeout(() => {
       setOpened(true)
@@ -160,7 +168,6 @@ function App() {
   return (
     <main className={TV_MODE ? 'tv-presentation' : ''}>
       <div className="progress" />
-      <audio ref={audio} src={weddingMusic} loop preload="auto" />
       <button className={`music ${music ? 'playing' : ''}`} onClick={toggleMusic} aria-label="Bật hoặc tắt nhạc">{music ? '♫' : '▶'}</button>
 
       <section className="hero">
