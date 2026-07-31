@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties, FormEvent } from 'react'
 import './App.css'
+import weddingMusic from './music/Indila - Love Story (Slowed-Reverb).mp3'
 
 import hero1 from './img/hero-sharp.jpg'
 import hero2 from './img/2aOboQnzQtk5LBvsUuy0tRnDWDYP3VZQf2eOmqHI.jpg'
@@ -105,6 +106,10 @@ function App() {
   useEffect(() => {
     if (!TV_MODE || !opened) return
     document.body.classList.add('tv-mode')
+    const player = audio.current
+    player?.play()
+      .then(() => setMusic(true))
+      .catch(() => setMusic(false))
     return () => document.body.classList.remove('tv-mode')
   }, [opened])
 
@@ -155,7 +160,7 @@ function App() {
   return (
     <main className={TV_MODE ? 'tv-presentation' : ''}>
       <div className="progress" />
-      <audio ref={audio} loop />
+      <audio ref={audio} src={weddingMusic} loop preload="auto" />
       <button className={`music ${music ? 'playing' : ''}`} onClick={toggleMusic} aria-label="Bật hoặc tắt nhạc">{music ? '♫' : '▶'}</button>
 
       <section className="hero">
