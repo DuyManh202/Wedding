@@ -307,14 +307,18 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-opening.leaving .tv-curtain.left{transform:translateX(-101%)}.tv-opening.leaving .tv-curtain.right{transform:translateX(101%)}
 .tv-opening.leaving .tv-opening-copy{opacity:0;transform:scale(.96)}
 .tv-phoenix{position:absolute;z-index:1;top:50%;width:min(25vw,360px);height:min(78vh,720px);object-fit:contain;opacity:.72;filter:drop-shadow(0 0 18px #d6ad4d44);animation:phoenixEnter 2.2s .25s cubic-bezier(.2,.75,.2,1) both}
-.tv-phoenix.intro-left{left:3vw;transform:translateY(-50%)}.tv-phoenix.intro-right{right:3vw;transform:translateY(-50%) scaleX(-1)}
+.tv-phoenix.intro-left{left:3vw;transform:translateY(-50%);animation:phoenixEnter 2.2s .25s cubic-bezier(.2,.75,.2,1) both,phoenixIntroLeft 5.5s 2.2s ease-in-out infinite alternate}
+.tv-phoenix.intro-right{right:3vw;transform:translateY(-50%) scaleX(-1);animation:phoenixEnter 2.2s .25s cubic-bezier(.2,.75,.2,1) both,phoenixIntroRight 5.5s 2.2s ease-in-out infinite alternate}
 .tv-opening.leaving .tv-phoenix.intro-left{transition:1.5s;opacity:0;transform:translate(-22%,-54%) scale(.94)}
 .tv-opening.leaving .tv-phoenix.intro-right{transition:1.5s;opacity:0;transform:translate(22%,-54%) scaleX(-1) scale(.94)}
 .tv-phoenix-watermarks{position:absolute;inset:0;z-index:5;overflow:hidden;pointer-events:none}
-.tv-phoenix-watermarks img{position:absolute;bottom:-8vh;width:min(14vw,210px);height:58vh;object-fit:contain;opacity:.11;filter:sepia(1) saturate(.8) drop-shadow(0 0 10px #e2bd5d55);animation:phoenixBreathe 7s ease-in-out infinite alternate}
-.tv-phoenix-watermarks img:first-child{left:-2vw}.tv-phoenix-watermarks img:last-child{right:-2vw;transform:scaleX(-1);animation-delay:-3.5s}
+.tv-phoenix-watermarks img{position:absolute;bottom:-8vh;width:min(14vw,210px);height:58vh;object-fit:contain;opacity:.11;filter:sepia(1) saturate(.8) drop-shadow(0 0 10px #e2bd5d55)}
+.tv-phoenix-watermarks img:first-child{left:-2vw;animation:phoenixFlyLeft 13s ease-in-out infinite alternate}.tv-phoenix-watermarks img:last-child{right:-2vw;transform:scaleX(-1);animation:phoenixFlyRight 13s -6.5s ease-in-out infinite alternate}
 @keyframes phoenixEnter{from{opacity:0;filter:blur(5px);margin-top:24px}to{opacity:.72;filter:drop-shadow(0 0 18px #d6ad4d44);margin-top:0}}
-@keyframes phoenixBreathe{from{opacity:.07;bottom:-10vh}to{opacity:.16;bottom:-7vh}}
+@keyframes phoenixIntroLeft{from{translate:0 -5px;rotate:-1deg}to{translate:2.5vw 7px;rotate:1.5deg}}
+@keyframes phoenixIntroRight{from{translate:0 6px;rotate:1deg}to{translate:-2.5vw -6px;rotate:-1.5deg}}
+@keyframes phoenixFlyLeft{0%{opacity:.07;transform:translate(-3vw,3vh) rotate(-3deg)}50%{opacity:.17;transform:translate(9vw,-4vh) rotate(2deg)}100%{opacity:.09;transform:translate(1vw,-8vh) rotate(-1deg)}}
+@keyframes phoenixFlyRight{0%{opacity:.07;transform:translate(3vw,3vh) scaleX(-1) rotate(-3deg)}50%{opacity:.17;transform:translate(-9vw,-4vh) scaleX(-1) rotate(2deg)}100%{opacity:.09;transform:translate(-1vw,-8vh) scaleX(-1) rotate(-1deg)}}
 
 /* Floating wedding hearts */
 .heart-layer{opacity:.72}
