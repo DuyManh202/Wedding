@@ -243,20 +243,23 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 @media(max-width:700px){.hero-content{align-items:center;padding:0 18px 14vh;text-align:center}.hero-title{flex-direction:column;align-items:center;gap:0}.hero-content h1{font-size:50px}.hero-title>b{margin:-6px 0}.hero-content>p{font-size:12px;letter-spacing:.35em}}
 
 /* Uncropped TV gallery */
-.tv-slide{position:absolute;inset:0;display:grid;place-items:center;z-index:0;opacity:0;overflow:hidden;background:#050505;transition:opacity 1.8s cubic-bezier(.4,0,.2,1);will-change:opacity}
+.tv-presentation .hero{background:radial-gradient(circle at 50% 42%,#642339 0,#2c0d19 48%,#11070c 100%)}
+.tv-slide{position:absolute;inset:0;display:grid;place-items:center;z-index:0;opacity:0;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#6b294036 0,transparent 55%),linear-gradient(135deg,#1b0911,#3a1020 52%,#16080e);transition:opacity 2.15s cubic-bezier(.4,0,.2,1);will-change:opacity}
 .tv-slide.active{z-index:1;opacity:1}
-.tv-slide.portrait-pair{grid-template-columns:1fr 1fr;gap:clamp(8px,1vw,18px);padding:clamp(8px,1vw,18px)}
-.tv-slide figure{width:100%;height:100%;margin:0;overflow:hidden;background:#050505;opacity:0}
+.tv-slide.portrait-pair{grid-template-columns:1fr 1fr;gap:clamp(18px,2vw,38px);padding:clamp(18px,2.3vw,44px) clamp(3vw,5vw,92px)}
+.tv-slide figure{position:relative;width:100%;height:100%;margin:0;padding:clamp(5px,.55vw,10px);overflow:hidden;opacity:0;background:#f5ead5;border:1px solid #e6c77a99;box-shadow:0 24px 70px #070204aa,0 0 0 1px #7b4c2455}
+.tv-slide figure:after{content:'';position:absolute;inset:clamp(9px,.85vw,16px);z-index:2;border:1px solid #f1d99455;pointer-events:none}
 .tv-slide.portrait-pair figure:first-child{display:flex;justify-content:flex-end}
 .tv-slide.portrait-pair figure:last-child{display:flex;justify-content:flex-start}
-.tv-slide.landscape-single figure{position:absolute;inset:0}
+.tv-slide.landscape-single figure{position:absolute;inset:clamp(3vh,5vh,54px) clamp(3vw,6vw,110px);width:auto;height:auto}
 .tv-slide-backdrop{display:none}
-.tv-slide:after{content:'';position:absolute;z-index:3;top:0;bottom:0;left:-18%;width:14%;display:block;opacity:0;pointer-events:none;background:linear-gradient(90deg,transparent,#f4d88b22,transparent);transform:skewX(-12deg)}
-.tv-slide.active:after{animation:tvLightSweep 1.7s .2s ease-out both}
+.tv-slide:before{content:'✦';position:absolute;left:50%;top:50%;z-index:2;color:#d9b85d99;font-size:15px;transform:translate(-50%,-50%)}
+.tv-slide.landscape-single:before{display:none}
+.tv-slide:after{content:'';position:absolute;inset:0;display:block;pointer-events:none;background:linear-gradient(90deg,#13070d77,transparent 12%,transparent 88%,#13070d77),radial-gradient(circle at 50% 50%,transparent 55%,#10060c66)}
 .tv-slide img{position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:contain;object-position:center;filter:contrast(1.025) saturate(1.02)}
-.tv-slide.active.landscape-single figure{animation:tvRevealCenter 1.55s cubic-bezier(.22,.75,.2,1) both}
-.tv-slide.active.portrait-pair figure:first-child{animation:tvRevealLeft 1.35s .08s cubic-bezier(.22,.75,.2,1) both}
-.tv-slide.active.portrait-pair figure:last-child{animation:tvRevealRight 1.35s .28s cubic-bezier(.22,.75,.2,1) both}
+.tv-slide.active.landscape-single figure{animation:tvRevealCenter 1.9s cubic-bezier(.22,.75,.2,1) both}
+.tv-slide.active.portrait-pair figure:first-child{animation:tvRevealLeft 1.7s .08s cubic-bezier(.22,.75,.2,1) both}
+.tv-slide.active.portrait-pair figure:last-child{animation:tvRevealRight 1.7s .22s cubic-bezier(.22,.75,.2,1) both}
 .tv-slide.active img{animation:tvPhotoIn 8s ease-out both}
 .tv-presentation .slide-dots{display:none}
 .tv-presentation .hero-content{padding-bottom:11vh;transform:scale(.72);transform-origin:center bottom;opacity:.82}
@@ -265,11 +268,10 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-presentation .letterbox{display:none}
 .tv-presentation .hero{height:100vh;min-height:0}
 .tv-presentation .tv-slide img{width:100%;height:100%;object-fit:contain;object-position:center}
-@keyframes tvRevealCenter{from{opacity:0;clip-path:inset(0 50%)}to{opacity:1;clip-path:inset(0 0)}}
-@keyframes tvRevealLeft{from{opacity:0;transform:translateX(-34px);clip-path:inset(0 16% 0 0)}to{opacity:1;transform:none;clip-path:inset(0)}}
-@keyframes tvRevealRight{from{opacity:0;transform:translateX(34px);clip-path:inset(0 0 0 16%)}to{opacity:1;transform:none;clip-path:inset(0)}}
-@keyframes tvLightSweep{0%{left:-18%;opacity:0}25%{opacity:1}100%{left:108%;opacity:0}}
-@keyframes tvPhotoIn{from{transform:scale(.992);filter:contrast(1.01) saturate(.98)}to{transform:scale(1);filter:contrast(1.035) saturate(1.04)}}
+@keyframes tvRevealCenter{from{opacity:0;transform:scale(.975)}to{opacity:1;transform:scale(1)}}
+@keyframes tvRevealLeft{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes tvRevealRight{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes tvPhotoIn{from{transform:scale(.996);filter:contrast(1.01) saturate(.98)}to{transform:scale(1);filter:contrast(1.035) saturate(1.04)}}
 @media(prefers-reduced-motion:reduce){.tv-slide.active figure{opacity:1;clip-path:none;transform:none}}
 
 /* Refined ivory, wine and champagne system */
