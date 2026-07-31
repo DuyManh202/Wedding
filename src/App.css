@@ -290,6 +290,21 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-presentation .film-meta,.tv-presentation .film-grain{display:none}
 .tv-presentation .hero-overlay{background:linear-gradient(to bottom,#00000008,transparent 70%,#0805074d)}
 
+/* TV opening ceremony */
+.tv-opening{position:absolute;inset:0;z-index:80;display:grid;place-items:center;overflow:hidden;pointer-events:none;background:#180910;transition:visibility 0s 2.1s}
+.tv-curtain{position:absolute;top:0;bottom:0;width:50.5%;background:radial-gradient(circle at 50% 42%,#8f324b55,transparent 35%),repeating-linear-gradient(90deg,#260b15 0,#481525 16%,#260b15 32%);box-shadow:inset 0 0 90px #080204;transition:transform 2s cubic-bezier(.76,0,.24,1)}
+.tv-curtain.left{left:0;border-right:1px solid #d9b56044}.tv-curtain.right{right:0;border-left:1px solid #d9b56044}
+.tv-opening-copy{position:relative;z-index:2;text-align:center;color:#fff8eb;transition:opacity .65s ease,transform .8s ease}
+.tv-opening-crest{display:grid;place-items:center;width:76px;height:76px;margin:0 auto 28px;border:1px solid #e4c36e99;color:#f0d27c;background:#7d2036;box-shadow:0 0 0 8px #d9b45a0d,0 12px 40px #0008;font:700 40px Georgia,serif}
+.tv-opening-copy>small{display:block;color:#d7b967;font:500 10px Inter,sans-serif;letter-spacing:.65em}
+.tv-opening-copy h1{display:flex;align-items:center;gap:clamp(24px,4vw,70px);margin:27px 0 18px;font:italic 400 clamp(54px,7vw,104px)/1 'Cormorant Garamond',serif;text-shadow:0 6px 28px #000}
+.tv-opening-copy h1 i{color:#d9b85d;font-size:.52em;font-weight:300}
+.tv-opening-line{display:flex;align-items:center;justify-content:center;gap:14px;color:#d7b967}.tv-opening-line b{width:70px;height:1px;background:linear-gradient(90deg,transparent,#d7b967)}.tv-opening-line b:last-child{transform:scaleX(-1)}
+.tv-opening-copy p{margin:20px 0 0;color:#f0ddb0;font:400 17px 'Cormorant Garamond';letter-spacing:.55em}
+.tv-opening.leaving{visibility:hidden}
+.tv-opening.leaving .tv-curtain.left{transform:translateX(-101%)}.tv-opening.leaving .tv-curtain.right{transform:translateX(101%)}
+.tv-opening.leaving .tv-opening-copy{opacity:0;transform:scale(.96)}
+
 /* Floating wedding hearts */
 .heart-layer{opacity:.72}
 .heart-layer span{filter:drop-shadow(0 2px 4px #40081799) drop-shadow(0 0 8px currentColor)}

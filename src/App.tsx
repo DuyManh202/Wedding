@@ -185,6 +185,19 @@ function App() {
       <button className={`music ${music ? 'playing' : ''}`} onClick={toggleMusic} aria-label="Bật hoặc tắt nhạc">{music ? '♫' : '▶'}</button>
 
       <section className="hero">
+        {TV_MODE && (
+          <div className={`tv-opening ${showTvIntro ? '' : 'leaving'}`} aria-hidden="true">
+            <div className="tv-curtain left" />
+            <div className="tv-curtain right" />
+            <div className="tv-opening-copy">
+              <span className="tv-opening-crest">囍</span>
+              <small>THE WEDDING CELEBRATION</small>
+              <h1>{GROOM}<i>&</i>{BRIDE}</h1>
+              <div className="tv-opening-line"><b />✦<b /></div>
+              <p>07 · 08 · 2026</p>
+            </div>
+          </div>
+        )}
         <div className="film-grain" />
         <div className="letterbox top" /><div className="letterbox bottom" />
         {TV_MODE
