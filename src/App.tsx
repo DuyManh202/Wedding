@@ -56,6 +56,11 @@ const tvCaptions = [
   ['Về chung một nhà', 'Viết tiếp chương đẹp nhất'],
   ['Save the date', '07 · 08 · 2026'],
 ]
+const tvChapters: Record<number, [string, string]> = {
+  0: ['Chương I', 'Duyên gặp gỡ'],
+  4: ['Chương II', 'Những năm tháng yêu thương'],
+  8: ['Chương III', 'Ngày mình chung đôi'],
+}
 const timeline = [
   ['Lần đầu gặp nhau', 'Khoảnh khắc hai đứa gặp nhau, có điều gì đó đã thay đổi mà cả hai chưa kịp nhận ra.'],
   ['Cùng bàn, cùng mộng', 'Những tháng ngày thanh xuân, cùng học, cùng mơ và bắt đầu hiểu nhau hơn bất kỳ ai.'],
@@ -84,6 +89,7 @@ function App() {
   const [gallery, setGallery] = useState(0)
   const [time, setTime] = useState(getCountdown)
   const [music, setMusic] = useState(false)
+  const [fullscreen, setFullscreen] = useState(false)
   const [showTvIntro, setShowTvIntro] = useState(true)
   const [wish, setWish] = useState({ name: '', message: '' })
   const [wishes, setWishes] = useState<{ name: string; message: string }[]>([])
@@ -99,10 +105,13 @@ function App() {
     return () => window.clearInterval(timer)
   }, [])
   useEffect(() => {
-    if (!opened) return
-    const timer = window.setInterval(() => setSlide(value => (value + 1) % slideCount), TV_MODE ? 5600 : 5000)
-    return () => window.clearInterval(timer)
-  }, [opened, slideCount])
+    if (!opened || (TV_MODE && showTvIntro)) return
+    const duration = TV_MODE
+      ? (slide === slideCount - 1 ? 9000 : tvChapters[slide] ? 7000 : 5600)
+      : 5000
+    const timer = window.setTimeout(() => setSlide(value => (value + 1) % slideCount), duration)
+    return () => window.clearTimeout(timer)
+  }, [opened, showTvIntro, slide, slideCount])
   useEffect(() => {
     if (!TV_MODE) return
     const timer = window.setTimeout(() => setShowTvIntro(false), 5000)
@@ -130,6 +139,11 @@ function App() {
       .catch(() => setMusic(false))
     return () => document.body.classList.remove('tv-mode')
   }, [opened])
+  useEffect(() => {
+    const updateFullscreen = () => setFullscreen(Boolean(document.fullscreenElement))
+    document.addEventListener('fullscreenchange', updateFullscreen)
+    return () => document.removeEventListener('fullscreenchange', updateFullscreen)
+  }, [])
 
   const openInvitation = () => {
     audio.current?.play()
@@ -147,6 +161,10 @@ function App() {
     if (music) player.pause()
     else player.play().catch(() => undefined)
     setMusic(!music)
+  }
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => undefined)
+    else document.documentElement.requestFullscreen().catch(() => undefined)
   }
   const submitWish = (event: FormEvent) => {
     event.preventDefault()
@@ -195,6 +213,7 @@ function App() {
           >{i % 3 === 0 ? '♡' : '♥'}</span>
         ))}
       </div>
+      {TV_MODE && <button className="tv-fullscreen" onClick={toggleFullscreen}>{fullscreen ? '✕ THOÁT TOÀN MÀN HÌNH' : '⛶ TOÀN MÀN HÌNH'}</button>}
       <button className={`music ${music ? 'playing' : ''}`} onClick={toggleMusic} aria-label="Bật hoặc tắt nhạc">{music ? '♫' : '▶'}</button>
 
       <section className="hero">
@@ -220,7 +239,7 @@ function App() {
         <div className="letterbox top" /><div className="letterbox bottom" />
         {TV_MODE
           ? tvSlides.map((images, index) => (
-            <div className={`tv-slide tv-effect-${index % 4} ${images.length > 1 ? 'portrait-pair' : 'landscape-single'} ${index === slide ? 'active' : ''}`} key={images.join('-')}>
+            <div className={`tv-slide tv-effect-${index % 4} ${tvChapters[index] ? 'has-chapter' : ''} ${index === tvSlides.length - 1 ? 'is-finale' : ''} ${images.length > 1 ? 'portrait-pair' : 'landscape-single'} ${index === slide ? 'active' : ''}`} key={images.join('-')}>
               <div className="tv-royal-frame" aria-hidden="true">
                 <i className="corner-a" /><i className="corner-b" />
                 <i className="corner-c" /><i className="corner-d" />
@@ -235,6 +254,8 @@ function App() {
                 <small>{tvCaptions[index][0]}</small>
                 <p>{tvCaptions[index][1]}</p>
               </div>
+              {tvChapters[index] && <div className="tv-chapter"><small>{tvChapters[index][0]}</small><h2>{tvChapters[index][1]}</h2><i /></div>}
+              {index === tvSlides.length - 1 && <div className="tv-finale"><small>THANK YOU</small><h2>Cảm ơn bạn đã đến chung vui</h2><p>{GROOM} <i>&</i> {BRIDE}</p><b>07 · 08 · 2026</b></div>}
             </div>
           ))
           : heroPhotos.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}

@@ -401,3 +401,23 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 @keyframes tvHeartHalo{0%{opacity:0;stroke-width:7}38%{opacity:.9}100%{opacity:0;stroke-width:1;transform:scale(1.22);transform-origin:center}}
 @keyframes tvHeartDraw{0%{stroke-dashoffset:260;opacity:0}18%{opacity:1}70%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
 @keyframes tvHeartBackdrop{0%{opacity:.75}100%{opacity:0}}
+
+/* TV chapters, finale and fullscreen control */
+.tv-fullscreen{position:fixed;z-index:220;right:18px;top:18px;padding:11px 15px;border:1px solid #dfbd6d88;color:#f6dda0;background:#260b16bb;backdrop-filter:blur(8px);font:600 9px Inter,sans-serif;letter-spacing:.18em;cursor:pointer;opacity:.72;transition:.3s}
+.tv-fullscreen:hover{opacity:1;background:#6e2036;transform:translateY(-1px)}
+.tv-chapter{position:absolute;inset:0;z-index:11;display:grid;place-content:center;text-align:center;color:#fff7e8;background:radial-gradient(circle,#4f182be8 0,#210811e8 42%,#10050ad9 100%);opacity:0;pointer-events:none}
+.tv-chapter small{color:#e1bd64;font:600 10px Inter,sans-serif;letter-spacing:.65em;text-transform:uppercase}
+.tv-chapter h2{margin:18px 0 20px;font:italic 400 clamp(48px,6vw,92px)/1.08 'Cormorant Garamond',serif;text-shadow:0 8px 32px #000}
+.tv-chapter i{display:block;width:110px;height:1px;margin:auto;background:linear-gradient(90deg,transparent,#e2bf68,transparent)}
+.tv-slide.active .tv-chapter{animation:tvChapterCard 2.7s .4s ease-in-out both}
+.tv-slide.has-chapter.active .tv-caption{animation-delay:3.15s}
+.tv-finale{position:absolute;inset:0;z-index:12;display:grid;place-content:center;text-align:center;color:#fff8e9;background:radial-gradient(circle,#3e1224d9 0,#17070dd9 68%,#0d0408e8 100%);opacity:0;pointer-events:none}
+.tv-finale small{color:#dfbc64;font:600 10px Inter,sans-serif;letter-spacing:.72em}
+.tv-finale h2{margin:22px 0 28px;font:italic 400 clamp(42px,5vw,78px)/1.08 'Cormorant Garamond',serif}
+.tv-finale p{margin:0;color:#fff;font:italic 400 clamp(28px,3.5vw,52px) 'Cormorant Garamond',serif}.tv-finale p i{padding:0 18px;color:#dfbc64}
+.tv-finale b{margin-top:22px;color:#e8cf91;font:400 15px 'Cormorant Garamond';letter-spacing:.5em}
+.tv-slide.is-finale.active .tv-finale{animation:tvFinaleIn 1.8s 1.5s ease-out both}
+.tv-slide.is-finale .tv-caption{display:none}
+@keyframes tvChapterCard{0%{opacity:0;clip-path:inset(50% 0)}18%,68%{opacity:1;clip-path:inset(0)}100%{opacity:0;clip-path:inset(0 50%)}}
+@keyframes tvFinaleIn{from{opacity:0;transform:scale(1.025)}to{opacity:1;transform:none}}
+@media(max-width:700px){.tv-fullscreen{right:10px;top:10px;padding:9px;font-size:8px}.tv-chapter h2{font-size:44px}.tv-finale{padding:20px}.tv-finale h2{font-size:38px}}
