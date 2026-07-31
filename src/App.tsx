@@ -163,6 +163,9 @@ function App() {
     setMusic(!music)
   }
   const toggleFullscreen = () => {
+    audio.current?.play()
+      .then(() => setMusic(true))
+      .catch(() => setMusic(false))
     if (document.fullscreenElement) document.exitFullscreen().catch(() => undefined)
     else document.documentElement.requestFullscreen().catch(() => undefined)
   }
@@ -213,7 +216,7 @@ function App() {
           >{i % 3 === 0 ? '♡' : '♥'}</span>
         ))}
       </div>
-      {TV_MODE && <button className="tv-fullscreen" onClick={toggleFullscreen}>{fullscreen ? '✕ THOÁT TOÀN MÀN HÌNH' : '⛶ TOÀN MÀN HÌNH'}</button>}
+      {TV_MODE && <button className="tv-fullscreen" onClick={toggleFullscreen}>{fullscreen ? '✕ THOÁT TOÀN MÀN HÌNH' : '♫ BẬT NHẠC & TOÀN MÀN HÌNH'}</button>}
       <button className={`music ${music ? 'playing' : ''}`} onClick={toggleMusic} aria-label="Bật hoặc tắt nhạc">{music ? '♫' : '▶'}</button>
 
       <section className="hero">
