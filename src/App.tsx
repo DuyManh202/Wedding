@@ -90,6 +90,7 @@ function App() {
   const [time, setTime] = useState(getCountdown)
   const [music, setMusic] = useState(false)
   const [fullscreen, setFullscreen] = useState(false)
+  const [mobileFullscreen, setMobileFullscreen] = useState(false)
   const [showTvIntro, setShowTvIntro] = useState(true)
   const [wish, setWish] = useState({ name: '', message: '' })
   const [wishes, setWishes] = useState<{ name: string; message: string }[]>([])
@@ -166,8 +167,30 @@ function App() {
     audio.current?.play()
       .then(() => setMusic(true))
       .catch(() => setMusic(false))
-    if (document.fullscreenElement) document.exitFullscreen().catch(() => undefined)
-    else document.documentElement.requestFullscreen().catch(() => undefined)
+    const webkitDocument = document as Document & { webkitFullscreenElement?: Element; webkitExitFullscreen?: () => Promise<void> | void }
+    const webkitRoot = document.documentElement as HTMLElement & { webkitRequestFullscreen?: () => Promise<void> | void }
+    const activeFullscreen = document.fullscreenElement || webkitDocument.webkitFullscreenElement
+    if (activeFullscreen) {
+      if (document.exitFullscreen) document.exitFullscreen().catch(() => undefined)
+      else webkitDocument.webkitExitFullscreen?.()
+      return
+    }
+    if (mobileFullscreen) {
+      document.body.classList.remove('mobile-tv-fullscreen')
+      setMobileFullscreen(false)
+      return
+    }
+    const request = document.documentElement.requestFullscreen?.bind(document.documentElement) || webkitRoot.webkitRequestFullscreen?.bind(webkitRoot)
+    if (request) Promise.resolve(request()).catch(() => {
+      document.body.classList.add('mobile-tv-fullscreen')
+      setMobileFullscreen(true)
+      window.scrollTo(0, 1)
+    })
+    else {
+      document.body.classList.add('mobile-tv-fullscreen')
+      setMobileFullscreen(true)
+      window.scrollTo(0, 1)
+    }
   }
   const submitWish = (event: FormEvent) => {
     event.preventDefault()
@@ -216,7 +239,7 @@ function App() {
           >{i % 3 === 0 ? '♡' : '♥'}</span>
         ))}
       </div>
-      {TV_MODE && <button className="tv-fullscreen" onClick={toggleFullscreen}>{fullscreen ? '✕ THOÁT TOÀN MÀN HÌNH' : '♫ BẬT NHẠC & TOÀN MÀN HÌNH'}</button>}
+      {TV_MODE && <button className="tv-fullscreen" onClick={toggleFullscreen}>{fullscreen || mobileFullscreen ? '✕ THOÁT TOÀN MÀN HÌNH' : '♫ BẬT NHẠC & TOÀN MÀN HÌNH'}</button>}
       <button className={`music ${music ? 'playing' : ''}`} onClick={toggleMusic} aria-label="Bật hoặc tắt nhạc">{music ? '♫' : '▶'}</button>
 
       <section className="hero">
