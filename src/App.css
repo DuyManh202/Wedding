@@ -461,3 +461,37 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-finale p{font:500 clamp(26px,3vw,46px)/1.15 'Playfair Display',Georgia,serif;letter-spacing:-.02em}
 .royal-monogram{font-family:'Playfair Display',Georgia,serif;font-weight:600;letter-spacing:.32em}
 @media(max-width:700px){.tv-opening-copy h1{gap:14px;font-size:clamp(36px,9vw,52px)}.tv-opening-copy h1 i{font-size:34px}.tv-opening-copy>small{letter-spacing:.35em}.tv-caption p{font-size:20px}}
+
+/* Final direction: restrained Vietnamese luxury */
+.tv-presentation .hero{background:#160a10}
+.tv-slide{background:radial-gradient(ellipse at 50% 42%,#4b1a2b 0,#261019 48%,#10080c 100%);animation:none}
+.tv-slide:after{background:radial-gradient(circle at center,transparent 58%,#09050888 100%)}
+.tv-slide.portrait-pair{gap:clamp(12px,1.4vw,25px);padding:clamp(18px,2vw,38px) clamp(3vw,5vw,86px)}
+.tv-slide figure{padding:4px;background:#160d12;border:1px solid #c7a75f88;box-shadow:0 20px 65px #0009}
+.tv-slide figure:after{display:none}
+.tv-royal-frame{inset:clamp(14px,1.6vw,29px);border:1px solid #d1b36a66;box-shadow:none}
+.tv-royal-frame i,.tv-royal-frame b,.tv-royal-frame:before,.tv-royal-frame:after{display:none}
+.tv-caption{bottom:clamp(34px,5vh,58px);min-width:min(560px,72vw);padding:13px 30px 15px;background:linear-gradient(90deg,transparent,#150b11c9 20%,#150b11c9 80%,transparent);border:0;box-shadow:none}
+.tv-caption:before{width:42px;background:#cdb06888}
+.tv-caption small{color:#cdb06c;letter-spacing:.38em}
+.tv-caption p{color:#fffaf2;font-size:clamp(18px,1.8vw,28px);text-shadow:0 3px 16px #000}
+.tv-slide.active figure{animation:tvLuxuryReveal 1.65s cubic-bezier(.2,.72,.2,1) both!important}
+.tv-slide.active.portrait-pair figure:last-of-type{animation-delay:.14s!important}
+.tv-slide.active img{animation:tvLuxuryDrift 5.6s ease-out both!important}
+.tv-impact{display:none!important}
+.tv-impact.impact-0{display:grid!important;background:radial-gradient(circle,#2f111d66,transparent 52%);transform:scale(.72);opacity:.42}
+.tv-heart-transition .heart-halo{stroke-width:2}.tv-heart-transition .heart-line{stroke-width:.75}
+.tv-presentation .heart-layer{opacity:.16}
+.tv-presentation .heart-layer span:nth-child(2n){display:none}
+.tv-opening{background:#170a10}
+.tv-curtain{background:linear-gradient(100deg,#170911,#491527 48%,#210b15 100%);box-shadow:inset 0 0 110px #080306}
+.tv-curtain.right{background:linear-gradient(260deg,#170911,#491527 48%,#210b15 100%)}
+.tv-opening-crest{width:66px;height:66px;margin-bottom:27px;font-size:34px;background:#6d1e32;border:1px solid #d3b66d;box-shadow:0 10px 35px #0008}
+.tv-opening-copy h1{font-size:clamp(46px,5vw,78px);font-weight:500;letter-spacing:-.03em}
+.tv-opening-copy>small{color:#cdb06d;font-size:9px;letter-spacing:.5em}
+.tv-chapter{background:radial-gradient(circle,#3b1725eb 0,#170a11f2 64%,#0d070bf5 100%)}
+.tv-chapter h2{font-size:clamp(42px,5vw,72px);font-weight:500}.tv-chapter small{color:#cdb06d}
+.tv-finale{background:radial-gradient(circle,#3a1725e8 0,#160a11f2 70%);box-shadow:inset 0 0 0 1px #cdb06d55}
+@keyframes tvLuxuryReveal{from{opacity:0;transform:translateY(12px) scale(.99);filter:brightness(.82)}to{opacity:1;transform:none;filter:brightness(1)}}
+@keyframes tvLuxuryDrift{from{transform:scale(1.006)}to{transform:scale(1)}}
+@media(max-width:700px){.tv-slide.portrait-pair{padding:16px 20px;gap:10px}.tv-opening-copy h1{font-size:clamp(34px,8vw,48px)}.tv-caption{bottom:28px}}
