@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import type { CSSProperties, FormEvent } from 'react'
 import './App.css'
 import weddingMusic from './music/Indila - Love Story (Slowed-Reverb).mp3'
+
+const Heart3D = lazy(() => import('./components/Heart3D'))
 
 import hero1 from './img/hero-sharp.jpg'
 import hero2 from './img/2aOboQnzQtk5LBvsUuy0tRnDWDYP3VZQf2eOmqHI.jpg'
@@ -221,6 +223,7 @@ function App() {
           <div className={`tv-opening ${showTvIntro ? '' : 'leaving'}`} aria-hidden="true">
             <div className="tv-curtain left" />
             <div className="tv-curtain right" />
+            <Suspense fallback={null}><Heart3D leaving={!showTvIntro} /></Suspense>
             <div className="tv-curtain-burst">
               {Array.from({ length: 12 }, (_, i) => (
                 <i key={i} style={{ '--spark-angle': `${i * 30}deg`, '--spark-distance': `${90 + (i % 3) * 45}px`, '--spark-delay': `${(i % 4) * .04}s` } as CSSProperties} />
