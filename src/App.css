@@ -250,4 +250,8 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-presentation .slide-dots{display:none}
 .tv-presentation .hero-content{padding-bottom:11vh;transform:scale(.72);transform-origin:center bottom;opacity:.82}
 .tv-presentation .film-meta{opacity:.55}
+.tv-presentation>section:not(.hero),.tv-presentation>footer{display:none}
+.tv-presentation .letterbox{display:none}
+.tv-presentation .hero{height:100vh;min-height:0}
+.tv-presentation .tv-slide img{width:100%;height:100%;object-fit:contain;object-position:center}
 @keyframes tvPhotoIn{from{transform:scale(.985);opacity:.7}to{transform:scale(1);opacity:1}}

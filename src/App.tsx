@@ -85,19 +85,7 @@ function App() {
   useEffect(() => {
     if (!TV_MODE || !opened) return
     document.body.classList.add('tv-mode')
-    const sections = Array.from(document.querySelectorAll<HTMLElement>('main > section, main > footer'))
-    let index = 0
-    let timer: number
-    const advance = () => {
-      index = (index + 1) % sections.length
-      sections[index]?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      timer = window.setTimeout(advance, index === 0 ? 8000 : 13000)
-    }
-    timer = window.setTimeout(advance, 10000)
-    return () => {
-      window.clearTimeout(timer)
-      document.body.classList.remove('tv-mode')
-    }
+    return () => document.body.classList.remove('tv-mode')
   }, [opened])
 
   const openInvitation = () => {
