@@ -129,7 +129,8 @@ main { overflow:hidden; }
 .perforations.top { top:8px; }.perforations.bottom { bottom:8px; }
 .carousel { position:relative; height:clamp(360px,58vh,640px); display:flex; align-items:center; justify-content:center; }
 .carousel-photo { position:absolute; width:clamp(250px,30vw,420px); padding:0; border:0; border-radius:8px; background:none; overflow:hidden; box-shadow:0 25px 50px #0007; transition:.9s cubic-bezier(.25,.46,.45,.94); }
-.carousel-photo img { width:100%; max-height:620px; object-fit:cover; }
+.carousel-photo { height:min(72vh,620px); background:#110d0f; }
+.carousel-photo img { display:block; width:100%; height:100%; object-fit:contain; object-position:center; }
 .carousel-photo.p0 { opacity:.3; transform:translateX(-156%) scale(.55); z-index:2; }.carousel-photo.p1 { opacity:.6; transform:translateX(-65%) scale(.72); z-index:5; filter:brightness(.65); }.carousel-photo.p2 { opacity:1; transform:translateX(0) scale(1.15); z-index:10; border:2px solid #c9a05566; }.carousel-photo.p3 { opacity:.6; transform:translateX(65%) scale(.72); z-index:5; filter:brightness(.65); }.carousel-photo.p4 { opacity:.3; transform:translateX(156%) scale(.55); z-index:2; }
 
 .invitation-section { background:#ebf2f8; }
@@ -242,11 +243,11 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 @media(max-width:700px){.hero-content{align-items:center;padding:0 18px 14vh;text-align:center}.hero-title{flex-direction:column;align-items:center;gap:0}.hero-content h1{font-size:50px}.hero-title>b{margin:-6px 0}.hero-content>p{font-size:12px;letter-spacing:.35em}}
 
 /* Uncropped TV gallery */
-.tv-slide{position:absolute;inset:0;opacity:0;overflow:hidden;background:#090709;transition:opacity 1.5s ease-in-out;will-change:opacity}
+.tv-slide{position:absolute;inset:0;display:grid;place-items:center;opacity:0;overflow:hidden;background:#050505;transition:opacity 1.15s ease-in-out;will-change:opacity}
 .tv-slide.active{opacity:1}
-.tv-slide-backdrop{position:absolute;inset:-6%;background-position:center;background-size:cover;filter:blur(32px) brightness(.38) saturate(.75);transform:scale(1.08)}
-.tv-slide:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#09070988,transparent 24%,transparent 76%,#09070988)}
-.tv-slide img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;object-position:center;filter:drop-shadow(0 0 28px #000);animation:tvPhotoIn 6.5s ease-out both}
+.tv-slide-backdrop{display:none}
+.tv-slide:after{display:none}
+.tv-slide img{position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:contain;object-position:center;filter:contrast(1.025) saturate(1.02);animation:tvPhotoIn 6.5s ease-out both}
 .tv-presentation .slide-dots{display:none}
 .tv-presentation .hero-content{padding-bottom:11vh;transform:scale(.72);transform-origin:center bottom;opacity:.82}
 .tv-presentation .film-meta{opacity:.55}
@@ -254,7 +255,7 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-presentation .letterbox{display:none}
 .tv-presentation .hero{height:100vh;min-height:0}
 .tv-presentation .tv-slide img{width:100%;height:100%;object-fit:contain;object-position:center}
-@keyframes tvPhotoIn{from{transform:scale(.985);opacity:.7}to{transform:scale(1);opacity:1}}
+@keyframes tvPhotoIn{from{transform:scale(.995);opacity:.94}to{transform:scale(1);opacity:1}}
 
 /* Refined ivory, wine and champagne system */
 .progress{background:linear-gradient(90deg,#7d283e,#d1aa5b,#7d283e)}
