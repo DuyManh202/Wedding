@@ -87,12 +87,12 @@ function App() {
   }, [])
   useEffect(() => {
     if (!opened) return
-    const timer = window.setInterval(() => setSlide(value => (value + 1) % slideCount), TV_MODE ? 8000 : 5000)
+    const timer = window.setInterval(() => setSlide(value => (value + 1) % slideCount), TV_MODE ? 5600 : 5000)
     return () => window.clearInterval(timer)
   }, [opened, slideCount])
   useEffect(() => {
     if (!TV_MODE) return
-    const timer = window.setTimeout(() => setShowTvIntro(false), 7800)
+    const timer = window.setTimeout(() => setShowTvIntro(false), 5000)
     return () => window.clearTimeout(timer)
   }, [])
   useEffect(() => {
@@ -216,6 +216,7 @@ function App() {
             </div>
           ))
           : heroPhotos.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
+        {TV_MODE && <div className={`tv-impact impact-${slide % 4}`} key={`impact-${slide}`} aria-hidden="true" />}
         <div className="hero-overlay" />
         <div className={`hero-content ${TV_MODE && !showTvIntro ? 'tv-intro-hidden' : ''}`} key={TV_MODE ? 'tv-copy' : `copy-${slide}`}>
           <small>THE WEDDING OF</small>
