@@ -30,6 +30,11 @@
 .open-hint { margin:18px 0 0; color:#edcdd477; font-size:9px; letter-spacing:.42em; }
 
 main { overflow:hidden; }
+.tv-mode { cursor:none; }
+.tv-mode .music,.tv-mode .wish-form { display:none; }
+.tv-presentation>section,.tv-presentation>footer { scroll-margin-top:0; }
+.tv-presentation .hero { height:100vh; }
+.tv-presentation .heart-layer { opacity:.78; }
 .progress { position:fixed; z-index:150; top:0; left:0; width:100%; height:2px; background:linear-gradient(90deg,var(--rose),var(--gold),var(--rose)); }
 .music { position:fixed; z-index:100; right:16px; bottom:24px; width:48px; height:48px; border-radius:50%; border:1px solid #ffffff55; color:white; background:#c4677bcc; box-shadow:0 4px 24px #c4677b66; }
 .music.playing { animation:spin 4s linear infinite; }

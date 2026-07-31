@@ -16,6 +16,7 @@ import g5 from './img/2aOboQnzQzt3xIqo19yxYKImDBbthgyA2o7GrkQ4.jpg'
 
 const GROOM = 'Văn Tuấn'
 const BRIDE = 'Xuân Mai'
+const TV_MODE = new URLSearchParams(window.location.search).get('tv') === '1'
 const heroes = [hero1, hero2, hero3, hero4]
 const photos = [g1, g2, g3, g4, g5, hero2, hero3]
 const timeline = [
@@ -38,7 +39,7 @@ function getCountdown() {
 }
 
 function App() {
-  const [opened, setOpened] = useState(false)
+  const [opened, setOpened] = useState(TV_MODE)
   const [opening, setOpening] = useState(false)
   const [slide, setSlide] = useState(0)
   const [gallery, setGallery] = useState(0)
@@ -69,6 +70,23 @@ function App() {
     )
     document.querySelectorAll('.rise').forEach(el => observer.observe(el))
     return () => observer.disconnect()
+  }, [opened])
+  useEffect(() => {
+    if (!TV_MODE || !opened) return
+    document.body.classList.add('tv-mode')
+    const sections = Array.from(document.querySelectorAll<HTMLElement>('main > section, main > footer'))
+    let index = 0
+    let timer: number
+    const advance = () => {
+      index = (index + 1) % sections.length
+      sections[index]?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      timer = window.setTimeout(advance, index === 0 ? 8000 : 13000)
+    }
+    timer = window.setTimeout(advance, 10000)
+    return () => {
+      window.clearTimeout(timer)
+      document.body.classList.remove('tv-mode')
+    }
   }, [opened])
 
   const openInvitation = () => {
@@ -125,7 +143,7 @@ function App() {
   }
 
   return (
-    <main>
+    <main className={TV_MODE ? 'tv-presentation' : ''}>
       <div className="progress" />
       <div className="heart-layer" aria-hidden="true">
         {Array.from({ length: 30 }, (_, i) => <span key={i} style={{ '--heart-x': `${(i * 37 + 9) % 100}%`, '--heart-delay': `${-(i * .87)}s`, '--heart-speed': `${9 + (i % 6) * 1.5}s`, '--heart-size': `${13 + (i % 5) * 4}px`, '--heart-drift': `${-45 + (i % 7) * 15}px` } as CSSProperties}>{i % 5 === 0 ? '♡' : '♥'}</span>)}
