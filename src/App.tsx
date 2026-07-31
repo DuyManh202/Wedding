@@ -227,7 +227,6 @@ function App() {
               ))}
             </div>
             <div className="tv-opening-copy">
-              <span className="tv-crown">♛</span>
               <span className="tv-opening-crest">囍</span>
               <small>THE WEDDING CELEBRATION</small>
               <h1>{GROOM}<i>&</i>{BRIDE}</h1>

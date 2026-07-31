@@ -440,7 +440,6 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .royal-monogram em{color:#9f2947;font-style:normal}
 .tv-caption{bottom:clamp(42px,6.5vh,78px);min-width:min(610px,76vw);padding:15px 42px 17px;background:linear-gradient(90deg,transparent,#111528e8 14%,#301020e8 50%,#111528e8 86%,transparent);border-top:1px solid #d9b76155;border-bottom:1px solid #d9b76155;box-shadow:0 12px 36px #0007}
 .tv-caption small{color:#f0d38a}.tv-caption p{color:#fffaf0;text-shadow:0 3px 18px #000}
-.tv-crown{display:block;margin:0 auto 10px;color:#edcf7c;font:400 32px Georgia,serif;text-shadow:0 0 18px #d4a84f88;animation:royalCrown 2.2s ease-in-out infinite alternate}
 .tv-opening-crest{margin-bottom:24px;background:radial-gradient(circle at 35% 28%,#a43b56,#511225 72%);border-color:#f0d17e;box-shadow:0 0 0 4px #160910,0 0 0 5px #b88b43,0 16px 45px #000b}
 .tv-opening-copy h1{color:#fffaf0;letter-spacing:.02em}.tv-opening-copy>small{color:#f0d48d}
 .tv-curtain{background:radial-gradient(circle at 50% 36%,#aa3d5a44,transparent 32%),repeating-linear-gradient(90deg,#130913 0,#4c1630 8%,#1a1020 16%,#681d3a 25%,#17101f 34%);box-shadow:inset 0 0 120px #050307}
@@ -448,5 +447,17 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-chapter h2,.tv-finale h2{color:#fffaf0;text-shadow:0 7px 30px #000}.tv-chapter small,.tv-finale small{color:#f0d38a}
 .tv-finale{background:radial-gradient(circle at 50% 42%,#33405ee8 0,#281126ed 45%,#0d0710f5 100%);box-shadow:inset 0 0 0 12px #0b070c,inset 0 0 0 13px #c9a95a66,inset 0 0 0 19px #130b12,inset 0 0 0 20px #d7b96844}
 .tv-presentation .heart-layer{opacity:.38}
-@keyframes royalCrown{from{transform:translateY(0);filter:brightness(.9)}to{transform:translateY(-3px);filter:brightness(1.18)}}
-@media(max-width:700px){.royal-monogram{top:15px;font-size:7px}.tv-crown{font-size:25px;margin-bottom:7px}.tv-slide.portrait-pair{padding:18px 24px;gap:14px}}
+@media(max-width:700px){.royal-monogram{top:15px;font-size:7px}.tv-slide.portrait-pair{padding:18px 24px;gap:14px}}
+
+/* Refined royal typography */
+.tv-opening-copy h1{gap:clamp(20px,2.8vw,46px);margin:30px 0 20px;color:#fffaf2;font:500 clamp(48px,5.4vw,86px)/1.08 'Playfair Display',Georgia,serif;letter-spacing:-.035em;text-shadow:0 3px 2px #0008,0 12px 42px #000b}
+.tv-opening-copy h1 i{display:inline-block;color:#dfbd68;font:400 clamp(36px,4vw,62px)/1 'Great Vibes',cursive;transform:translateY(-2px)}
+.tv-opening-copy>small{font-family:Montserrat,Inter,sans-serif;font-weight:500;letter-spacing:.58em}
+.tv-opening-copy p{font-family:'Playfair Display',Georgia,serif;font-size:14px;font-weight:500;letter-spacing:.48em}
+.tv-caption small,.tv-chapter small,.tv-finale small{font-family:Montserrat,Inter,sans-serif;font-weight:500}
+.tv-caption p{font:italic 500 clamp(19px,2vw,31px)/1.25 'Playfair Display',Georgia,serif;letter-spacing:.01em}
+.tv-chapter h2{font:500 clamp(45px,5.4vw,82px)/1.12 'Playfair Display',Georgia,serif;letter-spacing:-.025em}
+.tv-finale h2{font:500 clamp(40px,4.6vw,70px)/1.15 'Playfair Display',Georgia,serif;letter-spacing:-.025em}
+.tv-finale p{font:500 clamp(26px,3vw,46px)/1.15 'Playfair Display',Georgia,serif;letter-spacing:-.02em}
+.royal-monogram{font-family:'Playfair Display',Georgia,serif;font-weight:600;letter-spacing:.32em}
+@media(max-width:700px){.tv-opening-copy h1{gap:14px;font-size:clamp(36px,9vw,52px)}.tv-opening-copy h1 i{font-size:34px}.tv-opening-copy>small{letter-spacing:.35em}.tv-caption p{font-size:20px}}
