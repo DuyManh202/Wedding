@@ -29,8 +29,8 @@ export default function Heart3D({ leaving }: { leaving: boolean }) {
     const heart = new Float32Array(count * 3)
     const scatter = new Float32Array(count * 3)
     const colors = new Float32Array(count * 3)
-    const ruby = new THREE.Color('#8f2744')
     const gold = new THREE.Color('#f0cf78')
+    const diamond = new THREE.Color('#fffaf0')
 
     for (let i = 0; i < count; i += 1) {
       const angle = Math.random() * Math.PI * 2
@@ -51,7 +51,13 @@ export default function Heart3D({ leaving }: { leaving: boolean }) {
       scatter[index] = Math.sin(phi) * Math.cos(theta) * distance
       scatter[index + 1] = Math.sin(phi) * Math.sin(theta) * distance
       scatter[index + 2] = Math.cos(phi) * distance
-      const color = Math.random() > .78 ? gold : ruby.clone().lerp(gold, Math.random() * .28)
+      const colorRoll = Math.random()
+      const hue = ((angle / (Math.PI * 2)) + depth * .018 + fill * .12 + 1) % 1
+      const color = colorRoll > .92
+        ? diamond
+        : colorRoll > .82
+          ? gold
+          : new THREE.Color().setHSL(hue, .82, .62)
       colors[index] = color.r
       colors[index + 1] = color.g
       colors[index + 2] = color.b
