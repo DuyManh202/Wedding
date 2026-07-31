@@ -203,6 +203,11 @@ function App() {
         {TV_MODE
           ? tvSlides.map((images, index) => (
             <div className={`tv-slide ${images.length > 1 ? 'portrait-pair' : 'landscape-single'} ${index === slide ? 'active' : ''}`} key={images.join('-')}>
+              <div className="tv-royal-frame" aria-hidden="true">
+                <i className="corner-a" /><i className="corner-b" />
+                <i className="corner-c" /><i className="corner-d" />
+                <b className="top-mark">◆</b><b className="bottom-mark">◆</b>
+              </div>
               {images.map((src, imageIndex) => (
                 <figure key={src}>
                   <img src={src} alt={`Ảnh cưới Văn Tuấn và Xuân Mai ${index + 1}.${imageIndex + 1}`} />
