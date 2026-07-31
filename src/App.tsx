@@ -29,6 +29,19 @@ const TV_MODE = new URLSearchParams(window.location.search).get('tv') === '1'
 const heroes = [hero1, hero2, hero3, hero4]
 const photos = [g1, g2, g3, g4, g5, hero2, hero3]
 const tvPhotos = [hero1, hero2, hero3, hero4, g1, g2, g3, g4, g5, groom, bride, tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9]
+const tvSlides = [
+  [hero4],
+  [hero1, hero2],
+  [hero3, g1],
+  [g2, g3],
+  [g4, g5],
+  [groom, bride],
+  [tv1, tv2],
+  [tv3, tv4],
+  [tv5, tv6],
+  [tv7, tv8],
+  [tv9, hero1],
+]
 const timeline = [
   ['Lần đầu gặp nhau', 'Khoảnh khắc hai đứa gặp nhau, có điều gì đó đã thay đổi mà cả hai chưa kịp nhận ra.'],
   ['Cùng bàn, cùng mộng', 'Những tháng ngày thanh xuân, cùng học, cùng mơ và bắt đầu hiểu nhau hơn bất kỳ ai.'],
@@ -50,6 +63,7 @@ function getCountdown() {
 
 function App() {
   const heroPhotos = TV_MODE ? tvPhotos : heroes
+  const slideCount = TV_MODE ? tvSlides.length : heroPhotos.length
   const [opened, setOpened] = useState(TV_MODE)
   const [opening, setOpening] = useState(false)
   const [slide, setSlide] = useState(0)
@@ -67,9 +81,9 @@ function App() {
   }, [])
   useEffect(() => {
     if (!opened) return
-    const timer = window.setInterval(() => setSlide(value => (value + 1) % heroPhotos.length), TV_MODE ? 8000 : 5000)
+    const timer = window.setInterval(() => setSlide(value => (value + 1) % slideCount), TV_MODE ? 8000 : 5000)
     return () => window.clearInterval(timer)
-  }, [opened, heroPhotos.length])
+  }, [opened, slideCount])
   useEffect(() => {
     if (!TV_MODE) return
     const timer = window.setTimeout(() => setShowTvIntro(false), 7800)
@@ -148,10 +162,13 @@ function App() {
         <div className="film-grain" />
         <div className="letterbox top" /><div className="letterbox bottom" />
         {TV_MODE
-          ? heroPhotos.map((src, index) => (
-            <div className={`tv-slide ${index === slide ? 'active' : ''}`} key={src}>
-              <div className="tv-slide-backdrop" style={{ backgroundImage: `url(${src})` }} />
-              <img src={src} alt={`Ảnh cưới Văn Tuấn và Xuân Mai ${index + 1}`} />
+          ? tvSlides.map((images, index) => (
+            <div className={`tv-slide ${images.length > 1 ? 'portrait-pair' : 'landscape-single'} ${index === slide ? 'active' : ''}`} key={images.join('-')}>
+              {images.map((src, imageIndex) => (
+                <figure key={src}>
+                  <img src={src} alt={`Ảnh cưới Văn Tuấn và Xuân Mai ${index + 1}.${imageIndex + 1}`} />
+                </figure>
+              ))}
             </div>
           ))
           : heroPhotos.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
@@ -166,7 +183,7 @@ function App() {
           <p>07 . 08 . 2026</p>
         </div>
         <div className="film-meta"><span>VĂN TUẤN</span><span>HÀ NỘI · VIỆT NAM</span><span>XUÂN MAI</span></div>
-        <div className="slide-dots">{heroPhotos.map((_, i) => <button className={i === slide ? 'active' : ''} onClick={() => setSlide(i)} key={i} />)}</div>
+        <div className="slide-dots">{Array.from({ length: slideCount }, (_, i) => <button className={i === slide ? 'active' : ''} onClick={() => setSlide(i)} key={i} />)}</div>
       </section>
 
       <section className="countdown dark-section">
