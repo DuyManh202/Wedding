@@ -56,6 +56,7 @@ function App() {
   const [gallery, setGallery] = useState(0)
   const [time, setTime] = useState(getCountdown)
   const [music, setMusic] = useState(false)
+  const [showTvIntro, setShowTvIntro] = useState(true)
   const [wish, setWish] = useState({ name: '', message: '' })
   const [wishes, setWishes] = useState<{ name: string; message: string }[]>([])
   const audio = useRef<HTMLAudioElement>(null)
@@ -66,9 +67,14 @@ function App() {
   }, [])
   useEffect(() => {
     if (!opened) return
-    const timer = window.setInterval(() => setSlide(value => (value + 1) % heroPhotos.length), TV_MODE ? 6500 : 5000)
+    const timer = window.setInterval(() => setSlide(value => (value + 1) % heroPhotos.length), TV_MODE ? 8000 : 5000)
     return () => window.clearInterval(timer)
   }, [opened, heroPhotos.length])
+  useEffect(() => {
+    if (!TV_MODE) return
+    const timer = window.setTimeout(() => setShowTvIntro(false), 7800)
+    return () => window.clearTimeout(timer)
+  }, [])
   useEffect(() => {
     if (!opened) return
     const timer = window.setInterval(() => setGallery(value => (value + 1) % photos.length), 3000)
@@ -115,11 +121,6 @@ function App() {
         <img className="cover-photo" src={hero1} alt="" />
         <div className="cover-glow" />
         <div className="film-grain" />
-        <div className="cover-petals" aria-hidden="true">
-          {Array.from({ length: 24 }, (_, i) => (
-            <span key={i} style={{ '--x': `${3 + (i * 7.3) % 94}%`, '--d': `${(i * .35) % 6}s`, '--s': `${10 + (i * 4) % 15}px` } as CSSProperties}>{i % 4 === 0 ? '♡' : '♥'}</span>
-          ))}
-        </div>
         <div className="cover-content">
           <div className="opening-card">
             <div className="opening-crest">囍</div>
@@ -140,9 +141,6 @@ function App() {
   return (
     <main className={TV_MODE ? 'tv-presentation' : ''}>
       <div className="progress" />
-      <div className="heart-layer" aria-hidden="true">
-        {Array.from({ length: 10 }, (_, i) => <span key={i} style={{ '--heart-x': `${(i * 37 + 9) % 100}%`, '--heart-delay': `${-(i * 1.7)}s`, '--heart-speed': `${13 + (i % 4) * 2}s`, '--heart-size': `${9 + (i % 4) * 3}px`, '--heart-drift': `${-35 + (i % 5) * 16}px` } as CSSProperties}>{i % 3 === 0 ? '♡' : '♥'}</span>)}
-      </div>
       <audio ref={audio} loop />
       <button className={`music ${music ? 'playing' : ''}`} onClick={toggleMusic} aria-label="Bật hoặc tắt nhạc">{music ? '♫' : '▶'}</button>
 
@@ -158,7 +156,7 @@ function App() {
           ))
           : heroPhotos.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
         <div className="hero-overlay" />
-        <div className="hero-content" key={`copy-${slide}`}>
+        <div className={`hero-content ${TV_MODE && !showTvIntro ? 'tv-intro-hidden' : ''}`} key={TV_MODE ? 'tv-copy' : `copy-${slide}`}>
           <small>THE WEDDING OF</small>
           <div className="hero-title">
             <div className="name-reveal"><h1>{GROOM}</h1></div>
@@ -253,7 +251,7 @@ function App() {
 }
 
 function SectionTitle({ eyebrow, title, dark = false }: { eyebrow: string; title: string; dark?: boolean }) {
-  return <div className={`section-title rise ${dark ? 'light' : ''}`}><div className="oriental-mark"><i />如意<i /></div><p><span>✦</span>{eyebrow}<span>✦</span></p><h2>{title.split(' ').map((word, i) => <em style={{ '--word-delay': `${i * .06}s` } as CSSProperties} key={`${word}-${i}`}>{word}&nbsp;</em>)}</h2><i /></div>
+  return <div className={`section-title rise ${dark ? 'light' : ''}`}><p><span>✦</span>{eyebrow}<span>✦</span></p><h2>{title.split(' ').map((word, i) => <em style={{ '--word-delay': `${i * .06}s` } as CSSProperties} key={`${word}-${i}`}>{word}&nbsp;</em>)}</h2><i /></div>
 }
 
 function LoveCard({ role, name, image, children }: { role: string; name: string; image: string; children: string }) {

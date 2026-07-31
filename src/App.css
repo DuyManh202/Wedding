@@ -255,3 +255,21 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-presentation .hero{height:100vh;min-height:0}
 .tv-presentation .tv-slide img{width:100%;height:100%;object-fit:contain;object-position:center}
 @keyframes tvPhotoIn{from{transform:scale(.985);opacity:.7}to{transform:scale(1);opacity:1}}
+
+/* Refined ivory, wine and champagne system */
+.progress{background:linear-gradient(90deg,#7d283e,#d1aa5b,#7d283e)}
+.dark-section{background:linear-gradient(145deg,#10080d,#211019 55%,#0e080c)}
+.pale-section,.wishes{background:#fbf6ef}
+.messages{background:#f2e8dd}
+.invitation-section{background:#edf1f0}
+.section-title:not(.light) h2{background:none;color:#352c2e;filter:none}
+.section-title.light h2{background:none;color:#f8f0e7;filter:none}
+.section-title p{color:#9b5260}.section-title.light p{color:#c6a15b}
+.timeline-item>div,.timeline-item:nth-child(3n+2)>div,.timeline-item:nth-child(3n)>div{border-radius:0;background:#fffdfa;border-color:#dfcbc2;box-shadow:0 12px 35px #4f303010}
+.love-card,.love-card:nth-child(2){background:#fffdfa;border-color:#e7dbd0;box-shadow:0 18px 45px #50313212}
+.wish-form{background:#fffdfa;border-color:#dfcbc2;box-shadow:0 16px 40px #51323110}
+.filmstrip{border-color:#c6a15b66;filter:none}
+.hero-content{transition:opacity 1.2s ease,transform 1.2s ease}
+.tv-presentation .hero-content.tv-intro-hidden{opacity:0;transform:translateY(22px) scale(.72);pointer-events:none}
+.tv-presentation .film-meta,.tv-presentation .film-grain{display:none}
+.tv-presentation .hero-overlay{background:linear-gradient(to bottom,#00000008,transparent 70%,#0805074d)}
