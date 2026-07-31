@@ -156,7 +156,6 @@ function App() {
         <div className="letterbox top" /><div className="letterbox bottom" />
         {heroes.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
         <div className="hero-overlay" />
-        <div className="scene-flash" key={`flash-${slide}`} />
         <div className="hero-content" key={`copy-${slide}`}>
           <small><i /> THE WEDDING FILM OF <i /></small>
           <div className="name-reveal"><h1>{GROOM}</h1></div><b>&</b><div className="name-reveal second"><h1>{BRIDE}</h1></div>

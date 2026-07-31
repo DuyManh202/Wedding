@@ -19,7 +19,7 @@
 .ornament i { width:56px; height:1px; background:#c9a05559; }
 .letter>p, footer>p { font-size:9px; letter-spacing:.48em; color:#8b6670; }
 .cover-names { font-family:'Great Vibes',cursive; margin:24px 0; }
-.cover-names h1 { font-size:clamp(48px,8vw,70px); line-height:.86; font-weight:400; margin:0; }
+.cover-names h1 { font-size:clamp(48px,8vw,70px); line-height:1.12; font-weight:400; margin:0; padding:.05em .1em .14em; }
 .cover-names b { display:block; font:300 20px 'Cormorant Garamond'; color:#ffffff4d; margin:12px; }
 .cover-date { display:flex; align-items:center; justify-content:center; gap:13px; color:#9c7641; font:400 14px 'Cormorant Garamond'; letter-spacing:.4em; margin:22px 0; }
 .cover-date i { width:40px; height:1px; background:#c9a0554d; }
@@ -39,21 +39,18 @@ main { overflow:hidden; }
 .music { position:fixed; z-index:100; right:16px; bottom:24px; width:48px; height:48px; border-radius:50%; border:1px solid #ffffff55; color:white; background:#c4677bcc; box-shadow:0 4px 24px #c4677b66; }
 .music.playing { animation:spin 4s linear infinite; }
 .hero { position:relative; height:100dvh; min-height:620px; overflow:hidden; color:white; }
-.hero>img { position:absolute; inset:-3%; width:106%; height:106%; object-fit:cover; object-position:center 50%; opacity:0; filter:grayscale(1) contrast(1.12) brightness(.72) blur(2px); transition:opacity 1.8s cubic-bezier(.45,0,.2,1),filter 2.8s ease; will-change:transform,opacity,filter; }
-.hero>img.active { opacity:1; filter:grayscale(0) contrast(1.02) brightness(1) blur(0); }
-.hero>img.shot-1.active { animation:kenburnsA 7s ease-out both; }
-.hero>img.shot-2.active { animation:kenburnsB 7s ease-out both; }
-.hero>img.shot-3.active { animation:kenburnsC 7s ease-out both; }
-.hero>img.shot-4.active { animation:kenburnsD 7s ease-out both; }
+.hero>img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 50%; opacity:0; transform:scale(1.035); filter:brightness(.82) saturate(.9); transition:opacity 1.65s ease-in-out,filter 1.65s ease-in-out; will-change:transform,opacity; }
+.hero>img.active { opacity:1; filter:brightness(1) saturate(1.03); }
+.hero>img.shot-1.active,.hero>img.shot-2.active,.hero>img.shot-3.active,.hero>img.shot-4.active { animation:softZoom 6.5s linear both; }
 .letterbox { position:absolute; z-index:4; left:0; right:0; height:5.5vh; background:#080507; }
 .letterbox.top { top:0; }.letterbox.bottom { bottom:0; }
 .hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,#0000001a,#00000026 45%,#000000aa); }
 .hero-content { position:absolute; z-index:3; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding:0 20px 82px; text-align:center; }
 .hero-content small { display:flex; align-items:center; gap:14px; margin-bottom:22px; color:#ffffff99; font-size:9px; letter-spacing:.55em; animation:trackingIn 1.2s .15s both; }
 .hero-content small i { width:28px; height:1px; background:#c9a05599; }
-.hero-content h1 { margin:0; font:400 clamp(58px,9vw,128px)/.86 'Great Vibes'; text-shadow:0 2px 24px #0005; }
-.name-reveal { overflow:hidden; padding:7px 22px 2px; }
-.name-reveal h1 { animation:titleReveal 1.1s .35s cubic-bezier(.16,1,.3,1) both; }
+.hero-content h1 { margin:0; padding:.08em .12em .18em; font:400 clamp(58px,9vw,128px)/1.12 'Great Vibes'; text-shadow:0 2px 24px #0005; }
+.name-reveal { overflow:visible; padding:0 22px; }
+.name-reveal h1 { animation:titleReveal 1s .35s cubic-bezier(.16,1,.3,1) both; }
 .name-reveal.second h1 { animation-delay:.62s; }
 .hero-content>b { font:300 clamp(24px,4vw,42px) 'Cormorant Garamond'; color:#ffffff99; margin:8px; }
 .hero-content>p { font:300 clamp(16px,2vw,24px) 'Cormorant Garamond'; letter-spacing:.3em; color:#fffc; margin:0; }
@@ -143,7 +140,7 @@ main { overflow:hidden; }
 .wish-grid article { break-inside:avoid; margin-bottom:20px; padding:24px; background:white; border:1px solid #edcdd44d; }
 .wish-grid article p { color:#2c2c2cb3; font:italic 17px/1.6 'Cormorant Garamond'; }.wish-grid article i { display:block; width:30px; height:1px; background:#c9a05555; }.wish-grid article h3 { color:#c4677bcc; font:400 26px 'Great Vibes'; margin:10px 0 0; }
 footer { position:relative; padding:80px 20px; text-align:center; color:white; background:linear-gradient(160deg,#140810,#2a0d1a 55%,#140810); }
-footer h2 { margin:0; font:400 clamp(58px,8vw,78px)/.9 'Great Vibes'; } footer>b { display:block; color:#ffffff4d; font:300 20px 'Cormorant Garamond'; margin:8px; } footer>span { display:block; margin:30px 0 15px; color:#c9a055b3; font:400 15px 'Cormorant Garamond'; letter-spacing:.4em; } footer>em { color:#ffffff66; font:italic 20px 'Cormorant Garamond'; }
+footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.12 'Great Vibes'; } footer>b { display:block; color:#ffffff4d; font:300 20px 'Cormorant Garamond'; margin:8px; } footer>span { display:block; margin:30px 0 15px; color:#c9a055b3; font:400 15px 'Cormorant Garamond'; letter-spacing:.4em; } footer>em { color:#ffffff66; font:italic 20px 'Cormorant Garamond'; }
 
 .heart-layer { position:fixed; inset:0; z-index:50; pointer-events:none; overflow:hidden; }
 .heart-layer span { position:absolute; left:var(--heart-x); bottom:-35px; color:#f27f98f2; font:bold var(--heart-size) 'Cormorant Garamond'; filter:drop-shadow(0 2px 4px #59192788) drop-shadow(0 0 8px #ffd5dd77); animation:heart-float var(--heart-speed) linear var(--heart-delay) infinite; }
@@ -153,11 +150,8 @@ footer h2 { margin:0; font:400 clamp(58px,8vw,78px)/.9 'Great Vibes'; } footer>b
 @keyframes glow { 50%{box-shadow:0 0 0 10px #c9a05526} }
 @keyframes sealPulse { 50%{transform:translateX(-50%) scale(1.07);box-shadow:0 6px 18px #3c071799,0 0 0 10px #c9a05515,inset 0 0 0 3px #7e2a3e} }
 @keyframes grain { 0%{transform:translate(0,0)}25%{transform:translate(3%,-2%)}50%{transform:translate(-2%,4%)}75%{transform:translate(4%,2%)}100%{transform:translate(-3%,-4%)} }
-@keyframes kenburnsA { from{transform:scale(1.14) translate3d(-1.5%,1%,0)}to{transform:scale(1.03) translate3d(1%,0,0)} }
-@keyframes kenburnsB { from{transform:scale(1.03) translate3d(2%,0,0)}to{transform:scale(1.15) translate3d(-1.5%,-1%,0)} }
-@keyframes kenburnsC { from{transform:scale(1.16) translate3d(0,-1%,0)}to{transform:scale(1.04) translate3d(-1%,1%,0)} }
-@keyframes kenburnsD { from{transform:scale(1.04) translate3d(-2%,0,0)}to{transform:scale(1.14) translate3d(1%,-1%,0)} }
-@keyframes titleReveal { from{opacity:0;transform:translateY(115%) skewY(7deg);filter:blur(9px)}to{opacity:1;transform:none;filter:blur(0)} }
+@keyframes softZoom { from{transform:scale(1.035)}to{transform:scale(1.085)} }
+@keyframes titleReveal { from{opacity:0;transform:translateY(28px);filter:blur(7px)}to{opacity:1;transform:none;filter:blur(0)} }
 @keyframes trackingIn { from{opacity:0;letter-spacing:.9em}to{opacity:1;letter-spacing:.55em} }
 @keyframes sceneFlash { 0%{transform:translateX(-130%);opacity:0}25%{opacity:.55}100%{transform:translateX(130%);opacity:0} }
 @keyframes sceneIn { from{opacity:0;transform:translateX(25px)} }
