@@ -227,3 +227,16 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .cover-content .open-invitation:hover{background:#9b2941;transform:translateX(5px)}.cover-content .open-invitation span{margin:0}.cover-content .open-invitation b{font-size:18px;font-weight:300;letter-spacing:0}
 @keyframes coverZoom{from{transform:scale(1.07)}to{transform:scale(1)}}@keyframes buttonBreath{50%{box-shadow:0 0 0 8px #dc8f9b12,0 0 28px #c03e5a33}}
 @media(max-width:700px){.cover-photo{object-position:57% center}.invitation-cover .cover-glow{background:linear-gradient(0deg,#15070aef 0%,#210b17b8 62%,#14070b77 100%)}.cover-content{align-items:flex-end;padding:0 20px 7vh}.opening-card{width:100%;padding:28px 24px 30px;background:linear-gradient(90deg,#16070dd9,transparent)}.opening-crest{width:46px;height:46px;margin-bottom:17px;font-size:25px}.opening-card .cover-names h1{font-size:53px}.opening-card .ornament{margin-bottom:15px}.opening-card .cover-date{margin:12px 0}.opening-place{margin-bottom:20px}}
+
+/* Clean cinematic hero */
+.hero-overlay{background:linear-gradient(to bottom,#00000012 0%,#00000008 42%,#090507d9 100%)}
+.hero-content{align-items:center;justify-content:flex-end;padding:0 24px 14vh;text-align:center}
+.hero-content small{display:block;margin:0 0 16px;color:#ffffffa6;font-size:8px;letter-spacing:.65em;animation:trackingIn 1s .1s both}
+.hero-title{display:flex;align-items:baseline;justify-content:center;gap:clamp(16px,2.5vw,42px)}
+.hero-content h1{padding:.05em .04em .12em;color:#fff;font:italic 400 clamp(50px,6vw,82px)/1.12 'Cormorant Garamond';letter-spacing:.01em;text-shadow:0 3px 24px #000}
+.hero-content>b,.hero-title>b{margin:0;color:#dfbd68;font:italic 300 clamp(24px,3vw,38px) 'Cormorant Garamond'}
+.name-reveal{margin:0;padding:0}
+.hero-content>p{margin-top:10px;color:#ffffffd9;font-size:15px;letter-spacing:.5em}
+.heart-layer{opacity:.3}.heart-layer span{filter:none}
+.tv-presentation .heart-layer{opacity:.16}
+@media(max-width:700px){.hero-content{align-items:center;padding:0 18px 14vh;text-align:center}.hero-title{flex-direction:column;align-items:center;gap:0}.hero-content h1{font-size:50px}.hero-title>b{margin:-6px 0}.hero-content>p{font-size:12px;letter-spacing:.35em}}

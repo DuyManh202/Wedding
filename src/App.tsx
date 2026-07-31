@@ -142,7 +142,7 @@ function App() {
     <main className={TV_MODE ? 'tv-presentation' : ''}>
       <div className="progress" />
       <div className="heart-layer" aria-hidden="true">
-        {Array.from({ length: 30 }, (_, i) => <span key={i} style={{ '--heart-x': `${(i * 37 + 9) % 100}%`, '--heart-delay': `${-(i * .87)}s`, '--heart-speed': `${9 + (i % 6) * 1.5}s`, '--heart-size': `${13 + (i % 5) * 4}px`, '--heart-drift': `${-45 + (i % 7) * 15}px` } as CSSProperties}>{i % 5 === 0 ? '♡' : '♥'}</span>)}
+        {Array.from({ length: 10 }, (_, i) => <span key={i} style={{ '--heart-x': `${(i * 37 + 9) % 100}%`, '--heart-delay': `${-(i * 1.7)}s`, '--heart-speed': `${13 + (i % 4) * 2}s`, '--heart-size': `${9 + (i % 4) * 3}px`, '--heart-drift': `${-35 + (i % 5) * 16}px` } as CSSProperties}>{i % 3 === 0 ? '♡' : '♥'}</span>)}
       </div>
       <audio ref={audio} loop />
       <button className={`music ${music ? 'playing' : ''}`} onClick={toggleMusic} aria-label="Bật hoặc tắt nhạc">{music ? '♫' : '▶'}</button>
@@ -152,17 +152,16 @@ function App() {
         <div className="letterbox top" /><div className="letterbox bottom" />
         {heroes.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
         <div className="hero-overlay" />
-        <div className="cloud cloud-left">☁</div><div className="cloud cloud-right">☁</div>
-        <div className="traditional-couplet couplet-left"><span>百年偕老</span><small>BÁCH NIÊN GIAI LÃO</small></div>
-        <div className="traditional-couplet couplet-right"><span>永結同心</span><small>VĨNH KẾT ĐỒNG TÂM</small></div>
         <div className="hero-content" key={`copy-${slide}`}>
-          <small><i /> THE WEDDING FILM OF <i /></small>
-          <div className="name-reveal"><h1>{GROOM}</h1></div><b>&</b><div className="name-reveal second"><h1>{BRIDE}</h1></div>
-          <div className="star-line"><i />✦<i /></div>
+          <small>THE WEDDING OF</small>
+          <div className="hero-title">
+            <div className="name-reveal"><h1>{GROOM}</h1></div>
+            <b>&</b>
+            <div className="name-reveal second"><h1>{BRIDE}</h1></div>
+          </div>
           <p>07 . 08 . 2026</p>
         </div>
-        <div className="scene-number" key={`scene-${slide}`}><small>SCENE</small><b>0{slide + 1}</b></div>
-        <div className="film-meta"><span>TAKE 0{slide + 1}</span><span>HÀ NỘI · VIỆT NAM</span><span>2026</span></div>
+        <div className="film-meta"><span>VĂN TUẤN</span><span>HÀ NỘI · VIỆT NAM</span><span>XUÂN MAI</span></div>
         <div className="slide-dots">{heroes.map((_, i) => <button className={i === slide ? 'active' : ''} onClick={() => setSlide(i)} key={i} />)}</div>
       </section>
 
