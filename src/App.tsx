@@ -202,6 +202,11 @@ function App() {
           <div className={`tv-opening ${showTvIntro ? '' : 'leaving'}`} aria-hidden="true">
             <div className="tv-curtain left" />
             <div className="tv-curtain right" />
+            <div className="tv-curtain-burst">
+              {Array.from({ length: 12 }, (_, i) => (
+                <i key={i} style={{ '--spark-angle': `${i * 30}deg`, '--spark-distance': `${90 + (i % 3) * 45}px`, '--spark-delay': `${(i % 4) * .04}s` } as CSSProperties} />
+              ))}
+            </div>
             <div className="tv-opening-copy">
               <span className="tv-opening-crest">囍</span>
               <small>THE WEDDING CELEBRATION</small>
