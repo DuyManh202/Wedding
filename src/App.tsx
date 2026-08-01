@@ -26,6 +26,7 @@ import tv6 from './img/2aOboQnzQvmhMcTBnzWTx9KvRx11nYERSuTJn3aq.jpg'
 import tv7 from './img/2aOboQnzQy52rWaVxKZYW0t4rSMYsckxIemPOkhE.jpg'
 import tv8 from './img/2aOboQnzQyI23UFzZ3smva1lA1DT6OIHhQkCTw8G.jpg'
 import tv9 from './img/2aOboQnzR079GGstihlXbKeUOdLQ4y7rdigpgVMG.jpg'
+import chibiCouple from './img/chibi-couple.png'
 
 const GROOM = 'Văn Tuấn'
 const BRIDE = 'Xuân Mai'
@@ -273,7 +274,7 @@ function App() {
                 <p>{tvCaptions[index][1]}</p>
               </div>
               {tvChapters[index] && <div className="tv-chapter"><small>{tvChapters[index][0]}</small><h2>{tvChapters[index][1]}</h2><i /></div>}
-              {index === tvSlides.length - 1 && <div className="tv-finale"><small>THANK YOU</small><h2>Cảm ơn bạn đã đến chung vui</h2><p>{GROOM} <i>&</i> {BRIDE}</p><b>07 · 08 · 2026</b></div>}
+              {index === tvSlides.length - 1 && <div className="tv-finale"><div className="tv-chibi-stage" aria-hidden="true"><img className="tv-finale-chibi" src={chibiCouple} alt="" /><i>♥</i><i>♥</i><i>♥</i><i>♥</i></div><div className="tv-finale-copy"><small>THANK YOU</small><h2>Cảm ơn bạn đã đến chung vui</h2><p>{GROOM} <i>&</i> {BRIDE}</p><b>07 · 08 · 2026</b></div></div>}
             </div>
           ))
           : heroPhotos.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
@@ -371,6 +372,7 @@ function App() {
       </section>
 
       <footer>
+        <div className="footer-chibi-stage rise"><img className="footer-chibi" src={chibiCouple} alt="Chibi cô dâu Xuân Mai và chú rể Văn Tuấn" /><i aria-hidden="true">♥</i><i aria-hidden="true">♥</i><i aria-hidden="true">♥</i></div>
         <div className="ornament"><i />✦<i /></div><p>TRÂN TRỌNG KÍNH MỜI</p>
         <div className="double-happiness"><span>囍</span></div>
         <h2>{GROOM}</h2><b>&</b><h2>{BRIDE}</h2>

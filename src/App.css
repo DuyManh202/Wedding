@@ -155,6 +155,10 @@ main { overflow:hidden; }
 .wish-grid article { break-inside:avoid; margin-bottom:20px; padding:24px; background:white; border:1px solid #edcdd44d; }
 .wish-grid article p { color:#2c2c2cb3; font:italic 17px/1.6 'Cormorant Garamond'; }.wish-grid article i { display:block; width:30px; height:1px; background:#c9a05555; }.wish-grid article h3 { color:#c4677bcc; font:400 26px 'Great Vibes'; margin:10px 0 0; }
 footer { position:relative; padding:80px 20px; text-align:center; color:white; background:linear-gradient(160deg,#140810,#2a0d1a 55%,#140810); }
+.footer-chibi-stage{position:relative;width:clamp(130px,18vw,190px);margin:-30px auto 18px}
+.footer-chibi{display:block;width:100%;height:auto;filter:drop-shadow(0 14px 20px #0008);transform-origin:50% 100%;animation:chibiGroove 3.2s ease-in-out infinite}
+.footer-chibi-stage i,.tv-chibi-stage i{position:absolute;color:#e99aaa;font-style:normal;opacity:0;pointer-events:none;filter:drop-shadow(0 3px 6px #0005);animation:chibiHeart 3s ease-out infinite}
+.footer-chibi-stage i:nth-of-type(1){left:8%;top:44%;animation-delay:.2s}.footer-chibi-stage i:nth-of-type(2){right:7%;top:34%;animation-delay:1.15s}.footer-chibi-stage i:nth-of-type(3){left:26%;top:13%;animation-delay:2.05s}
 .double-happiness { width:58px; height:58px; margin:0 auto 20px; display:grid; place-items:center; color:#f0c868; border:1px solid #d5aa5266; background:#7e1728; box-shadow:0 0 28px #ce435544; font:700 32px Georgia,serif; transform:rotate(45deg); }
 .double-happiness span { transform:rotate(-45deg); }
 .double-happiness { line-height:1; }
@@ -412,6 +416,13 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-slide.active .tv-chapter{animation:tvChapterCard 2.7s .4s ease-in-out both}
 .tv-slide.has-chapter.active .tv-caption{animation-delay:3.15s}
 .tv-finale{position:absolute;inset:0;z-index:12;display:grid;place-content:center;text-align:center;color:#fff8e9;background:radial-gradient(circle,#3e1224d9 0,#17070dd9 68%,#0d0408e8 100%);opacity:0;pointer-events:none}
+.tv-finale-copy{position:relative;z-index:1;display:grid;justify-items:center}
+.tv-chibi-stage{position:absolute;z-index:1;right:clamp(5vw,10vw,180px);bottom:0;width:min(25vw,350px);height:82%;transform-origin:50% 100%;opacity:0}
+.tv-finale-chibi{width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 18px 28px #0009);transform-origin:50% 100%}
+.tv-slide.is-finale.active .tv-chibi-stage{animation:chibiPopIn .8s 2.05s cubic-bezier(.18,.9,.25,1.3) both}
+.tv-slide.is-finale.active .tv-finale-chibi{animation:chibiGroove 2.7s 2.8s ease-in-out infinite}
+.tv-chibi-stage i{font-size:clamp(15px,2vw,28px)}
+.tv-chibi-stage i:nth-of-type(1){left:3%;top:48%;animation-delay:2.5s}.tv-chibi-stage i:nth-of-type(2){right:0;top:38%;animation-delay:3.2s}.tv-chibi-stage i:nth-of-type(3){left:25%;top:14%;animation-delay:3.9s}.tv-chibi-stage i:nth-of-type(4){right:22%;top:5%;animation-delay:4.6s}
 .tv-finale small{color:#dfbc64;font:600 10px Inter,sans-serif;letter-spacing:.72em}
 .tv-finale h2{margin:22px 0 28px;font:italic 400 clamp(42px,5vw,78px)/1.08 'Cormorant Garamond',serif}
 .tv-finale p{margin:0;color:#fff;font:italic 400 clamp(28px,3.5vw,52px) 'Cormorant Garamond',serif}.tv-finale p i{padding:0 18px;color:#dfbc64}
@@ -420,7 +431,11 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-slide.is-finale .tv-caption{display:none}
 @keyframes tvChapterCard{0%{opacity:0;clip-path:inset(50% 0)}18%,68%{opacity:1;clip-path:inset(0)}100%{opacity:0;clip-path:inset(0 50%)}}
 @keyframes tvFinaleIn{from{opacity:0;transform:scale(1.025)}to{opacity:1;transform:none}}
-@media(max-width:700px){.tv-chapter h2{font-size:44px}.tv-finale{padding:20px}.tv-finale h2{font-size:38px}}
+@keyframes chibiPopIn{0%{opacity:0;transform:translateY(35%) scale(.45) rotate(-7deg)}68%{opacity:1;transform:translateY(-3%) scale(1.07) rotate(2deg)}100%{opacity:.94;transform:none}}
+@keyframes chibiGroove{0%,100%{transform:translateY(0) rotate(-1.5deg) scale(1)}25%{transform:translateY(-7px) rotate(1.5deg) scale(1.015)}50%{transform:translateY(0) rotate(-.8deg) scale(1)}75%{transform:translateY(-5px) rotate(1.2deg) scale(1.01)}}
+@keyframes chibiHeart{0%{opacity:0;transform:translateY(12px) scale(.45) rotate(-12deg)}18%{opacity:.9}70%{opacity:.72}100%{opacity:0;transform:translateY(-65px) scale(1.2) rotate(12deg)}}
+@media(max-width:700px){.tv-chapter h2{font-size:44px}.tv-finale{padding:20px}.tv-finale h2{font-size:38px}.tv-chibi-stage{right:-2vw;width:30vw;height:54%}.tv-finale-copy{transform:translateX(-8vw)}}
+@media(prefers-reduced-motion:reduce){.footer-chibi,.tv-slide.is-finale.active .tv-finale-chibi,.tv-slide.is-finale.active .tv-chibi-stage,.footer-chibi-stage i,.tv-chibi-stage i{animation:none}.tv-chibi-stage{opacity:.94}}
 
 /* Grand royal treatment */
 .tv-presentation .hero{background:radial-gradient(circle at 50% 35%,#26324c 0,#171728 34%,#260b17 72%,#0b060a 100%)}
