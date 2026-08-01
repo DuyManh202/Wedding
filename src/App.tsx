@@ -1,7 +1,8 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import type { CSSProperties, FormEvent } from 'react'
 import './App.css'
-import weddingMusic from './music/Indila - Love Story (Slowed-Reverb).mp3'
+import loveStoryMusic from './music/Indila - Love Story (Slowed-Reverb).mp3'
+import cuoiThoiMusic from './music/Cưới Thôi 2 - Masew x Masiu.mp3'
 
 const Heart3D = lazy(() => import('./components/Heart3D'))
 
@@ -28,6 +29,7 @@ import tv9 from './img/2aOboQnzR079GGstihlXbKeUOdLQ4y7rdigpgVMG.jpg'
 
 const GROOM = 'Văn Tuấn'
 const BRIDE = 'Xuân Mai'
+const weddingPlaylist = [loveStoryMusic, cuoiThoiMusic]
 const TV_MODE = new URLSearchParams(window.location.search).get('tv') === '1'
 const heroes = [hero1, hero2, hero3, hero4]
 const photos = [g1, g2, g3, g4, g5, hero2, hero3]
@@ -95,15 +97,28 @@ function App() {
   const [wish, setWish] = useState({ name: '', message: '' })
   const [wishes, setWishes] = useState<{ name: string; message: string }[]>([])
   const audio = useRef<HTMLAudioElement | null>(null)
+  const track = useRef(0)
   if (!audio.current) {
-    audio.current = new Audio(weddingMusic)
-    audio.current.loop = true
+    audio.current = new Audio(weddingPlaylist[track.current])
     audio.current.preload = 'auto'
   }
 
   useEffect(() => {
     const timer = window.setInterval(() => setTime(getCountdown()), 1000)
     return () => window.clearInterval(timer)
+  }, [])
+  useEffect(() => {
+    const player = audio.current
+    if (!player) return
+    const playNextTrack = () => {
+      track.current = (track.current + 1) % weddingPlaylist.length
+      player.src = weddingPlaylist[track.current]
+      player.play()
+        .then(() => setMusic(true))
+        .catch(() => setMusic(false))
+    }
+    player.addEventListener('ended', playNextTrack)
+    return () => player.removeEventListener('ended', playNextTrack)
   }, [])
   useEffect(() => {
     if (!opened || (TV_MODE && showTvIntro)) return
