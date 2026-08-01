@@ -1,7 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import type { CSSProperties, FormEvent } from 'react'
 import './App.css'
-import loveStoryMusic from './music/Indila - Love Story (Slowed-Reverb).mp3'
 import cuoiThoiMusic from './music/Cưới Thôi 2 - Masew x Masiu.mp3'
 
 const Heart3D = lazy(() => import('./components/Heart3D'))
@@ -30,7 +29,7 @@ import chibiCouple from './img/chibi-couple.png'
 
 const GROOM = 'Văn Tuấn'
 const BRIDE = 'Xuân Mai'
-const weddingPlaylist = [loveStoryMusic, cuoiThoiMusic]
+const weddingPlaylist = [cuoiThoiMusic]
 const TV_MODE = new URLSearchParams(window.location.search).get('tv') === '1'
 const heroes = [hero1, hero2, hero3, hero4]
 const photos = [g1, g2, g3, g4, g5, hero2, hero3]
