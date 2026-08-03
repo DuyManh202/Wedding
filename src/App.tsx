@@ -5,7 +5,7 @@ import cuoiThoiMusic from './music/Cưới Thôi 2 - Masew x Masiu.mp3'
 import outroMusic from './music/Cưới Đi x Váy Cưới x Gặp Em Đúng Lúc Remix.mp3'
 import damCuoiDuongQueMusic from './music/Đám Cưới Trên Đường Quê Remix.mp3'
 import emSeLaCoDauMusic from './music/EM SẼ LÀ CÔ DÂU REMIX.mp3'
-import ngayDauTienMusic from './music/Ngày Đầu Tiên.mp3'
+import mashup3in1Music from './music/Nhạc Đám Cưới Mashup Remix 3in1 - Có Mình Và Ta x Từ Nay Em Là Vợ Anh x Cảm Ơn Em.mp3'
 
 const Heart3D = lazy(() => import('./components/Heart3D'))
 
@@ -40,9 +40,9 @@ const outroPlaylist = [
   { src: outroMusic, title: 'Cưới Đi × Váy Cưới × Gặp Em Đúng Lúc', label: 'WEDDING REMIX', bpm: 128, photoBeats: 16 },
   { src: damCuoiDuongQueMusic, title: 'Đám Cưới Trên Đường Quê', label: 'WEDDING REMIX', bpm: 130, photoBeats: 16 },
   { src: emSeLaCoDauMusic, title: 'Em Sẽ Là Cô Dâu', label: 'WEDDING REMIX', bpm: 128, photoBeats: 16 },
-  { src: ngayDauTienMusic, title: 'Ngày Đầu Tiên', label: 'WEDDING SONG', bpm: 76, photoBeats: 8 },
+  { src: mashup3in1Music, title: 'Có Mình Và Ta × Từ Nay Em Là Vợ Anh × Cảm Ơn Em', label: 'WEDDING MASHUP', bpm: 128, photoBeats: 16 },
 ]
-const TV_MODE = new URLSearchParams(window.location.search).get('tv') === '1'
+const TV_MODE = true
 const heroes = [hero1, hero2, hero3, hero4]
 const photos = [g1, g2, g3, g4, g5, hero2, hero3]
 const tvPhotos = [hero1, hero2, hero3, hero4, g1, g2, g3, g4, g5, groom, bride, tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9]
