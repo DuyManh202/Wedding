@@ -265,14 +265,13 @@ function App() {
     const startTv = () => {
       startAudioAnalysis()
       player?.play().then(() => setMusic(true)).catch(() => undefined)
-      const webkitRoot = document.documentElement as HTMLElement & { webkitRequestFullscreen?: () => Promise<void> | void }
-      const request = document.documentElement.requestFullscreen?.bind(document.documentElement) || webkitRoot.webkitRequestFullscreen?.bind(webkitRoot)
-      if (request) Promise.resolve(request()).catch(() => undefined)
     }
     document.addEventListener('pointerdown', startTv, { once: true })
+    document.addEventListener('keydown', startTv, { once: true })
     return () => {
       document.body.classList.remove('tv-mode', 'mobile-tv-fullscreen')
       document.removeEventListener('pointerdown', startTv)
+      document.removeEventListener('keydown', startTv)
     }
   }, [opened])
 
@@ -296,6 +295,14 @@ function App() {
       player.play().catch(() => undefined)
     }
     setMusic(!music)
+  }
+  const enableTvMusic = () => {
+    const player = audio.current
+    if (!player) return
+    startAudioAnalysis()
+    player.play()
+      .then(() => setMusic(true))
+      .catch(() => setMusic(false))
   }
   const submitWish = (event: FormEvent) => {
     event.preventDefault()
@@ -345,6 +352,11 @@ function App() {
         ))}
       </div>
       {!TV_MODE && <button className={`music ${music ? 'playing' : ''}`} onClick={toggleMusic} aria-label="Bật hoặc tắt nhạc">{music ? '♫' : '▶'}</button>}
+      {TV_MODE && !music && (
+        <button className="tv-sound-prompt" onClick={enableTvMusic} type="button">
+          <i>♪</i><span>Chạm để bật nhạc</span>
+        </button>
+      )}
 
       <section className="hero">
         {TV_MODE && (
@@ -401,6 +413,7 @@ function App() {
               </div>
             </div>
             <div className="tv-music-copy">
+              <div className="tv-now-playing"><i /><i /><i /><b>ĐANG PHÁT</b></div>
               <span>WEDDING MUSIC</span>
               <h2 key={`music-title-${outroTrack}`}>{outroPlaylist[outroTrack].title}</h2>
               <small>{outroPlaylist[outroTrack].label} · 07.08.2026</small>
@@ -408,7 +421,7 @@ function App() {
                 <b>INSTRUMENTAL REMIX</b>
                 <p>{GROOM} <i>♥</i> {BRIDE}</p>
               </div>
-              <div className="tv-music-progress" aria-hidden="true"><i /></div>
+              <div className="tv-music-progress" aria-hidden="true"><i /><b /></div>
               <div className="tv-music-spectrum" aria-hidden="true"><i /><span>♥</span></div>
             </div>
           </div>
