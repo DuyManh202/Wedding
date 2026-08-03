@@ -517,3 +517,415 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 .tv-opening-copy{z-index:2}
 .tv-opening.leaving .heart-3d{transition:opacity 1.35s ease;opacity:0}
 @media(max-width:700px){.heart-3d{inset:12vh 2vw 8vh;opacity:.58}}
+
+/* Music-synchronised TV transitions — 144 BPM */
+.tv-presentation .tv-slide.active .tv-royal-frame{
+  animation:tvBeatFrame var(--beat-duration,1666.67ms) ease-in-out infinite!important
+}
+.tv-presentation .tv-impact{display:block!important;z-index:8!important;inset:0!important;overflow:hidden!important;background:transparent!important;opacity:1!important;transform:none!important}
+.tv-presentation .tv-impact:before,.tv-presentation .tv-impact:after{display:none!important}
+.tv-presentation .tv-impact.impact-0{display:grid!important;place-items:center!important}
+.tv-presentation .tv-impact.impact-0 .tv-heart-transition{display:block!important;width:min(25vmin,250px)!important;filter:drop-shadow(0 0 18px #fff) drop-shadow(0 0 26px #c91f4555)!important;animation:tvBeatHeart 1.28s cubic-bezier(.16,.8,.22,1) both!important}
+.tv-presentation .tv-heart-transition .heart-halo{stroke:#d82c4e66!important;stroke-width:3!important}
+.tv-presentation .tv-heart-transition .heart-line{stroke:#fff!important;stroke-width:1.2!important}
+.tv-presentation .tv-impact.impact-1:before{content:''!important;display:block!important;position:absolute!important;inset:-18% -40%!important;background:linear-gradient(105deg,transparent 34%,#fff8 43%,#fff 50%,#ffe9edc2 57%,transparent 66%)!important;filter:blur(7px)!important;animation:tvBeatVeil 1.35s cubic-bezier(.18,.72,.22,1) both!important}
+.tv-presentation .tv-impact.impact-2:before{content:''!important;display:block!important;position:absolute!important;top:-35%!important;bottom:-35%!important;left:-30%!important;width:32%!important;background:linear-gradient(90deg,transparent,#a7193af2 34%,#d83b5ae8 62%,transparent)!important;filter:blur(5px)!important;animation:tvBeatRibbon 1.22s cubic-bezier(.18,.72,.22,1) both!important}
+.tv-presentation .tv-impact.impact-3:before{content:''!important;display:block!important;position:absolute!important;inset:0!important;background:radial-gradient(circle at center,#fff 0,#fff8 18%,#ffdfe53d 38%,transparent 62%)!important;animation:tvBeatBloom 1.18s ease-out both!important}
+@keyframes tvBeatFrame{0%,100%{border-color:#d1b36a66;box-shadow:none}9%{border-color:#fff9;box-shadow:inset 0 0 22px #fff2,0 0 16px #fff2}24%{border-color:#d1b36a70;box-shadow:none}}
+@keyframes tvBeatHeart{0%{opacity:0;transform:scale(.7)}22%{opacity:.92;transform:scale(1.04)}68%{opacity:.72;transform:scale(1)}100%{opacity:0;transform:scale(1.24)}}
+@keyframes tvBeatVeil{0%{opacity:0;transform:translateX(-65%) skewX(-8deg)}18%{opacity:.92}100%{opacity:0;transform:translateX(65%) skewX(-3deg)}}
+@keyframes tvBeatRibbon{0%{opacity:0;transform:translateX(-160%) skewX(-13deg)}20%{opacity:.82}100%{opacity:0;transform:translateX(510%) skewX(-8deg)}}
+@keyframes tvBeatBloom{0%{opacity:.82;transform:scale(.22)}32%{opacity:.5}100%{opacity:0;transform:scale(2.15)}}
+@media(prefers-reduced-motion:reduce){.tv-presentation .tv-slide.active .tv-royal-frame{animation:none!important}.tv-presentation .tv-impact{display:none!important}}
+
+/* Story-to-photo montage: reveal after chapter card, then move with the music */
+.tv-presentation .tv-slide figure{
+  will-change:transform,opacity,filter
+}
+.tv-presentation .tv-slide figure img{
+  will-change:transform;
+  transform-origin:center center
+}
+.tv-presentation .tv-slide.has-chapter figure{
+  opacity:0
+}
+.tv-presentation .tv-slide.has-chapter.active figure{
+  animation:tvAfterStoryReveal 1.35s 2.55s cubic-bezier(.16,.8,.22,1) both!important
+}
+.tv-presentation .tv-slide.has-chapter.active.portrait-pair figure:last-of-type{
+  animation-delay:2.7s!important
+}
+
+/* Scene 1: camera gently travels from left to right. */
+.tv-presentation .tv-slide.active.tv-effect-0 figure img{
+  animation:tvPhotoTravelRight 6.7s cubic-bezier(.2,.55,.3,1) both!important
+}
+
+/* Scene 2: two portraits move towards one another. */
+.tv-presentation .tv-slide.active.tv-effect-1 figure:first-of-type img{
+  animation:tvPhotoMeetLeft 6.7s ease-in-out both!important
+}
+.tv-presentation .tv-slide.active.tv-effect-1 figure:last-of-type img{
+  animation:tvPhotoMeetRight 6.7s ease-in-out both!important
+}
+
+/* Scene 3: a slow pull-back reveals more of the wedding portrait. */
+.tv-presentation .tv-slide.active.tv-effect-2 figure img{
+  animation:tvPhotoPullBack 6.7s cubic-bezier(.2,.55,.3,1) both!important
+}
+.tv-presentation .tv-slide.active.tv-effect-2 figure:last-of-type img{
+  animation-direction:reverse!important
+}
+
+/* Scene 4: opposing vertical movement adds depth without rotating the photos. */
+.tv-presentation .tv-slide.active.tv-effect-3 figure:first-of-type img{
+  animation:tvPhotoFloatUp 6.7s ease-in-out both!important
+}
+.tv-presentation .tv-slide.active.tv-effect-3 figure:last-of-type img{
+  animation:tvPhotoFloatDown 6.7s ease-in-out both!important
+}
+
+/* Chapter scenes are longer: motion begins after the story card disappears. */
+.tv-presentation .tv-slide.has-chapter.active.tv-effect-0 figure img,
+.tv-presentation .tv-slide.has-chapter.active.tv-effect-1 figure img,
+.tv-presentation .tv-slide.has-chapter.active.tv-effect-2 figure img,
+.tv-presentation .tv-slide.has-chapter.active.tv-effect-3 figure img{
+  animation-delay:2.55s!important;
+  animation-duration:5.8s!important
+}
+
+.tv-presentation .tv-slide:not(.active) figure img,
+.tv-presentation .tv-slide:not(.active) figure{
+  animation:none!important
+}
+
+@keyframes tvAfterStoryReveal{
+  0%{opacity:0;transform:translateY(18px) scale(.975);filter:blur(5px) brightness(1.18)}
+  68%{opacity:1;transform:translateY(-2px) scale(1.004);filter:blur(0) brightness(1.04)}
+  100%{opacity:1;transform:none;filter:blur(0) brightness(1)}
+}
+@keyframes tvPhotoTravelRight{
+  0%{transform:scale(1.055) translate3d(-1.8%,0,0)}
+  100%{transform:scale(1.085) translate3d(1.8%,-.3%,0)}
+}
+@keyframes tvPhotoMeetLeft{
+  0%{transform:scale(1.045) translate3d(-1.6%,0,0)}
+  100%{transform:scale(1.075) translate3d(.9%,-.25%,0)}
+}
+@keyframes tvPhotoMeetRight{
+  0%{transform:scale(1.045) translate3d(1.6%,0,0)}
+  100%{transform:scale(1.075) translate3d(-.9%,-.25%,0)}
+}
+@keyframes tvPhotoPullBack{
+  0%{transform:scale(1.095)}
+  100%{transform:scale(1.015)}
+}
+@keyframes tvPhotoFloatUp{
+  0%{transform:scale(1.055) translate3d(0,1.2%,0)}
+  100%{transform:scale(1.075) translate3d(.35%,-1.2%,0)}
+}
+@keyframes tvPhotoFloatDown{
+  0%{transform:scale(1.055) translate3d(0,-1.2%,0)}
+  100%{transform:scale(1.075) translate3d(-.35%,1.2%,0)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .tv-presentation .tv-slide.has-chapter figure{opacity:1}
+  .tv-presentation .tv-slide figure,
+  .tv-presentation .tv-slide figure img{animation:none!important;transform:none!important;filter:none!important}
+}
+
+/* Finale: twelve wedding photographs assemble into one heart. */
+.tv-presentation .tv-finale{
+  display:grid!important;
+  grid-template-columns:minmax(420px,1.08fr) minmax(390px,.92fr)!important;
+  align-items:center!important;
+  gap:clamp(30px,4vw,76px)!important;
+  padding:clamp(46px,6vh,76px) clamp(58px,6vw,110px)!important;
+  place-content:stretch!important
+}
+.tv-heart-collage{
+  position:relative;z-index:2;width:min(41vw,650px);aspect-ratio:1.08;margin:auto;
+  opacity:0;transform:translateY(24px) scale(.86);
+  filter:drop-shadow(0 24px 34px #0007) drop-shadow(0 0 18px #e22f5252)
+}
+.tv-heart-collage:before{
+  content:'';position:absolute;z-index:-1;inset:-7px;background:#fff;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 92'%3E%3Cpath fill='black' d='M50 89C42 80 5 60 5 31C5 10 30 1 50 23C70 1 95 10 95 31C95 60 58 80 50 89Z'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 92'%3E%3Cpath fill='black' d='M50 89C42 80 5 60 5 31C5 10 30 1 50 23C70 1 95 10 95 31C95 60 58 80 50 89Z'/%3E%3C/svg%3E") center/100% 100% no-repeat
+}
+.tv-heart-collage-grid{
+  position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:2px;
+  overflow:hidden;background:#fff!important;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 92'%3E%3Cpath fill='black' d='M50 89C42 80 5 60 5 31C5 10 30 1 50 23C70 1 95 10 95 31C95 60 58 80 50 89Z'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 92'%3E%3Cpath fill='black' d='M50 89C42 80 5 60 5 31C5 10 30 1 50 23C70 1 95 10 95 31C95 60 58 80 50 89Z'/%3E%3C/svg%3E") center/100% 100% no-repeat
+}
+.tv-heart-collage-grid>span{position:relative;display:block;min-width:0;min-height:0;overflow:hidden;background-size:cover;background-position:center;isolation:isolate}
+.tv-heart-collage-grid>span:before{content:'';position:absolute;z-index:0;inset:0;background:linear-gradient(#71152ba8,#9f1e3a99);backdrop-filter:grayscale(1);-webkit-backdrop-filter:grayscale(1)}
+.tv-heart-collage-grid img{
+  position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:cover;opacity:0;
+  --tile-x:-140px;--tile-y:-80px;--tile-rotate:-9deg;
+  transform:translate3d(var(--tile-x),var(--tile-y),0) scale(.45) rotate(var(--tile-rotate));
+  filter:brightness(1.08) saturate(.95)
+}
+.tv-heart-collage-grid>span:nth-child(4n+2) img{--tile-x:150px;--tile-y:-65px;--tile-rotate:10deg}
+.tv-heart-collage-grid>span:nth-child(4n+3) img{--tile-x:-155px;--tile-y:90px;--tile-rotate:8deg}
+.tv-heart-collage-grid>span:nth-child(4n) img{--tile-x:145px;--tile-y:95px;--tile-rotate:-10deg}
+.tv-slide.is-finale.active .tv-heart-collage{
+  animation:tvHeartCollageIn 1.15s 1.7s cubic-bezier(.16,.86,.22,1.08) both
+}
+.tv-slide.is-finale.active .tv-heart-collage-grid img{
+  animation:tvHeartTileIn .82s cubic-bezier(.18,.86,.25,1.16) both!important;
+  animation-delay:calc(1.75s + var(--photo-order) * .12s)!important
+}
+.tv-presentation .tv-finale-copy{
+  position:relative!important;z-index:3!important;justify-items:start!important;text-align:left!important;
+  opacity:0;transform:translateX(24px)
+}
+.tv-slide.is-finale.active .tv-finale-copy{
+  animation:tvFinaleCopyIn 1s 3.15s cubic-bezier(.16,.8,.22,1) both
+}
+.tv-presentation .tv-finale-copy h2{margin:18px 0 24px!important;font-size:clamp(36px,4vw,65px)!important}
+.tv-presentation .tv-finale-copy p{font-size:clamp(25px,3vw,44px)!important}
+.tv-presentation .tv-chibi-stage{right:2.5vw!important;width:min(11vw,160px)!important;height:30%!important;opacity:.58!important}
+@keyframes tvHeartCollageIn{0%{opacity:0;transform:translateY(24px) scale(.86);filter:blur(8px) drop-shadow(0 20px 30px #0005)}70%{opacity:1;transform:translateY(-4px) scale(1.025);filter:blur(0) drop-shadow(0 26px 36px #0007)}100%{opacity:1;transform:none;filter:drop-shadow(0 24px 34px #0007) drop-shadow(0 0 18px #e22f5252)}}
+@keyframes tvHeartTileIn{0%{opacity:0;transform:translate3d(var(--tile-x),var(--tile-y),0) scale(.45) rotate(var(--tile-rotate));filter:brightness(1.55) blur(5px)}68%{opacity:1;transform:translate3d(0,0,0) scale(1.07) rotate(0);filter:brightness(1.1) blur(0)}100%{opacity:1;transform:none;filter:brightness(1.03) saturate(.95)}}
+@keyframes tvFinaleCopyIn{to{opacity:1;transform:none}}
+@media(max-width:900px){.tv-presentation .tv-finale{grid-template-columns:1fr!important;gap:18px!important;padding:28px 24px!important}.tv-heart-collage{width:min(68vw,520px)}.tv-presentation .tv-finale-copy{justify-items:center!important;text-align:center!important}.tv-presentation .tv-finale-copy h2{margin:8px 0 12px!important}.tv-presentation .tv-chibi-stage{display:none!important}}
+@media(prefers-reduced-motion:reduce){.tv-heart-collage,.tv-heart-collage-grid img,.tv-presentation .tv-finale-copy{opacity:1!important;transform:none!important;animation:none!important;filter:none!important}}
+
+/* A restrained floral finish around the photo heart. */
+.tv-finale-flowers{display:none!important}
+.tv-finale-flowers i{position:absolute;width:clamp(32px,3.6vw,58px);aspect-ratio:1;opacity:0;filter:drop-shadow(0 7px 9px #6d102c4a);transform:scale(.25) rotate(-18deg)}
+.tv-finale-flowers i:before,.tv-finale-flowers i:after{content:'';position:absolute;inset:12%;border-radius:50%;background:radial-gradient(circle,#fff 0 14%,#ffe8ed 15% 33%,#cf3151 35% 52%,transparent 54%),radial-gradient(ellipse at 50% 0,#fff 0 18%,#f4b9c5 20% 42%,transparent 44%);box-shadow:0 -13px 0 -5px #fff,11px -4px 0 -5px #f7d8df,7px 10px 0 -5px #fff,-7px 10px 0 -5px #f4c3cd,-11px -4px 0 -5px #fff}
+.tv-finale-flowers i:after{inset:30%;background:#fff;border:3px solid #d43152;box-shadow:none}
+.tv-finale-flowers i:nth-child(1){left:5%;top:18%}.tv-finale-flowers i:nth-child(2){right:5%;top:18%}.tv-finale-flowers i:nth-child(3){left:15%;bottom:16%}.tv-finale-flowers i:nth-child(4){right:15%;bottom:16%}
+.tv-slide.is-finale.active .tv-finale-flowers i{animation:tvFlowerBloom .85s cubic-bezier(.18,.88,.25,1.25) both}
+.tv-slide.is-finale.active .tv-finale-flowers i:nth-child(1){animation-delay:3.05s}.tv-slide.is-finale.active .tv-finale-flowers i:nth-child(2){animation-delay:3.2s}.tv-slide.is-finale.active .tv-finale-flowers i:nth-child(3){animation-delay:3.35s}.tv-slide.is-finale.active .tv-finale-flowers i:nth-child(4){animation-delay:3.5s}
+.tv-finale-petals{position:absolute;z-index:5;inset:0;overflow:hidden;pointer-events:none;opacity:.54}
+.tv-finale-petals>i{position:absolute;left:var(--petal-x);top:-24px;width:7px;height:13px;border-radius:90% 10% 75% 25%;opacity:0;background:linear-gradient(145deg,#fff 0 35%,#f4cbd3 70%,#d95a73);box-shadow:none}
+.tv-finale-petals>i:nth-child(n+7){display:none}
+.tv-slide.is-finale.active .tv-finale-petals>i{animation:tvFinalePetal var(--petal-duration) var(--petal-delay) ease-in infinite}
+@keyframes tvFlowerBloom{0%{opacity:0;transform:scale(.25) rotate(-18deg)}72%{opacity:1;transform:scale(1.12) rotate(3deg)}100%{opacity:.94;transform:scale(1) rotate(0)}}
+@keyframes tvFinalePetal{0%{opacity:0;transform:translate3d(0,-20px,0) rotate(0)}14%{opacity:.78}72%{opacity:.62}100%{opacity:0;transform:translate3d(var(--petal-drift),105vh,0) rotate(var(--petal-rotation))}}
+@media(max-width:700px){.tv-finale-flowers i{width:30px}.tv-finale-petals>i:nth-child(2n){display:none}}
+@media(prefers-reduced-motion:reduce){.tv-finale-petals{display:none}.tv-finale-flowers i{opacity:.9!important;transform:none!important;animation:none!important}}
+
+/* Post-finale music mode */
+.tv-music-outro{position:absolute;z-index:50;inset:0;display:grid;grid-template-columns:minmax(420px,.9fr) minmax(520px,1.1fr);align-items:center;gap:clamp(54px,6vw,110px);padding:clamp(62px,8vh,100px) clamp(76px,8vw,150px);overflow:hidden;color:#fff;background:#18070e;animation:tvMusicModeIn 1.45s cubic-bezier(.16,.8,.22,1) both}
+.tv-music-backdrop{position:absolute;z-index:-3;inset:-5%;width:110%;height:110%;object-fit:cover;opacity:.18;filter:blur(18px) grayscale(.25) brightness(.42);transform:scale(1.08);animation:tvMusicBackdrop 18s ease-in-out infinite alternate}
+.tv-music-outro:before{content:'';position:absolute;z-index:-2;inset:0;background:radial-gradient(circle at 18% 44%,#d72e5047,transparent 32%),radial-gradient(circle at 78% 24%,#ffffff12,transparent 24%),linear-gradient(110deg,#17060dd9,#3e1020e8 52%,#11050bec)}
+.tv-music-outro:after{content:'';position:absolute;z-index:-1;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,#ffffff08 0 1px,transparent 1px 4px);opacity:.25}
+.tv-music-particles{position:absolute;inset:0;pointer-events:none}
+.tv-music-particles i{position:absolute;left:var(--music-x);top:var(--music-y);width:var(--music-size);height:var(--music-size);border-radius:50%;opacity:0;background:#fff;box-shadow:0 0 12px #fff,0 0 24px #e43a5f;animation:tvMusicParticle 3750ms var(--music-delay) ease-in-out infinite}
+.tv-music-cover{position:relative;width:min(38vw,610px);aspect-ratio:1;border:1px solid #ffffffb8;border-radius:28px;padding:8px;background:#ffffff1f;box-shadow:0 35px 90px #000b,0 0 45px #d82c4e33;backdrop-filter:blur(16px);animation:tvMusicCoverIn 1.25s .35s cubic-bezier(.16,.85,.22,1.06) both}
+.tv-music-cover>img{width:100%;height:100%;object-fit:cover;border-radius:20px;filter:brightness(1.04) saturate(.95)}
+.tv-music-cover>small{position:absolute;left:26px;bottom:24px;padding:9px 14px;border-radius:999px;color:#fff;background:#9e1839d9;border:1px solid #ffffff70;font:600 9px Inter,sans-serif;letter-spacing:.28em;backdrop-filter:blur(12px)}
+.tv-music-equalizer{position:absolute;z-index:3;left:8%;right:8%;bottom:-22px;height:72px;display:flex;align-items:flex-end;justify-content:center;gap:5px;padding:0 18px}
+.tv-music-equalizer i{width:5px;height:70%;border-radius:99px;background:linear-gradient(#fff,#e42f55);box-shadow:0 0 9px #e52c53;transform-origin:center bottom;animation:tvMusicBar 937.5ms ease-in-out infinite alternate;animation-delay:calc(var(--bar-order)*-.047s)}
+.tv-music-copy{position:relative;z-index:2;max-width:780px;animation:tvMusicCopyIn 1.2s .62s cubic-bezier(.16,.8,.22,1) both}
+.tv-music-copy>span{display:block;margin-bottom:18px;color:#f4b6c3;font:650 10px Inter,sans-serif;letter-spacing:.56em}
+.tv-music-copy h2{margin:0;color:#fff;font:600 clamp(42px,4.5vw,78px)/1.04 'Playfair Display',Georgia,serif;letter-spacing:-.035em;text-shadow:0 8px 35px #0008}
+.tv-music-copy h2 i{color:#e64a68;font:400 .7em 'Great Vibes',cursive}
+.tv-music-copy>small{display:block;margin-top:19px;color:#ffffff8c;font:500 10px Inter,sans-serif;letter-spacing:.4em}
+.tv-music-line{min-height:150px;margin-top:52px;padding-left:24px;border-left:3px solid #d92d50;animation:tvMusicWordsIn .9s cubic-bezier(.16,.8,.22,1) both}
+.tv-music-line b{display:block;color:#f3aabd;font:600 clamp(20px,2vw,32px) Inter,sans-serif;letter-spacing:.04em}
+.tv-music-line p{max-width:700px;margin:12px 0 0;color:#fff;font:500 clamp(26px,2.8vw,47px)/1.25 'Playfair Display',Georgia,serif}
+.tv-music-progress{height:2px;margin-top:38px;overflow:hidden;border-radius:99px;background:#ffffff24}
+.tv-music-progress i{display:block;width:38%;height:100%;background:linear-gradient(90deg,#d72c4e,#fff);box-shadow:0 0 12px #e13b5d;animation:tvMusicProgress 7500ms linear infinite}
+@keyframes tvMusicModeIn{from{opacity:0;filter:brightness(2)}to{opacity:1;filter:brightness(1)}}
+@keyframes tvMusicCoverIn{from{opacity:0;transform:translateX(-50px) scale(.94);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}
+@keyframes tvMusicCopyIn{from{opacity:0;transform:translateX(44px)}to{opacity:1;transform:none}}
+@keyframes tvMusicWordsIn{from{opacity:0;transform:translateY(18px);clip-path:inset(0 0 100%)}to{opacity:1;transform:none;clip-path:inset(0)}}
+@keyframes tvMusicBackdrop{from{transform:scale(1.08) translateX(-1%)}to{transform:scale(1.14) translateX(1%)}}
+@keyframes tvMusicParticle{0%,100%{opacity:0;transform:translateY(16px) scale(.5)}28%{opacity:.75}65%{opacity:.35;transform:translateY(-22px) scale(1.2)}}
+@keyframes tvMusicBar{0%{transform:scaleY(.18);opacity:.55}100%{transform:scaleY(1);opacity:1}}
+@keyframes tvMusicProgress{from{transform:translateX(-110%)}to{transform:translateX(300%)}}
+@media(max-width:900px){.tv-music-outro{grid-template-columns:1fr;gap:30px;padding:38px 28px;text-align:center}.tv-music-cover{width:min(54vw,430px);margin:auto}.tv-music-copy{margin:auto}.tv-music-copy h2{font-size:clamp(34px,7vw,54px)}.tv-music-line{min-height:100px;margin-top:25px;padding-left:0;border-left:0}.tv-music-progress{margin-top:20px}}
+@media(prefers-reduced-motion:reduce){.tv-music-outro,.tv-music-cover,.tv-music-copy,.tv-music-line{animation:none}.tv-music-particles{display:none}.tv-music-equalizer i{animation:none;height:45%}.tv-music-backdrop{animation:none}}
+
+/* Beat pulse and travelling spectrum heart for Music Mode. */
+.tv-music-outro{animation:tvMusicModeIn 1.45s cubic-bezier(.16,.8,.22,1) both,tvMusicSceneBeat 468.75ms 1.45s ease-out infinite}
+.tv-music-pulse{position:absolute;z-index:0;left:22%;top:50%;width:min(42vmin,520px);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none}
+.tv-music-pulse i{position:absolute;inset:34%;border:2px solid #ffffff9c;border-radius:50%;opacity:0;box-shadow:0 0 24px #fff4,0 0 42px #ef315766;animation:tvMusicPulseRing 1875ms ease-out infinite}
+.tv-music-pulse i:nth-child(2){animation-delay:625ms}.tv-music-pulse i:nth-child(3){animation-delay:1250ms}
+.tv-music-cover{animation:tvMusicCoverIn 1.25s .35s cubic-bezier(.16,.85,.22,1.06) both,tvMusicCoverBeat 468.75ms 1.6s ease-in-out infinite}
+.tv-music-spectrum{position:relative;height:38px;margin-top:22px;border-radius:999px;overflow:visible;background:#ffffff12;border:1px solid #ffffff38;box-shadow:inset 0 1px 7px #0005,0 8px 28px #0003}
+.tv-music-spectrum>i{position:absolute;inset:5px;border-radius:999px;background:linear-gradient(90deg,#ff1744,#ff4d8d,#ae52ff,#4f7cff,#19d5e6,#40e080,#ffe14f,#ff6a3d,#ff1744);background-size:220% 100%;filter:saturate(1.12);box-shadow:0 0 18px #ff3d7159;animation:tvMusicSpectrumFlow 3750ms linear infinite}
+.tv-music-spectrum>span{position:absolute;z-index:2;left:7px;top:50%;width:48px;height:48px;display:grid;place-items:center;border-radius:50%;color:#fff;background:#bd1d43;border:2px solid #fff;font-size:25px;line-height:1;box-shadow:0 0 14px #fff,0 0 30px #f02d59;transform:translateY(-50%);animation:tvMusicHeartTravel 7500ms linear infinite,tvMusicHeartBeat 468.75ms ease-in-out infinite}
+.tv-music-equalizer:before{content:'';position:absolute;left:50%;bottom:0;width:84%;height:1px;background:linear-gradient(90deg,transparent,#fff,#e52c53,#fff,transparent);transform:translateX(-50%);box-shadow:0 0 13px #fff;animation:tvMusicBeatLine 937.5ms ease-in-out infinite}
+@keyframes tvMusicSceneBeat{0%{box-shadow:inset 0 0 0 #ef315700}12%{box-shadow:inset 0 0 90px #ef315718}34%,100%{box-shadow:inset 0 0 0 #ef315700}}
+@keyframes tvMusicPulseRing{0%{opacity:.82;transform:scale(.28)}64%{opacity:.22}100%{opacity:0;transform:scale(3.25)}}
+@keyframes tvMusicCoverBeat{0%,100%{box-shadow:0 35px 90px #000b,0 0 35px #d82c4e26}12%{box-shadow:0 35px 90px #000b,0 0 58px #ed3c6266}35%{box-shadow:0 35px 90px #000b,0 0 38px #d82c4e30}}
+@keyframes tvMusicSpectrumFlow{from{background-position:0 0;filter:hue-rotate(0deg) saturate(1.12)}to{background-position:220% 0;filter:hue-rotate(360deg) saturate(1.18)}}
+@keyframes tvMusicHeartTravel{0%{left:7px}50%{left:calc(100% - 55px)}100%{left:7px}}
+@keyframes tvMusicHeartBeat{0%,100%{transform:translateY(-50%) scale(.9)}14%{transform:translateY(-50%) scale(1.16)}28%{transform:translateY(-50%) scale(.96)}42%{transform:translateY(-50%) scale(1.08)}62%{transform:translateY(-50%) scale(.92)}}
+@keyframes tvMusicBeatLine{0%,100%{opacity:.28;transform:translateX(-50%) scaleX(.7)}15%{opacity:1;transform:translateX(-50%) scaleX(1)}}
+@media(max-width:900px){.tv-music-pulse{left:50%;top:29%;width:48vmin}.tv-music-spectrum{margin-top:14px}}
+@media(prefers-reduced-motion:reduce){.tv-music-pulse{display:none}.tv-music-outro,.tv-music-cover,.tv-music-spectrum>i,.tv-music-spectrum>span,.tv-music-equalizer:before{animation:none!important}.tv-music-spectrum>span{left:calc(50% - 24px)}}
+
+/* Richer music background: rising hearts and an animated wedding cover carousel. */
+.tv-music-particles{z-index:1;overflow:hidden}
+.tv-music-particles i{position:absolute;left:var(--music-x);top:auto;bottom:-44px;width:auto;height:auto;border-radius:0;opacity:0;color:#fff;background:none;box-shadow:none;text-shadow:0 0 9px #fff,0 0 22px #e62f58;font:400 var(--music-size) Georgia,serif;line-height:1;animation:tvMusicHeartRise 6.4s var(--music-delay) linear infinite;will-change:transform,opacity}
+.tv-music-particles i:nth-child(3n){color:#e94a69;text-shadow:0 0 9px #e94a69,0 0 24px #d51f48}
+.tv-music-particles i:nth-child(4n){color:#ffdce4;opacity:0;font-size:var(--music-size)}
+.tv-music-cover>img{animation:tvMusicPhotoChange 1.25s cubic-bezier(.16,.82,.22,1) both}
+.tv-music-backdrop{animation:tvMusicBackdropChange 1.7s ease-out both,tvMusicBackdrop 18s 1.7s ease-in-out infinite alternate}
+.tv-music-cover:after{content:'';position:absolute;z-index:4;inset:8px;border-radius:20px;pointer-events:none;background:linear-gradient(108deg,transparent 36%,#ffffff00 43%,#ffffff8c 50%,#ffdce442 56%,transparent 64%);transform:translateX(-120%);animation:tvMusicPhotoFlash 1.4s .15s ease-out both}
+.tv-music-equalizer{animation:tvEqualizerAccent 6s ease-in-out infinite}
+@keyframes tvMusicHeartRise{0%{opacity:0;transform:translate3d(0,30px,0) scale(.55) rotate(-10deg)}12%{opacity:.72}48%{opacity:.45;transform:translate3d(var(--music-sway),-48vh,0) scale(1) rotate(8deg)}82%{opacity:.66}100%{opacity:0;transform:translate3d(var(--music-sway),-108vh,0) scale(1.18) rotate(-6deg)}}
+@keyframes tvMusicPhotoChange{0%{opacity:0;transform:scale(1.08);filter:brightness(1.5) blur(8px)}58%{opacity:1;filter:brightness(1.08) blur(0)}100%{opacity:1;transform:scale(1);filter:brightness(1.04) saturate(.95)}}
+@keyframes tvMusicBackdropChange{0%{opacity:0;filter:blur(28px) grayscale(.2) brightness(.65);transform:scale(1.16)}100%{opacity:.18;filter:blur(18px) grayscale(.25) brightness(.42);transform:scale(1.08)}}
+@keyframes tvMusicPhotoFlash{0%{opacity:0;transform:translateX(-120%)}18%{opacity:.72}100%{opacity:0;transform:translateX(120%)}}
+@keyframes tvEqualizerAccent{0%,100%{filter:brightness(1)}3%{filter:brightness(1.8) drop-shadow(0 0 12px #e92f58)}10%{filter:brightness(1)}}
+@media(max-width:900px){.tv-music-particles i:nth-child(2n){display:none}}
+@media(prefers-reduced-motion:reduce){.tv-music-particles{display:none}.tv-music-cover>img,.tv-music-backdrop,.tv-music-cover:after,.tv-music-equalizer{animation:none!important}}
+
+/* Refined symmetric equalizer — contained inside the wedding cover. */
+.tv-music-equalizer{left:50%!important;right:auto!important;bottom:20px!important;width:min(68%,420px)!important;height:54px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;padding:9px 18px!important;border:1px solid #ffffff70!important;border-radius:999px!important;background:#5e1027a8!important;box-shadow:0 10px 28px #22030f70,inset 0 1px 0 #ffffff45!important;backdrop-filter:blur(14px)!important;-webkit-backdrop-filter:blur(14px)!important;transform:translateX(-50%)!important;animation:none!important}
+.tv-music-equalizer:before{display:none!important}
+.tv-music-equalizer i{--eq-high:.55;width:4px!important;height:100%!important;flex:0 0 4px!important;border-radius:999px!important;background:linear-gradient(to top,#e12c52,#fff 72%)!important;box-shadow:0 0 7px #ef4768a6!important;transform:scaleY(.16)!important;transform-origin:center!important;animation:tvEqualizerSymmetric 750ms ease-in-out infinite alternate!important;animation-delay:0ms!important}
+.tv-music-equalizer i:nth-child(1),.tv-music-equalizer i:nth-child(18){--eq-high:.28;animation-duration:920ms!important;animation-delay:-210ms!important}
+.tv-music-equalizer i:nth-child(2),.tv-music-equalizer i:nth-child(17){--eq-high:.36;animation-duration:810ms!important;animation-delay:-430ms!important}
+.tv-music-equalizer i:nth-child(3),.tv-music-equalizer i:nth-child(16){--eq-high:.44;animation-duration:980ms!important;animation-delay:-170ms!important}
+.tv-music-equalizer i:nth-child(4),.tv-music-equalizer i:nth-child(15){--eq-high:.54;animation-duration:720ms!important;animation-delay:-510ms!important}
+.tv-music-equalizer i:nth-child(5),.tv-music-equalizer i:nth-child(14){--eq-high:.66;animation-duration:860ms!important;animation-delay:-290ms!important}
+.tv-music-equalizer i:nth-child(6),.tv-music-equalizer i:nth-child(13){--eq-high:.76;animation-duration:680ms!important;animation-delay:-390ms!important}
+.tv-music-equalizer i:nth-child(7),.tv-music-equalizer i:nth-child(12){--eq-high:.88;animation-duration:790ms!important;animation-delay:-120ms!important}
+.tv-music-equalizer i:nth-child(8),.tv-music-equalizer i:nth-child(11){--eq-high:1;animation-duration:640ms!important;animation-delay:-470ms!important}
+.tv-music-equalizer i:nth-child(9),.tv-music-equalizer i:nth-child(10){--eq-high:.82;animation-duration:710ms!important;animation-delay:-250ms!important}
+@keyframes tvEqualizerSymmetric{0%{transform:scaleY(.14);opacity:.58}44%{transform:scaleY(var(--eq-high));opacity:1}100%{transform:scaleY(.3);opacity:.8}}
+@media(max-width:700px){.tv-music-equalizer{bottom:14px!important;width:74%!important;height:44px!important;gap:4px!important;padding:8px 13px!important}.tv-music-equalizer i{width:3px!important;flex-basis:3px!important}}
+@media(prefers-reduced-motion:reduce){.tv-music-equalizer i{animation:none!important;transform:scaleY(var(--eq-high))!important}}
+
+/* Final music layout: no equalizer; the current wedding photograph is the background. */
+.tv-music-equalizer{display:none!important}
+.tv-music-backdrop{inset:-2%!important;width:104%!important;height:104%!important;opacity:.64!important;object-fit:cover!important;object-position:center!important;filter:blur(5px) brightness(.66) saturate(.84)!important;transform:scale(1.04)!important;animation:tvMusicPhotoBackgroundIn 1.55s ease-out both,tvMusicPhotoBackgroundDrift 12s 1.55s ease-in-out infinite alternate!important}
+.tv-music-outro:before{background:linear-gradient(90deg,#270812a8 0%,#3b0c19a6 42%,#230711e8 100%),radial-gradient(circle at 20% 50%,transparent 0 25%,#24071066 56%),linear-gradient(0deg,#16040cb8 0%,transparent 45%,#21060fa3 100%)!important}
+.tv-music-outro:after{opacity:.13!important}
+.tv-music-cover{box-shadow:0 32px 84px #000b,0 0 0 1px #ffffff3d!important}
+.tv-music-cover>img{filter:brightness(1.03) saturate(.96)!important}
+@keyframes tvMusicPhotoBackgroundIn{from{opacity:0;transform:scale(1.12);filter:blur(18px) brightness(.9) saturate(.7)}to{opacity:.64;transform:scale(1.04);filter:blur(5px) brightness(.66) saturate(.84)}}
+@keyframes tvMusicPhotoBackgroundDrift{from{transform:scale(1.04) translate3d(-.5%,0,0)}to{transform:scale(1.09) translate3d(.5%,-.4%,0)}}
+@media(max-width:900px){.tv-music-backdrop{filter:blur(7px) brightness(.58) saturate(.8)!important}.tv-music-outro:before{background:#270812b8!important}}
+@media(prefers-reduced-motion:reduce){.tv-music-backdrop{animation:none!important;transform:scale(1.04)!important}}
+
+/* Full-photo Music Mode — the wedding photograph is now the actual canvas. */
+.tv-music-outro{display:block!important;padding:0!important;background:#210710!important}
+.tv-music-backdrop{inset:0!important;width:100%!important;height:100%!important;opacity:1!important;object-fit:cover!important;object-position:center!important;filter:brightness(.9) saturate(.96)!important;transform:scale(1.01)!important;animation:tvMusicFullPhotoIn 1.35s ease-out both,tvMusicFullPhotoDrift 12s 1.35s ease-in-out infinite alternate!important}
+.tv-music-outro:before{z-index:-2!important;background:linear-gradient(90deg,#21071112 0%,#21071108 34%,#2608128c 57%,#220710ed 100%),linear-gradient(0deg,#16040c8f 0%,transparent 34%,#21071129 100%)!important}
+.tv-music-outro:after{opacity:.06!important}
+.tv-music-cover{display:none!important}
+.tv-music-copy{position:absolute!important;z-index:4!important;top:50%!important;right:clamp(48px,6vw,110px)!important;width:min(48vw,850px)!important;max-width:none!important;padding:clamp(32px,3.5vw,58px)!important;border:1px solid #ffffff52!important;border-radius:34px!important;background:#420d1da8!important;box-shadow:0 30px 90px #12020899,inset 0 1px 0 #ffffff45!important;backdrop-filter:blur(15px) saturate(1.08)!important;-webkit-backdrop-filter:blur(15px) saturate(1.08)!important;transform:translateY(-50%)!important;animation:tvMusicGlassIn 1.2s .35s cubic-bezier(.16,.8,.22,1) both!important}
+.tv-music-copy>span{margin-bottom:13px!important;color:#ffc5d1!important}
+.tv-music-copy h2{font-size:clamp(38px,3.6vw,66px)!important;line-height:1.04!important}
+.tv-music-copy>small{margin-top:14px!important}
+.tv-music-line{min-height:125px!important;margin-top:34px!important;padding-left:20px!important}
+.tv-music-line b{font-size:clamp(18px,1.6vw,27px)!important}
+.tv-music-line p{font-size:clamp(25px,2.25vw,39px)!important}
+.tv-music-progress{margin-top:24px!important}
+.tv-music-spectrum{height:24px!important;margin-top:15px!important;opacity:.72!important}
+.tv-music-spectrum>i{inset:4px!important;filter:saturate(.82)!important}
+.tv-music-spectrum>span{width:38px!important;height:38px!important;font-size:20px!important}
+.tv-music-particles{opacity:.48!important}
+.tv-music-pulse{left:23%!important;opacity:.32!important}
+@keyframes tvMusicFullPhotoIn{from{opacity:0;transform:scale(1.09);filter:brightness(1.25) blur(8px)}to{opacity:1;transform:scale(1.01);filter:brightness(.9) saturate(.96)}}
+@keyframes tvMusicFullPhotoDrift{from{transform:scale(1.01) translate3d(-.25%,0,0)}to{transform:scale(1.055) translate3d(.25%,-.25%,0)}}
+@keyframes tvMusicGlassIn{from{opacity:0;transform:translate3d(45px,-50%,0);filter:blur(7px)}to{opacity:1;transform:translate3d(0,-50%,0);filter:none}}
+@media(max-width:900px){.tv-music-backdrop{object-position:center!important;filter:brightness(.72) saturate(.9)!important}.tv-music-outro:before{background:#26081280!important}.tv-music-copy{left:24px!important;right:24px!important;width:auto!important;padding:27px!important;border-radius:25px!important}.tv-music-pulse{left:50%!important;opacity:.2!important}}
+@media(prefers-reduced-motion:reduce){.tv-music-backdrop{animation:none!important;transform:none!important}.tv-music-copy{animation:none!important;transform:translateY(-50%)!important}}
+
+/* Requested Music Mode: square cover retained, clearer photo background, no LED strip. */
+.tv-music-outro{display:grid!important;grid-template-columns:minmax(420px,.9fr) minmax(520px,1.1fr)!important;align-items:center!important;gap:clamp(54px,6vw,110px)!important;padding:clamp(62px,8vh,100px) clamp(76px,8vw,150px)!important;background:#210710!important}
+.tv-music-backdrop{inset:0!important;width:100%!important;height:100%!important;opacity:.82!important;object-fit:cover!important;object-position:center!important;filter:brightness(.72) saturate(.92)!important;transform:scale(1.015)!important;animation:tvMusicClearBackgroundIn 1.35s ease-out both,tvMusicClearBackgroundDrift 12s 1.35s ease-in-out infinite alternate!important}
+.tv-music-outro:before{background:linear-gradient(90deg,#22071173 0%,#22071169 38%,#270812a8 62%,#20060fd6 100%),linear-gradient(0deg,#16040c85 0%,transparent 46%,#21071142 100%)!important}
+.tv-music-cover{display:block!important;position:relative!important;width:min(38vw,610px)!important;aspect-ratio:1!important;margin:0!important;border:1px solid #ffffffb8!important;border-radius:28px!important;padding:8px!important;background:#ffffff1f!important;box-shadow:0 35px 90px #000b,0 0 38px #d82c4e2e!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;animation:tvMusicCoverIn 1.25s .35s cubic-bezier(.16,.85,.22,1.06) both!important}
+.tv-music-cover>img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;border-radius:20px!important;filter:brightness(1.03) saturate(.96)!important}
+.tv-music-copy{position:relative!important;top:auto!important;right:auto!important;width:auto!important;max-width:780px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;transform:none!important;animation:tvMusicCopyIn 1.2s .62s cubic-bezier(.16,.8,.22,1) both!important}
+.tv-music-copy h2{font-size:clamp(42px,4.5vw,78px)!important}
+.tv-music-line{min-height:150px!important;margin-top:44px!important;padding-left:24px!important}
+.tv-music-line b{font-size:clamp(20px,2vw,32px)!important}
+.tv-music-line p{font-size:clamp(26px,2.8vw,47px)!important}
+.tv-music-spectrum{display:none!important}
+.tv-music-progress{margin-top:28px!important;background:#ffffff2e!important}
+.tv-music-pulse{opacity:.24!important}
+@keyframes tvMusicClearBackgroundIn{from{opacity:0;transform:scale(1.1);filter:brightness(1.05) blur(8px)}to{opacity:.82;transform:scale(1.015);filter:brightness(.72) saturate(.92)}}
+@keyframes tvMusicClearBackgroundDrift{from{transform:scale(1.015) translate3d(-.25%,0,0)}to{transform:scale(1.055) translate3d(.25%,-.25%,0)}}
+@media(max-width:900px){.tv-music-outro{grid-template-columns:1fr!important;gap:30px!important;padding:38px 28px!important;text-align:center}.tv-music-cover{width:min(54vw,430px)!important;margin:auto!important}.tv-music-copy{margin:auto!important}.tv-music-line{min-height:100px!important;margin-top:25px!important;padding-left:0!important;border-left:0!important}.tv-music-backdrop{filter:brightness(.58) saturate(.88)!important}.tv-music-outro:before{background:#2608128c!important}}
+@media(prefers-reduced-motion:reduce){.tv-music-backdrop{animation:none!important;transform:none!important}.tv-music-copy{animation:none!important;transform:none!important}}
+
+/* The outro track is instrumental: keep the text factual and let the album lead. */
+.tv-music-instrumental{min-height:0!important;margin-top:42px!important;padding:19px 0 19px 24px!important}
+.tv-music-instrumental b{color:#f7b8c6!important;font-size:clamp(12px,1vw,16px)!important;letter-spacing:.34em!important}
+.tv-music-instrumental p{margin-top:10px!important;font-size:clamp(25px,2.3vw,40px)!important;letter-spacing:.02em!important}
+.tv-music-instrumental p i{margin:0 .22em;color:#e94464;font-style:normal;text-shadow:0 0 22px #e9446499}
+@media(max-width:900px){.tv-music-instrumental{padding-left:0!important}}
+
+/* Music cover: a restrained 128 BPM pulse and layered cinematic photo changes. */
+.tv-music-cover{overflow:visible!important;will-change:transform;animation:tvMusicCoverPulse var(--outro-beat) linear infinite!important}
+.tv-music-cover:before{content:'';position:absolute;z-index:-1;inset:-2px;border:1px solid #ffdce7;border-radius:30px;opacity:0;pointer-events:none;animation:tvMusicCoverHalo var(--outro-beat) ease-out infinite}
+.tv-music-cover>img.tv-music-cover-current,
+.tv-music-cover>img.tv-music-cover-previous{position:absolute!important;inset:8px!important;width:calc(100% - 16px)!important;height:calc(100% - 16px)!important;will-change:transform,opacity,filter,clip-path}
+.tv-music-cover>img.tv-music-cover-previous{z-index:1;animation:tvMusicPhotoExit 1.15s cubic-bezier(.4,0,.2,1) both!important}
+.tv-music-cover>img.tv-music-cover-current{z-index:2;animation:tvMusicPhotoReveal 1.35s cubic-bezier(.16,.82,.22,1) both,tvMusicPhotoKenBurns 7.5s 1.35s ease-out both!important}
+.tv-music-cover>small{z-index:6}
+.tv-music-cover:after{z-index:5!important;animation:tvMusicCoverShine 7.5s ease-in-out infinite!important}
+@keyframes tvMusicCoverPulse{0%,100%{transform:scale(1)}8%{transform:scale(1.018)}18%{transform:scale(1.004)}30%{transform:scale(1.011)}48%{transform:scale(1)}}
+@keyframes tvMusicCoverHalo{0%{opacity:.72;transform:scale(1)}60%,100%{opacity:0;transform:scale(1.035)}}
+@keyframes tvMusicPhotoReveal{0%{opacity:0;transform:scale(1.09);clip-path:inset(0 100% 0 0 round 20px);filter:brightness(1.45) blur(7px)}45%{opacity:1;filter:brightness(1.14) blur(0)}100%{opacity:1;transform:scale(1.025);clip-path:inset(0 round 20px);filter:brightness(1.03) saturate(.96)}}
+@keyframes tvMusicPhotoExit{0%{opacity:1;transform:scale(1.025);filter:brightness(1)}100%{opacity:0;transform:scale(.965);filter:brightness(.62) blur(5px)}}
+@keyframes tvMusicPhotoKenBurns{from{transform:scale(1.025) translate3d(0,0,0)}to{transform:scale(1.075) translate3d(.4%,-.35%,0)}}
+@keyframes tvMusicCoverShine{0%,76%{opacity:0;transform:translateX(-125%)}82%{opacity:.48}94%,100%{opacity:0;transform:translateX(125%)}}
+@media(prefers-reduced-motion:reduce){.tv-music-cover,.tv-music-cover:before,.tv-music-cover:after,.tv-music-cover>img{animation:none!important}.tv-music-cover>img.tv-music-cover-previous{display:none!important}}
+
+.tv-music-copy h2{animation:tvMusicTitleChange 1s cubic-bezier(.16,.82,.22,1) both}
+@keyframes tvMusicTitleChange{from{opacity:0;transform:translateY(20px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+
+/* Heart density and energy are driven by the live audio analyser once per beat. */
+.tv-music-particles.energy-0{opacity:.2!important}.tv-music-particles.energy-1{opacity:.3!important}
+.tv-music-particles.energy-2{opacity:.42!important}.tv-music-particles.energy-3{opacity:.56!important}
+.tv-music-particles.energy-4{opacity:.7!important}.tv-music-particles.energy-5{opacity:.82!important}
+.tv-music-particles.energy-0 i,.tv-music-particles.energy-1 i{animation-duration:8.4s!important}
+.tv-music-particles.energy-2 i{animation-duration:7.2s!important}.tv-music-particles.energy-3 i{animation-duration:6.2s!important}
+.tv-music-particles.energy-4 i{animation-duration:5.3s!important}.tv-music-particles.energy-5 i{animation-duration:4.5s!important}
+.tv-music-particles.energy-4 i,.tv-music-particles.energy-5 i{text-shadow:0 0 11px #fff,0 0 28px #e62f58,0 0 46px #d81f4866}
+
+/* Several upward flight paths keep the music particles from looking cloned. */
+.tv-music-particles i:nth-child(4n+1){animation-name:tvHeartFloatS!important;animation-timing-function:cubic-bezier(.3,.05,.25,1)!important}
+.tv-music-particles i:nth-child(4n+2){animation-name:tvHeartFloatLeft!important;animation-timing-function:ease-in-out!important}
+.tv-music-particles i:nth-child(4n+3){animation-name:tvHeartFloatRight!important;animation-timing-function:ease-in-out!important}
+.tv-music-particles i:nth-child(4n){animation-name:tvHeartFloatSpiral!important;animation-timing-function:cubic-bezier(.22,.15,.28,1)!important}
+.tv-music-particles.energy-4 i:nth-child(5n),.tv-music-particles.energy-5 i:nth-child(3n){animation-name:tvHeartBassBurst!important;animation-duration:var(--outro-burst)!important}
+@keyframes tvHeartFloatS{
+  0%{opacity:0;transform:translate3d(-12px,45px,0) scale(.45) rotate(-18deg)}
+  14%{opacity:.86}32%{transform:translate3d(35px,-24vh,0) scale(.82) rotate(12deg)}
+  58%{transform:translate3d(-28px,-55vh,0) scale(1.08) rotate(-10deg)}
+  82%{opacity:.68;transform:translate3d(24px,-84vh,0) scale(.94) rotate(8deg)}
+  100%{opacity:0;transform:translate3d(-8px,-112vh,0) scale(1.18) rotate(-5deg)}
+}
+@keyframes tvHeartFloatLeft{
+  0%{opacity:0;transform:translate3d(20px,35px,0) scale(.5) rotate(18deg)}
+  16%{opacity:.8}48%{transform:translate3d(-65px,-48vh,0) scale(1) rotate(-16deg)}
+  78%{opacity:.62;transform:translate3d(-28px,-82vh,0) scale(.86) rotate(9deg)}
+  100%{opacity:0;transform:translate3d(-95px,-110vh,0) scale(1.12) rotate(-14deg)}
+}
+@keyframes tvHeartFloatRight{
+  0%{opacity:0;transform:translate3d(-18px,38px,0) scale(.42) rotate(-14deg)}
+  15%{opacity:.84}46%{transform:translate3d(58px,-45vh,0) scale(.92) rotate(17deg)}
+  76%{opacity:.7;transform:translate3d(25px,-79vh,0) scale(1.1) rotate(-8deg)}
+  100%{opacity:0;transform:translate3d(88px,-111vh,0) scale(.96) rotate(15deg)}
+}
+@keyframes tvHeartFloatSpiral{
+  0%{opacity:0;transform:translate3d(0,40px,0) scale(.38) rotate(0)}
+  12%{opacity:.82}30%{transform:translate3d(42px,-25vh,0) scale(.78) rotate(120deg)}
+  55%{transform:translate3d(-36px,-54vh,0) scale(1.05) rotate(235deg)}
+  80%{opacity:.58;transform:translate3d(30px,-82vh,0) scale(.82) rotate(315deg)}
+  100%{opacity:0;transform:translate3d(0,-112vh,0) scale(1.15) rotate(420deg)}
+}
+@keyframes tvHeartBassBurst{
+  0%{opacity:0;transform:translate3d(0,38px,0) scale(.25)}
+  9%{opacity:1;transform:translate3d(0,-8vh,0) scale(1.35)}
+  28%{transform:translate3d(var(--music-sway),-27vh,0) scale(.9) rotate(12deg)}
+  72%{opacity:.65;transform:translate3d(calc(0px - var(--music-sway)),-72vh,0) scale(1.12) rotate(-10deg)}
+  100%{opacity:0;transform:translate3d(var(--music-sway),-110vh,0) scale(.72) rotate(8deg)}
+}

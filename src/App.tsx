@@ -2,6 +2,10 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import type { CSSProperties, FormEvent } from 'react'
 import './App.css'
 import cuoiThoiMusic from './music/Cưới Thôi 2 - Masew x Masiu.mp3'
+import outroMusic from './music/Cưới Đi x Váy Cưới x Gặp Em Đúng Lúc Remix.mp3'
+import damCuoiDuongQueMusic from './music/Đám Cưới Trên Đường Quê Remix.mp3'
+import emSeLaCoDauMusic from './music/EM SẼ LÀ CÔ DÂU REMIX.mp3'
+import ngayDauTienMusic from './music/Ngày Đầu Tiên.mp3'
 
 const Heart3D = lazy(() => import('./components/Heart3D'))
 
@@ -30,6 +34,14 @@ import chibiCouple from './img/chibi-couple.png'
 const GROOM = 'Văn Tuấn'
 const BRIDE = 'Xuân Mai'
 const weddingPlaylist = [cuoiThoiMusic]
+const MUSIC_BPM = 144
+const BEAT_MS = 60000 / MUSIC_BPM
+const outroPlaylist = [
+  { src: outroMusic, title: 'Cưới Đi × Váy Cưới × Gặp Em Đúng Lúc', label: 'WEDDING REMIX', bpm: 128, photoBeats: 16 },
+  { src: damCuoiDuongQueMusic, title: 'Đám Cưới Trên Đường Quê', label: 'WEDDING REMIX', bpm: 130, photoBeats: 16 },
+  { src: emSeLaCoDauMusic, title: 'Em Sẽ Là Cô Dâu', label: 'WEDDING REMIX', bpm: 128, photoBeats: 16 },
+  { src: ngayDauTienMusic, title: 'Ngày Đầu Tiên', label: 'WEDDING SONG', bpm: 76, photoBeats: 8 },
+]
 const TV_MODE = new URLSearchParams(window.location.search).get('tv') === '1'
 const heroes = [hero1, hero2, hero3, hero4]
 const photos = [g1, g2, g3, g4, g5, hero2, hero3]
@@ -47,6 +59,7 @@ const tvSlides = [
   [tv7, tv8],
   [tv9, hero1],
 ]
+const finalePhotos = [hero1, hero2, hero3, hero4, g1, g2, g3, g4, g5, tv1, tv3, tv7]
 const tvCaptions = [
   ['Chuyện của chúng mình', 'Bắt đầu từ một ánh nhìn'],
   ['Hữu duyên tương ngộ', 'Giữa muôn người, ta tìm thấy nhau'],
@@ -94,13 +107,39 @@ function App() {
   const [time, setTime] = useState(getCountdown)
   const [music, setMusic] = useState(false)
   const [showTvIntro, setShowTvIntro] = useState(true)
+  const [showMusicOutro, setShowMusicOutro] = useState(false)
+  const [outroTrack, setOutroTrack] = useState(0)
+  const [outroPhoto, setOutroPhoto] = useState(0)
+  const [musicHeartCount, setMusicHeartCount] = useState(8)
+  const [musicEnergy, setMusicEnergy] = useState(2)
   const [wish, setWish] = useState({ name: '', message: '' })
   const [wishes, setWishes] = useState<{ name: string; message: string }[]>([])
   const audio = useRef<HTMLAudioElement | null>(null)
+  const audioContext = useRef<AudioContext | null>(null)
+  const audioAnalyser = useRef<AnalyserNode | null>(null)
+  const audioSource = useRef<MediaElementAudioSourceNode | null>(null)
   const track = useRef(0)
   if (!audio.current) {
     audio.current = new Audio(weddingPlaylist[track.current])
     audio.current.preload = 'auto'
+  }
+
+  const startAudioAnalysis = () => {
+    const player = audio.current
+    if (!player) return
+    if (!audioContext.current) {
+      const context = new AudioContext()
+      const analyser = context.createAnalyser()
+      analyser.fftSize = 256
+      analyser.smoothingTimeConstant = .72
+      const source = context.createMediaElementSource(player)
+      source.connect(analyser)
+      analyser.connect(context.destination)
+      audioContext.current = context
+      audioAnalyser.current = analyser
+      audioSource.current = source
+    }
+    audioContext.current.resume().catch(() => undefined)
   }
 
   useEffect(() => {
@@ -111,28 +150,97 @@ function App() {
     const player = audio.current
     if (!player) return
     const playNextTrack = () => {
-      track.current = (track.current + 1) % weddingPlaylist.length
-      player.src = weddingPlaylist[track.current]
+      if (TV_MODE && showMusicOutro) {
+        if (outroTrack < outroPlaylist.length - 1) {
+          const nextTrack = outroTrack + 1
+          setOutroTrack(nextTrack)
+          setOutroPhoto(0)
+          player.src = outroPlaylist[nextTrack].src
+        } else {
+          setShowMusicOutro(false)
+          setOutroTrack(0)
+          setOutroPhoto(0)
+          setSlide(0)
+          setShowTvIntro(true)
+          track.current = 0
+          player.src = weddingPlaylist[0]
+        }
+      } else {
+        track.current = (track.current + 1) % weddingPlaylist.length
+        player.src = weddingPlaylist[track.current]
+      }
       player.play()
         .then(() => setMusic(true))
         .catch(() => setMusic(false))
     }
     player.addEventListener('ended', playNextTrack)
     return () => player.removeEventListener('ended', playNextTrack)
-  }, [])
+  }, [showMusicOutro, outroTrack])
   useEffect(() => {
-    if (!opened || (TV_MODE && showTvIntro)) return
+    if (!opened || (TV_MODE && (showTvIntro || showMusicOutro))) return
     const duration = TV_MODE
       ? (slide === slideCount - 1 ? 9000 : tvChapters[slide] ? 7000 : 5600)
       : 5000
-    const timer = window.setTimeout(() => setSlide(value => (value + 1) % slideCount), duration)
+    const player = audio.current
+    let delay = duration
+    if (TV_MODE && player && !player.paused && Number.isFinite(player.currentTime)) {
+      const musicMs = player.currentTime * 1000
+      const currentBeat = Math.ceil(musicMs / BEAT_MS)
+      const beatsInScene = slide === slideCount - 1 ? 24 : tvChapters[slide] ? 20 : 16
+      delay = Math.max(BEAT_MS, (currentBeat + beatsInScene) * BEAT_MS - musicMs)
+    }
+    const timer = window.setTimeout(() => {
+      if (TV_MODE && slide === slideCount - 1) {
+        const outroPlayer = audio.current
+        if (!outroPlayer) return
+        setShowMusicOutro(true)
+        setOutroTrack(0)
+        setOutroPhoto(0)
+        outroPlayer.src = outroPlaylist[0].src
+        outroPlayer.currentTime = 0
+        outroPlayer.play()
+          .then(() => setMusic(true))
+          .catch(() => setMusic(false))
+        return
+      }
+      setSlide(value => (value + 1) % slideCount)
+    }, delay)
     return () => window.clearTimeout(timer)
-  }, [opened, showTvIntro, slide, slideCount])
+  }, [opened, showTvIntro, showMusicOutro, slide, slideCount])
   useEffect(() => {
-    if (!TV_MODE) return
+    if (!TV_MODE || !showTvIntro) return
     const timer = window.setTimeout(() => setShowTvIntro(false), 5000)
     return () => window.clearTimeout(timer)
-  }, [])
+  }, [showTvIntro])
+  useEffect(() => {
+    if (!showMusicOutro) return
+    // Change on a musical phrase boundary so each photo cut stays locked to the current track.
+    const photoTimer = window.setInterval(
+      () => setOutroPhoto(value => (value + 1) % finalePhotos.length),
+      (60000 / outroPlaylist[outroTrack].bpm) * outroPlaylist[outroTrack].photoBeats,
+    )
+    return () => window.clearInterval(photoTimer)
+  }, [showMusicOutro, outroTrack])
+  useEffect(() => {
+    if (!showMusicOutro) return
+    startAudioAnalysis()
+    const analyser = audioAnalyser.current
+    if (!analyser) return
+    const frequencyData = new Uint8Array(analyser.frequencyBinCount)
+    const sampleMusic = () => {
+      analyser.getByteFrequencyData(frequencyData)
+      const usefulBins = Math.min(46, frequencyData.length)
+      let total = 0
+      for (let index = 0; index < usefulBins; index += 1) total += frequencyData[index]
+      const average = total / usefulBins
+      const level = Math.max(0, Math.min(5, Math.round((average - 20) / 24)))
+      setMusicEnergy(level)
+      setMusicHeartCount([4, 7, 11, 16, 22, 28][level])
+    }
+    sampleMusic()
+    const beatSampler = window.setInterval(sampleMusic, 60000 / outroPlaylist[outroTrack].bpm)
+    return () => window.clearInterval(beatSampler)
+  }, [showMusicOutro, outroTrack])
   useEffect(() => {
     if (!opened) return
     const timer = window.setInterval(() => setGallery(value => (value + 1) % photos.length), 3000)
@@ -155,6 +263,7 @@ function App() {
       .then(() => setMusic(true))
       .catch(() => setMusic(false))
     const startTv = () => {
+      startAudioAnalysis()
       player?.play().then(() => setMusic(true)).catch(() => undefined)
       const webkitRoot = document.documentElement as HTMLElement & { webkitRequestFullscreen?: () => Promise<void> | void }
       const request = document.documentElement.requestFullscreen?.bind(document.documentElement) || webkitRoot.webkitRequestFullscreen?.bind(webkitRoot)
@@ -168,6 +277,7 @@ function App() {
   }, [opened])
 
   const openInvitation = () => {
+    startAudioAnalysis()
     audio.current?.play()
       .then(() => setMusic(true))
       .catch(() => setMusic(false))
@@ -181,7 +291,10 @@ function App() {
     const player = audio.current
     if (!player) return
     if (music) player.pause()
-    else player.play().catch(() => undefined)
+    else {
+      startAudioAnalysis()
+      player.play().catch(() => undefined)
+    }
     setMusic(!music)
   }
   const submitWish = (event: FormEvent) => {
@@ -215,7 +328,7 @@ function App() {
   }
 
   return (
-    <main className={TV_MODE ? 'tv-presentation' : ''}>
+    <main className={TV_MODE ? 'tv-presentation' : ''} style={TV_MODE ? { '--beat-duration': `${BEAT_MS * 4}ms` } as CSSProperties : undefined}>
       <div className="progress" />
       <div className="heart-layer" aria-hidden="true">
         {Array.from({ length: 18 }, (_, i) => (
@@ -253,6 +366,53 @@ function App() {
             </div>
           </div>
         )}
+        {TV_MODE && showMusicOutro && (
+          <div className="tv-music-outro" style={{
+            '--outro-beat': `${60000 / outroPlaylist[outroTrack].bpm}ms`,
+            '--outro-burst': `${(60000 / outroPlaylist[outroTrack].bpm) * 4}ms`,
+          } as CSSProperties}>
+            <img className="tv-music-backdrop" src={finalePhotos[(outroPhoto + 1) % finalePhotos.length]} alt="" aria-hidden="true" key={`music-backdrop-${outroPhoto}`} />
+            <div className="tv-music-pulse" aria-hidden="true"><i /><i /><i /></div>
+            <div className={`tv-music-particles energy-${musicEnergy}`} aria-hidden="true">
+              {Array.from({ length: musicHeartCount }, (_, particleIndex) => <i key={`${outroTrack}-${musicHeartCount}-${particleIndex}`} style={{
+                '--music-x': `${(particleIndex * 37 + 6) % 96}%`,
+                '--music-y': `${(particleIndex * 53 + 9) % 88}%`,
+                '--music-delay': `${-(particleIndex % 8) * .32}s`,
+                '--music-size': `${10 + particleIndex % 5 * 4}px`,
+                '--music-sway': `${(particleIndex % 2 ? 1 : -1) * (18 + particleIndex % 4 * 11)}px`,
+              } as CSSProperties}>♥</i>)}
+            </div>
+            <div className="tv-music-cover">
+              <img
+                className="tv-music-cover-previous"
+                src={finalePhotos[(outroPhoto - 1 + finalePhotos.length) % finalePhotos.length]}
+                alt=""
+                aria-hidden="true"
+                key={`music-cover-previous-${outroPhoto}`}
+              />
+              <img
+                className="tv-music-cover-current"
+                src={finalePhotos[outroPhoto]}
+                alt={`Ảnh cưới ${GROOM} và ${BRIDE}`}
+                key={`music-cover-current-${outroPhoto}`}
+              />
+              <div className="tv-music-equalizer" aria-hidden="true">
+                {Array.from({ length: 18 }, (_, barIndex) => <i key={barIndex} style={{ '--bar-order': barIndex } as CSSProperties} />)}
+              </div>
+            </div>
+            <div className="tv-music-copy">
+              <span>WEDDING MUSIC</span>
+              <h2 key={`music-title-${outroTrack}`}>{outroPlaylist[outroTrack].title}</h2>
+              <small>{outroPlaylist[outroTrack].label} · 07.08.2026</small>
+              <div className="tv-music-line tv-music-instrumental">
+                <b>INSTRUMENTAL REMIX</b>
+                <p>{GROOM} <i>♥</i> {BRIDE}</p>
+              </div>
+              <div className="tv-music-progress" aria-hidden="true"><i /></div>
+              <div className="tv-music-spectrum" aria-hidden="true"><i /><span>♥</span></div>
+            </div>
+          </div>
+        )}
         <div className="film-grain" />
         <div className="letterbox top" /><div className="letterbox bottom" />
         {TV_MODE
@@ -273,7 +433,27 @@ function App() {
                 <p>{tvCaptions[index][1]}</p>
               </div>
               {tvChapters[index] && <div className="tv-chapter"><small>{tvChapters[index][0]}</small><h2>{tvChapters[index][1]}</h2><i /></div>}
-              {index === tvSlides.length - 1 && <div className="tv-finale"><div className="tv-chibi-stage" aria-hidden="true"><img className="tv-finale-chibi" src={chibiCouple} alt="" /><i>♥</i><i>♥</i><i>♥</i><i>♥</i></div><div className="tv-finale-copy"><small>THANK YOU</small><h2>Cảm ơn bạn đã đến chung vui</h2><p>{GROOM} <i>&</i> {BRIDE}</p><b>07 · 08 · 2026</b></div></div>}
+              {index === tvSlides.length - 1 && <div className="tv-finale">
+                <div className="tv-heart-collage" aria-label="Album ảnh cưới ghép thành hình trái tim">
+                  <div className="tv-heart-collage-grid">
+                    {finalePhotos.map((photo, photoIndex) => <span key={`${photo}-finale`} style={{ backgroundImage: `url(${photo})` }}>
+                      <img src={photo} alt="" style={{ '--photo-order': photoIndex } as CSSProperties} />
+                    </span>)}
+                  </div>
+                  <div className="tv-finale-flowers" aria-hidden="true"><i /><i /><i /><i /></div>
+                </div>
+                <div className="tv-finale-petals" aria-hidden="true">
+                  {Array.from({ length: 10 }, (_, petalIndex) => <i key={petalIndex} style={{
+                    '--petal-x': `${8 + (petalIndex * 19) % 84}%`,
+                    '--petal-delay': `${1.8 + (petalIndex % 5) * .34}s`,
+                    '--petal-duration': `${4.8 + (petalIndex % 4) * .7}s`,
+                    '--petal-drift': `${(petalIndex % 2 ? 1 : -1) * (28 + (petalIndex % 3) * 14)}px`,
+                    '--petal-rotation': `${160 + petalIndex * 23}deg`,
+                  } as CSSProperties} />)}
+                </div>
+                <div className="tv-chibi-stage" aria-hidden="true"><img className="tv-finale-chibi" src={chibiCouple} alt="" /><i>♥</i><i>♥</i><i>♥</i><i>♥</i></div>
+                <div className="tv-finale-copy"><small>THANK YOU</small><h2>Cảm ơn bạn đã đến chung vui</h2><p>{GROOM} <i>&</i> {BRIDE}</p><b>07 · 08 · 2026</b></div>
+              </div>}
             </div>
           ))
           : heroPhotos.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
