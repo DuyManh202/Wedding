@@ -1014,3 +1014,76 @@ footer h2 { margin:0; padding:.05em .1em .14em; font:400 clamp(58px,8vw,78px)/1.
 @keyframes tvSoundPromptIn{from{opacity:0;transform:translate(-50%,14px)}to{opacity:1;transform:translate(-50%,0)}}
 @keyframes tvSoundPulse{50%{transform:scale(1.08);box-shadow:0 0 0 9px #f0cd790d}}
 @media(prefers-reduced-motion:reduce){.tv-sound-prompt,.tv-sound-prompt i{animation:none}}
+
+/* Luxury album card refinement. */
+.tv-music-copy{
+  position:relative!important;
+  overflow:hidden!important;
+  padding:clamp(38px,3.5vw,58px)!important;
+  border:1px solid #e8c77b4f!important;
+  border-radius:36px!important;
+  background:radial-gradient(circle at 100% 0,#c98d3a14,transparent 34%),radial-gradient(circle at 0 100%,#a91e451c,transparent 36%),linear-gradient(145deg,#4a101fdb,#250812e8)!important;
+  box-shadow:0 38px 110px #070203a6,inset 0 1px #fff4,inset 0 0 70px #8c23431a!important;
+}
+.tv-music-copy:before,.tv-music-copy:after{content:'';position:absolute;width:66px;height:66px;pointer-events:none;opacity:.62}
+.tv-music-copy:before{top:15px;left:15px;border-top:1px solid #e3c06f;border-left:1px solid #e3c06f;border-radius:18px 0 0}
+.tv-music-copy:after{right:15px;bottom:15px;border-right:1px solid #e3c06f;border-bottom:1px solid #e3c06f;border-radius:0 0 18px}
+.tv-music-header{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid #f3d79124}
+.tv-music-header>span{color:#d8b45d;font:650 9px Inter,sans-serif;letter-spacing:.55em;white-space:nowrap}
+.tv-now-playing{align-items:center;height:auto;margin:0;padding:7px 12px;border:1px solid #ed9bad30;border-radius:999px;background:#dd3c5f12}
+.tv-now-playing b{font-size:9px;line-height:13px;letter-spacing:.3em}
+.tv-music-copy h2{max-width:100%!important;margin-top:0!important;font-size:clamp(38px,3.5vw,62px)!important;line-height:1.04!important;text-shadow:0 10px 38px #0802048f!important}
+.tv-music-copy>small{margin-top:20px!important;color:#e2c9cd!important;font-size:9px!important;letter-spacing:.4em!important}
+.tv-music-instrumental{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:24px!important;margin-top:35px!important;padding:18px 22px!important;border:1px solid #f0d08b24!important;border-left:2px solid #dcb85e!important;border-radius:0 16px 16px 0!important;background:linear-gradient(90deg,#e6bd5b0c,transparent)!important}
+.tv-music-instrumental b{flex:0 0 auto;font-size:10px!important;letter-spacing:.28em!important}
+.tv-music-instrumental p{margin:0!important;text-align:right;font-size:clamp(23px,1.75vw,33px)!important;white-space:nowrap}
+.tv-music-progress{margin-top:34px!important}
+.tv-music-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:17px;color:#cbb3b8;font:600 8px Inter,sans-serif;letter-spacing:.25em}
+.tv-music-footer i{color:#dcb85e;font:italic 500 12px 'Playfair Display',serif;letter-spacing:.08em;white-space:nowrap}
+.tv-music-footer span{white-space:nowrap}
+@media(max-width:1100px){.tv-music-instrumental{display:block!important}.tv-music-instrumental p{margin-top:10px!important;text-align:left}}
+@media(max-width:900px){
+  .tv-music-copy{padding:28px 24px!important;border-radius:28px!important}
+  .tv-music-header{margin-bottom:20px}.tv-music-header>span{letter-spacing:.32em}
+  .tv-music-instrumental{padding:14px!important;border-radius:14px!important}.tv-music-instrumental p{text-align:center}
+  .tv-music-footer i{display:none}.tv-music-footer{font-size:7px;letter-spacing:.15em}
+}
+
+/* Music-reactive polish for the luxury card. */
+.tv-music-copy{animation:tvMusicCopyIn 1.2s .35s cubic-bezier(.16,.8,.22,1) both,tvCardAura var(--outro-phrase) 1.6s ease-in-out infinite!important}
+.tv-music-copy:before{animation:tvGoldCornerA 3.8s ease-in-out infinite alternate}
+.tv-music-copy:after{animation:tvGoldCornerB 3.8s 1.1s ease-in-out infinite alternate}
+.tv-music-header{position:relative;overflow:hidden}
+.tv-music-header:after{content:'';position:absolute;left:-38%;bottom:0;width:34%;height:1px;background:linear-gradient(90deg,transparent,#ffe9ac,#fff,transparent);box-shadow:0 0 12px #e8c36f;animation:tvHeaderGlint 5.2s 1.3s ease-in-out infinite}
+.tv-music-copy h2{animation:tvMusicTitleChange 1s cubic-bezier(.16,.82,.22,1) both,tvTitleBreath var(--outro-burst) 1s ease-in-out infinite!important}
+.tv-music-instrumental{background-size:220% 100%!important;animation:tvNamesPanel 5s ease-in-out infinite alternate!important}
+.tv-music-instrumental p i{display:inline-block;animation:tvCoupleHeart var(--outro-beat) ease-in-out infinite!important}
+.tv-music-footer i{animation:tvMonogramGlow var(--outro-burst) ease-in-out infinite}
+
+@keyframes tvCardAura{
+  0%,100%{box-shadow:0 38px 110px #070203a6,inset 0 1px #fff4,inset 0 0 70px #8c23431a,0 0 0 #d8b55c00}
+  50%{box-shadow:0 42px 120px #070203bd,inset 0 1px #fff5,inset 0 0 85px #a72d511f,0 0 34px #d8b55c24}
+}
+@keyframes tvGoldCornerA{from{opacity:.35;filter:drop-shadow(0 0 0 #e3c06f)}to{opacity:.95;filter:drop-shadow(0 0 9px #e3c06f99)}}
+@keyframes tvGoldCornerB{from{opacity:.9;filter:drop-shadow(0 0 8px #e3c06f88)}to{opacity:.3;filter:drop-shadow(0 0 0 #e3c06f)}}
+@keyframes tvHeaderGlint{0%,18%{left:-38%;opacity:0}30%{opacity:1}62%{left:105%;opacity:.9}70%,100%{left:105%;opacity:0}}
+@keyframes tvTitleBreath{0%,100%{text-shadow:0 10px 38px #0802048f;filter:brightness(1)}50%{text-shadow:0 10px 38px #0802048f,0 0 18px #fff4;filter:brightness(1.07)}}
+@keyframes tvNamesPanel{from{background-position:0 50%;border-color:#f0d08b20}to{background-position:100% 50%;border-color:#f0d08b48}}
+@keyframes tvCoupleHeart{0%,100%{transform:scale(1);color:#e94464;text-shadow:0 0 12px #e9446470}18%{transform:scale(1.24);color:#ff6683;text-shadow:0 0 24px #ff4b6fa8}35%{transform:scale(1.04)}}
+@keyframes tvMonogramGlow{0%,100%{opacity:.7;text-shadow:0 0 0 #dcb85e}50%{opacity:1;text-shadow:0 0 13px #e6c66e99}}
+@media(prefers-reduced-motion:reduce){.tv-music-copy,.tv-music-copy:before,.tv-music-copy:after,.tv-music-header:after,.tv-music-copy h2,.tv-music-instrumental,.tv-music-instrumental p i,.tv-music-footer i{animation:none!important}}
+
+.tv-mobile-heart{position:absolute;z-index:5;left:50%;top:45%;color:#d9b85d;font:700 clamp(90px,26vw,150px)/1 Georgia,serif;text-shadow:0 0 24px #f4d77b88,0 20px 70px #000;transform:translate(-50%,-50%);animation:tvMobileHeartIn 1.3s cubic-bezier(.16,.8,.22,1) both,tvMobileHeartBeat 1.8s 1.3s ease-in-out infinite;transition:opacity .5s,transform .7s}
+.tv-mobile-heart.leaving{opacity:0;transform:translate(-50%,-50%) scale(1.35)}
+@keyframes tvMobileHeartIn{from{opacity:0;transform:translate(-50%,-50%) scale(.4);filter:blur(10px)}to{opacity:1;transform:translate(-50%,-50%) scale(1);filter:none}}
+@keyframes tvMobileHeartBeat{50%{transform:translate(-50%,-50%) scale(1.08);text-shadow:0 0 35px #f4d77bb0,0 20px 70px #000}}
+
+@media(max-width:900px){
+  .film-grain,.tv-impact,.tv-music-pulse{display:none!important}
+  .tv-slide{animation:none!important}
+  .tv-music-backdrop{animation:none!important;filter:brightness(.4) saturate(.72)!important;transform:scale(1.02)!important}
+  .tv-music-copy{animation:tvMusicCopyIn .65s ease-out both!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 20px 55px #07020399,inset 0 1px #fff3!important}
+  .tv-music-copy:before,.tv-music-copy:after,.tv-music-header:after,.tv-music-copy h2,.tv-music-instrumental,.tv-music-footer i{animation:none!important}
+  .tv-music-particles{opacity:.28!important}
+  .tv-royal-frame{box-shadow:none!important}
+}

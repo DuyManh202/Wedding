@@ -43,6 +43,7 @@ const outroPlaylist = [
   { src: mashup3in1Music, title: 'Có Mình Và Ta × Từ Nay Em Là Vợ Anh × Cảm Ơn Em', label: 'WEDDING MASHUP', bpm: 128, photoBeats: 16 },
 ]
 const TV_MODE = true
+const MOBILE_MODE = window.matchMedia('(max-width: 900px), (pointer: coarse)').matches
 const heroes = [hero1, hero2, hero3, hero4]
 const photos = [g1, g2, g3, g4, g5, hero2, hero3]
 const tvPhotos = [hero1, hero2, hero3, hero4, g1, g2, g3, g4, g5, groom, bride, tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9]
@@ -338,7 +339,7 @@ function App() {
     <main className={TV_MODE ? 'tv-presentation' : ''} style={TV_MODE ? { '--beat-duration': `${BEAT_MS * 4}ms` } as CSSProperties : undefined}>
       <div className="progress" />
       <div className="heart-layer" aria-hidden="true">
-        {Array.from({ length: 18 }, (_, i) => (
+        {Array.from({ length: MOBILE_MODE ? 7 : 18 }, (_, i) => (
           <span
             key={i}
             style={{
@@ -363,7 +364,9 @@ function App() {
           <div className={`tv-opening ${showTvIntro ? '' : 'leaving'}`} aria-hidden="true">
             <div className="tv-curtain left" />
             <div className="tv-curtain right" />
-            <Suspense fallback={null}><Heart3D leaving={!showTvIntro} /></Suspense>
+            {MOBILE_MODE
+              ? <div className={`tv-mobile-heart ${showTvIntro ? '' : 'leaving'}`} aria-hidden="true">♥</div>
+              : <Suspense fallback={null}><Heart3D leaving={!showTvIntro} /></Suspense>}
             <div className="tv-curtain-burst">
               {Array.from({ length: 12 }, (_, i) => (
                 <i key={i} style={{ '--spark-angle': `${i * 30}deg`, '--spark-distance': `${90 + (i % 3) * 45}px`, '--spark-delay': `${(i % 4) * .04}s` } as CSSProperties} />
@@ -382,11 +385,12 @@ function App() {
           <div className="tv-music-outro" style={{
             '--outro-beat': `${60000 / outroPlaylist[outroTrack].bpm}ms`,
             '--outro-burst': `${(60000 / outroPlaylist[outroTrack].bpm) * 4}ms`,
+            '--outro-phrase': `${(60000 / outroPlaylist[outroTrack].bpm) * 8}ms`,
           } as CSSProperties}>
             <img className="tv-music-backdrop" src={finalePhotos[(outroPhoto + 1) % finalePhotos.length]} alt="" aria-hidden="true" key={`music-backdrop-${outroPhoto}`} />
             <div className="tv-music-pulse" aria-hidden="true"><i /><i /><i /></div>
             <div className={`tv-music-particles energy-${musicEnergy}`} aria-hidden="true">
-              {Array.from({ length: musicHeartCount }, (_, particleIndex) => <i key={`${outroTrack}-${musicHeartCount}-${particleIndex}`} style={{
+              {Array.from({ length: MOBILE_MODE ? Math.min(musicHeartCount, 10) : musicHeartCount }, (_, particleIndex) => <i key={`${outroTrack}-${musicHeartCount}-${particleIndex}`} style={{
                 '--music-x': `${(particleIndex * 37 + 6) % 96}%`,
                 '--music-y': `${(particleIndex * 53 + 9) % 88}%`,
                 '--music-delay': `${-(particleIndex % 8) * .32}s`,
@@ -413,8 +417,10 @@ function App() {
               </div>
             </div>
             <div className="tv-music-copy">
-              <div className="tv-now-playing"><i /><i /><i /><b>ĐANG PHÁT</b></div>
-              <span>WEDDING MUSIC</span>
+              <div className="tv-music-header">
+                <div className="tv-now-playing"><i /><i /><i /><b>ĐANG PHÁT</b></div>
+                <span>WEDDING MUSIC</span>
+              </div>
               <h2 key={`music-title-${outroTrack}`}>{outroPlaylist[outroTrack].title}</h2>
               <small>{outroPlaylist[outroTrack].label} · 07.08.2026</small>
               <div className="tv-music-line tv-music-instrumental">
@@ -422,6 +428,7 @@ function App() {
                 <p>{GROOM} <i>♥</i> {BRIDE}</p>
               </div>
               <div className="tv-music-progress" aria-hidden="true"><i /><b /></div>
+              <div className="tv-music-footer"><span>WEDDING PLAYLIST</span><i>VT&nbsp; ♥ &nbsp;XM</i><span>07 · 08 · 2026</span></div>
               <div className="tv-music-spectrum" aria-hidden="true"><i /><span>♥</span></div>
             </div>
           </div>
@@ -429,7 +436,11 @@ function App() {
         <div className="film-grain" />
         <div className="letterbox top" /><div className="letterbox bottom" />
         {TV_MODE
-          ? tvSlides.map((images, index) => (
+          ? tvSlides.map((images, index) => {
+            const previousSlide = (slide - 1 + tvSlides.length) % tvSlides.length
+            const nextSlide = (slide + 1) % tvSlides.length
+            if (MOBILE_MODE && index !== slide && index !== previousSlide && index !== nextSlide) return null
+            return (
             <div className={`tv-slide tv-effect-${index % 4} ${tvChapters[index] ? 'has-chapter' : ''} ${index === tvSlides.length - 1 ? 'is-finale' : ''} ${images.length > 1 ? 'portrait-pair' : 'landscape-single'} ${index === slide ? 'active' : ''}`} key={images.join('-')}>
               <div className="tv-royal-frame" aria-hidden="true">
                 <i className="corner-a" /><i className="corner-b" />
@@ -456,7 +467,7 @@ function App() {
                   <div className="tv-finale-flowers" aria-hidden="true"><i /><i /><i /><i /></div>
                 </div>
                 <div className="tv-finale-petals" aria-hidden="true">
-                  {Array.from({ length: 10 }, (_, petalIndex) => <i key={petalIndex} style={{
+                  {Array.from({ length: MOBILE_MODE ? 5 : 10 }, (_, petalIndex) => <i key={petalIndex} style={{
                     '--petal-x': `${8 + (petalIndex * 19) % 84}%`,
                     '--petal-delay': `${1.8 + (petalIndex % 5) * .34}s`,
                     '--petal-duration': `${4.8 + (petalIndex % 4) * .7}s`,
@@ -468,7 +479,8 @@ function App() {
                 <div className="tv-finale-copy"><small>THANK YOU</small><h2>Cảm ơn bạn đã đến chung vui</h2><p>{GROOM} <i>&</i> {BRIDE}</p><b>07 · 08 · 2026</b></div>
               </div>}
             </div>
-          ))
+            )
+          })
           : heroPhotos.map((src, index) => <img className={`${index === slide ? 'active' : ''} shot-${index + 1}`} src={src} alt="" key={src} />)}
         {TV_MODE && (
           <div className={`tv-impact impact-${slide % 4}`} key={`impact-${slide}`} aria-hidden="true">
